@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<txweb>
+    <scan package="jspx.example" />
+    <!-- demo 演示部分的配置 -->
+    <package namespace="demo" extends="global">
+        <scan package="jspx.example.controller" />
+        <action name="codeview" class="codeView"/>
+        <action name="rrsread" class="rrsRead"/>
+        <action name="chatfun" class="chatfunAction" />
+        <action name="showrepair" class="repairHtmlAction" method="@method" />
+        <action name="hello" class="helloWordView" />
+        <action name="hellolist" class="helloListView" />
+        <action name="turnlist" class="turnPageListTwoAction"/>
+        <action name="adduser" class="tablePostAction" method="save" />
+        <action name="upload" class="uploadAction" />
+        <action name="demoupload" class="demoUploadAction" />
+        <action name="redirectdemo" class="resultTestAction" method="@method" />
+    </package>
+
+    <package namespace="validator" extends="demo" caption="验证配置">
+        <action name="*" class="com.jspx.txweb.view.ValidatorView" />
+    </package>
+
+    <package namespace="rest" extends="global">
+        <action name="*" class="resetTestAction" method="@"  >
+            <param name="templatePath">rest/</param>
+        </action>
+    </package>
+</txweb>

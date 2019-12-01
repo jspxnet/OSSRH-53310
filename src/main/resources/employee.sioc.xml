@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<multi-siocs>
+    <!-- demo 高级演示-->
+    <sioc namespace="emp" extends="global">
+        <!--action begin-->
+        <bean id="tableListView" class="jspx.example.view.TableListView" singleton="false" />
+        <bean id="tableListAction" class="jspx.example.action.TableListAction" singleton="false" />
+        <!--action end-->
+    </sioc>
+
+    <sioc namespace="emp/json" extends="emp">
+        <!--这里是定义txweb的bean继承关系-->
+    </sioc>
+
+    <sioc namespace="emp/validator" extends="emp">
+        <bean id="com.jspx.txweb.view.ValidatorView" class="com.jspx.txweb.view.ValidatorView" singleton="true">
+            <string name="configFile">employee.validator.xml</string>
+        </bean>
+    </sioc>
+</multi-siocs>

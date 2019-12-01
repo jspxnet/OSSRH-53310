@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlMap namespace="jcms">
+    <querys>
+        <!-- 这里边使用的是js语言 scriptmarker标签 -->
+        <query id="jspx.example.dao.impl.getVoteTopicList" class="jspx.example.table.VoteTopic">
+         <![CDATA[
+            SELECT * FROM ${voteTopicTable} WHERE
+            <#if where="typeof(topicText)&&!isEmpty(topicText)">topicText like '%${topicText}%' AND </#if>
+        ]]>
+        </query>
+    </querys>
+</sqlMap>

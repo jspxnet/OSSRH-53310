@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<txweb>
+    <!-- demo 高级演示-->
+    <package namespace="emp" extends="global">
+        <action name="listemployee" class="tableListView" />
+        <action name="\w+employee" class="tableListAction" method="@method">
+                <result name="message" type="message"/>
+                <result name="list" type="redirect">listemployee.${suffix}</result>
+        </action>
+    </package>
+
+    <package extends="emp" namespace="emp/validator" caption="验证配置">
+        <action name="com.jspx.txweb.view.ValidatorView" class="com.jspx.txweb.view.ValidatorView" pass="defInterceptor;licenseInterceptor"/>
+    </package>
+    <!--ajax result json url employee/json-->
+    <package extends="emp" namespace="emp/json">
+        <action name="listemployee" class="tableListView">
+            <param name="BrowserCache">false</param>
+            <result name="*" type="roc"/>
+        </action>
+    </package>
+    <!--ajax result json-->
+</txweb>
