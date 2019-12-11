@@ -10,7 +10,7 @@
     </package>
 
     <package extends="emp" namespace="emp/validator" caption="验证配置">
-        <action name="com.jspx.txweb.view.ValidatorView" class="com.jspx.txweb.view.ValidatorView" pass="defInterceptor;licenseInterceptor"/>
+        <action name="com.github.jspxnet.txweb.view.ValidatorView" class="com.github.jspxnet.txweb.view.ValidatorView" pass="defInterceptor;licenseInterceptor"/>
     </package>
     <!--ajax result json url employee/json-->
     <package extends="emp" namespace="emp/json">

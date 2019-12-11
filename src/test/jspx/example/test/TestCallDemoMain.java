@@ -85,9 +85,11 @@ public class TestCallDemoMain {
         String url = "http://127.0.0.1:8080/demo/persion/getPersion.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(null);
-        JSONObject json = new JSONObject(out);
-        Assert.assertEquals(json.getInt("age"), 18);
         System.out.println(out);
+        JSONObject json = new JSONObject(out);
+        JSONObject data = json.getJSONObject("data");
+        Assert.assertEquals(data.getInt("age"), 18);
+
     }
 
     @Test//(threadPoolSize = 10, invocationCount = 4)
@@ -441,8 +443,7 @@ public class TestCallDemoMain {
         demoParamReq.setName("中文");
         demoParamReq.setOld(10);
         demoParamReq.setSumOld(4);
-        RocResponse<DemoDto> response = springPersionInterface.update(demoParamReq);
-        DemoDto demoDto = response.getData();
+        DemoDto demoDto = springPersionInterface.update(demoParamReq);
         JSONObject json = new JSONObject(demoDto);
         System.out.println(json.toString(4));
     }
@@ -472,18 +473,17 @@ public class TestCallDemoMain {
         //token
         HessianClient hessianClient = HessianClientFactory.getInstance();
         hessianClient.setSessionId("12345679xxxxxx99999999999999"); //认证token  Auth 2.0
-
-        RocResponse response = null;
+        int response = 0;
         try {
             SpringPersionInterface springPersionInterface = hessianClient.getInterface(SpringPersionInterface.class, url);
             response = springPersionInterface.save();
 
         } catch (RocException e) {
-            response = e.getResponse();
+             e.getResponse();
             System.out.println(new JSONObject(response).toString());
         }
 
-        Assert.assertEquals(response.isSuccess(), false);
+        Assert.assertEquals(response!=0, true);
 
 
     }
@@ -501,7 +501,7 @@ public class TestCallDemoMain {
         hessianClient.setSessionId("12345679xxxxxx99999999999999"); //认证token  Auth 2.0
         try {
             SpringPersionInterface springPersionInterface = hessianClient.getInterface(SpringPersionInterface.class, url);
-            RocResponse response = springPersionInterface.validUpdate(8, 10);
+            int response = springPersionInterface.validUpdate(8, 10);
             System.out.println(new JSONObject(response).toString(4));
         } catch (Exception e) {
             e.printStackTrace();

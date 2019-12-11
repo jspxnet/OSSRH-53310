@@ -124,7 +124,7 @@ public class VoteDAOImpl extends JdbcOperations implements VoteDAO {
     public boolean postVote(String[] voteIds) {
         if (ArrayUtil.isEmpty(voteIds)) return false;
         InExpression inExpression = new InExpression(getSoberTable(VoteItem.class).getPrimary(), voteIds);
-        String SQL = "UPDATE " + getSoberTable(VoteItem.class).getTableName() + " SET votePoint=votePoint+1 WHERE " + inExpression.toSqlString(getSoberTable(VoteItem.class), getSoberFactory().getDatabaseName());
+        String SQL = "UPDATE " + getSoberTable(VoteItem.class).getName() + " SET votePoint=votePoint+1 WHERE " + inExpression.toSqlString(getSoberTable(VoteItem.class), getSoberFactory().getDatabaseName());
         return update(SQL, inExpression.getParameter(getSoberTable(VoteItem.class))) >= 0;
     }
 
@@ -359,7 +359,7 @@ public class VoteDAOImpl extends JdbcOperations implements VoteDAO {
     {
         TableModels soberTable = getSoberTable(VoteTopic.class);
         Map<String, Object> valueMap = new HashMap<String, Object>();
-        valueMap.put("voteTopicTable", soberTable.getTableName());
+        valueMap.put("voteTopicTable", soberTable.getName());
         valueMap.put("topicText", null);
         SqlMapClient sqlMapClient = buildSqlMap();
         return sqlMapClient.queryForList(DemoIoc.namespace, getClassMethodName(), valueMap, 1, 10, false, false);

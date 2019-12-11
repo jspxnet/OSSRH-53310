@@ -13,7 +13,7 @@
     </sioc>
 
     <sioc namespace="emp/validator" extends="emp">
-        <bean id="com.jspx.txweb.view.ValidatorView" class="com.jspx.txweb.view.ValidatorView" singleton="true">
+        <bean id="com.github.jspxnet.txweb.view.ValidatorView" class="com.github.jspxnet.txweb.view.ValidatorView" singleton="true">
             <string name="configFile">employee.validator.xml</string>
         </bean>
     </sioc>

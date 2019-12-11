@@ -59,6 +59,9 @@ import java.util.List;
  * 相当于配置
  * <action name="*" caption="sping方式"  class="jspx.example.controller.SpingPersionController" method="@" >
  * </action>
+ *
+ *重要说明:ROC调用方式都会采用 RocResponse 封装返回json格式,除非你返回的就是一个json格式,不会封装
+ *
  */
 @HttpMethod(caption = "sping方式", actionName = "*", namespace = DemoIoc.namespace + "/persion")
 @Bean(bind = SpingPersionController.class,namespace = DemoIoc.namespace)
@@ -88,6 +91,8 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
         "publicKey": "演示标签注释方式载入",
         "age": 18
     }
+
+    json 格式不会封装成RocResponse
    */
     @Operate(caption = "得到", submit = false)
     public JSONObject get()
@@ -271,14 +276,14 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
      */
     @Override
     @Operate(caption = "演示对象参数")
-    public RocResponse<DemoDto> update(@Param DemoParamReq demoParam)
+    public DemoDto update(@Param DemoParamReq demoParam)
     {
 
         //接收到参数
         //这里加入自己的逻辑处理，或者封装在service中
         DemoDto demoDto = BeanUtil.copy(demoParam,DemoDto.class);
         //返回对象 DTO
-        return RocResponse.success(demoDto);
+        return demoDto;
     }
 
 
@@ -304,9 +309,9 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
     如果不是用 @Param 可以支持参数个数不同的同名函数。其实意义不大，因为 getInt('变量名') 方式就能得到
     */
     @Operate(caption = "演示参数进入")
-    public RocResponse update(@Param(caption = "参数1") int var1, @Param(caption = "参数2") int var2) {
+    public int update(@Param(caption = "参数1") int var1, @Param(caption = "参数2") int var2) {
         //返回对象 DTO
-        return RocResponse.success(var1 + var2);
+        return (var1 + var2);
     }
 
     /*
@@ -329,9 +334,9 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
         实际场景中没必要，建议不用同名函数，因为看API会有点晕
         */
     @Operate(caption = "演示多参数")
-    public RocResponse update(@Param(caption = "参数1") int var1, @Param(caption = "参数2") int var2, @Param(caption = "参数3") String var3) {
+    public String update(@Param(caption = "参数1") int var1, @Param(caption = "参数2") int var2, @Param(caption = "参数3") String var3) {
         //返回对象 DTO
-        return RocResponse.success(var3 + (var1 + var2));
+        return (var3 + (var1 + var2));
     }
 
 
@@ -351,14 +356,14 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
      * @return
      */
     @Operate(caption = "演示参数验证")
-    public RocResponse validUpdate(@Param(caption = "参数1") @Validate DemoParamReq demoParam, @Param(caption = "参数2") int var2, @Param(caption = "参数3") int var3) {
+    public DemoDto validUpdate(@Param(caption = "参数1") @Validate DemoParamReq demoParam, @Param(caption = "参数2") int var2, @Param(caption = "参数3") int var3) {
         //接收到参数
         //这里加入自己的逻辑处理，或者封装在service中
         DemoDto demoDto = BeanUtil.copy(demoParam,DemoDto.class);
         demoDto.setOld(demoDto.getOld() + var2);
         demoDto.setSumOld(demoDto.getSum() + var3);
         //返回对象 DTO
-        return RocResponse.success(demoDto);
+        return demoDto;
     }
 
     /**
@@ -386,13 +391,13 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
      * @return 演示参数不正确将会提示
      */
     @Operate(caption = "演示参数安全")
-    public RocResponse validUpdate(@Param(min = 5, max = 10) int var1, @Param(min = 10, max = 20) int var3)
+    public int validUpdate(@Param(min = 5, max = 10) int var1, @Param(min = 10, max = 20) int var3)
     {
         //接收到参数
         //这里加入自己的逻辑处理，或者封装在service中
 
         //返回对象 DTO
-        return RocResponse.success(var1 + var3);
+        return (var1 + var3);
     }
 
 
@@ -400,36 +405,33 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
             "并且通过转换保存在DTO种,通过RocResponse封装返回给用户",
             "测试是否可生成API文档"})
     @Operate(caption = "动作名称")
-    public RocResponse getApiDemo(@Param @Validate DemoParamReq demoParam) {
+    public DemoDto getApiDemo(@Param @Validate DemoParamReq demoParam) {
         //接收到参数
         //这里加入自己的逻辑处理，或者封装在service中
         DemoDto demoDto = BeanUtil.copy(demoParam,DemoDto.class);
         //返回对象 DTO
-        return RocResponse.success(demoDto);
+        return demoDto;
     }
 
     @Operate(caption = "演示参数验证消息")
-    public RocResponse testMessage(@Param(caption = "参数1",noEmpty = true,message = "参数不允许为空") @Validate String[] array) {
+    public String[] testMessage(@Param(caption = "参数1",noEmpty = true,message = "参数不允许为空") @Validate String[] array) {
         //返回对象 DTO
-        return RocResponse.success(array);
+        return array;
     }
 
     @Operate(caption = "演示参数验证消息")
-    public RocResponse testMessage2(@Param(caption = "参数1",noEmpty = true,message = "参数不允许为空") @Validate String str) {
+    public String testMessage2(@Param(caption = "参数1",noEmpty = true,message = "参数不允许为空") @Validate String str) {
         //返回对象 DTO
-        return RocResponse.success(str);
+        return str;
     }
     static int concur = 0;
-
 
     @Ref(namespace = DemoIoc.namespace)
     private AnonDemoDAO anonDemoDAO;
 
-
-
     @Operate(caption = "演示事务")
     @Transaction(message = "保存异常")
-    public RocResponse save() throws Exception
+    public int save() throws Exception
     {
         for (int i = 0; i < 4; i++)
         {
@@ -447,13 +449,13 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
                 throw new RocException(RocResponse.error(111,"测试事务回滚"));
             }
         }
-        return RocResponse.success(1);
+        return 1;
     }
 
 
     @Operate(caption = "演示事务")
     @Transaction(message = "edit异常")
-    public RocResponse edit() throws Exception
+    public int edit() throws Exception
     {
         List<Employee> list = anonDemoDAO.createCriteria(Employee.class).list(false);
         for (Employee employee:list)
@@ -462,11 +464,11 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
             employee.setOld(concur++);
             iocDemoDAO.update(employee);
         }
-        return RocResponse.success(1);
+        return 1;
     }
 
     @Operate(caption = "错误返回",method = "errorroc")
-    public RocResponse errorroc() throws Exception
+    public RocResponse errorRoc() throws Exception
     {
         throw new RocException(RocResponse.error(300,"错误直接返回"));
     }

@@ -5,7 +5,7 @@
     <package namespace="demo" extends="global">
         <scan package="jspx.example.controller" />
         <action name="codeview" class="codeView"/>
-        <action name="rrsread" class="rrsRead"/>
+        <action name="rrsread" class="com.github.jspxnet.txweb.view.RRSReadView"/>
         <action name="chatfun" class="chatfunAction" />
         <action name="showrepair" class="repairHtmlAction" method="@method" />
         <action name="hello" class="helloWordView" />
@@ -18,7 +18,7 @@
     </package>
 
     <package namespace="validator" extends="demo" caption="验证配置">
-        <action name="*" class="com.jspx.txweb.view.ValidatorView" />
+        <action name="*" class="com.github.jspxnet.txweb.view.ValidatorView" />
     </package>
 
     <package namespace="rest" extends="global">

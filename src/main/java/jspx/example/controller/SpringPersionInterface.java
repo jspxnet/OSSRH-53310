@@ -1,8 +1,8 @@
 package jspx.example.controller;
 
 import com.github.jspxnet.txweb.annotation.Param;
-import com.github.jspxnet.txweb.result.RocResponse;
 import jspx.example.conf.Persion;
+import jspx.example.dto.DemoDto;
 import jspx.example.pqo.DemoParamReq;
 import java.io.Serializable;
 
@@ -16,11 +16,11 @@ public interface SpringPersionInterface extends Serializable {
 
     Persion getPersion();
 
-    RocResponse save() throws Exception;
+    int save() throws Exception;
 
-    RocResponse update(@Param DemoParamReq demoParam);
+    DemoDto update(@Param DemoParamReq demoParam);
 
-    RocResponse validUpdate(@Param(min = 5, max = 10) int var1, @Param(min = 10, max = 20) int var3);
+    int validUpdate(@Param(min = 5, max = 10) int var1, @Param(min = 10, max = 20) int var3);
 
-    RocResponse edit() throws Exception;
+    int edit() throws Exception;
 }
