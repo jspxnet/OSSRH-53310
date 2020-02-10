@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+    <display-name>resin jspx.net</display-name>
+    <servlet-mapping url-pattern='*.do' servlet-name='plugin_match'/>
+    <servlet-mapping url-pattern='*.action' servlet-name='plugin_match'/>
+    <servlet-mapping url-pattern='*.ftl' servlet-name='plugin_match'/>
+	<servlet-mapping url-pattern='*.xhtml' servlet-name='plugin_match'/>
+	<servlet-mapping url-pattern='*.jhtml' servlet-name='plugin_match'/>
+    <servlet>
+      <servlet-name>servlet_txweb</servlet-name>
+      <servlet-class>com.jspx.txweb.dispatcher.ServletDispatcher</servlet-class>
+    </servlet>
+
+   <servlet-mapping>
+      <servlet-name>servlet_txweb</servlet-name>
+      <url-pattern>/*.jhtml</url-pattern>
+   </servlet-mapping>
+
+   <servlet-mapping>
+      <servlet-name>servlet_txweb</servlet-name>
+      <url-pattern>/*.md</url-pattern>
+   </servlet-mapping>
+	
+	<cookie-http-only/>
+    <character-encoding>UTF-8</character-encoding>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+		<welcome-file>index.jhtml</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.ftl</welcome-file>
+        <welcome-file>default.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
