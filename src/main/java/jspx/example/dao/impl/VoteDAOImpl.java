@@ -49,11 +49,15 @@ public class VoteDAOImpl extends JdbcOperations implements VoteDAO {
      */
     @Override
     public int getSumVotePoint(String topicId) {
-        if (StringUtil.isEmpty(topicId)) return 1;
+        if (StringUtil.isEmpty(topicId)) {
+            return 1;
+        }
         int x = (Integer) createCriteria(VoteItem.class)
                 .add(Expression.eq("topicId", topicId))
                 .setProjection(Projections.sum("votePoint")).uniqueResult();
-        if (x <= 0) return 1;
+        if (x <= 0) {
+            return 1;
+        }
         return x;
     }
 
@@ -87,7 +91,7 @@ public class VoteDAOImpl extends JdbcOperations implements VoteDAO {
     @Override
     public VoteTopic getFirstVoteTopic(String groupId) {
         Criteria criteria = createCriteria(VoteTopic.class);
-        if (!StringUtil.isNULL(groupId) && !"*".equals(groupId)) {
+        if (!StringUtil.isNull(groupId) && !"*".equals(groupId)) {
             criteria = criteria.add(Expression.eq("groupId", groupId));
         }
 
@@ -122,7 +126,9 @@ public class VoteDAOImpl extends JdbcOperations implements VoteDAO {
      */
     @Override
     public boolean postVote(String[] voteIds) {
-        if (ArrayUtil.isEmpty(voteIds)) return false;
+        if (ArrayUtil.isEmpty(voteIds)) {
+            return false;
+        }
         InExpression inExpression = new InExpression(getSoberTable(VoteItem.class).getPrimary(), voteIds);
         String SQL = "UPDATE " + getSoberTable(VoteItem.class).getName() + " SET votePoint=votePoint+1 WHERE " + inExpression.toSqlString(getSoberTable(VoteItem.class), getSoberFactory().getDatabaseName());
         return update(SQL, inExpression.getParameter(getSoberTable(VoteItem.class))) >= 0;
@@ -136,7 +142,9 @@ public class VoteDAOImpl extends JdbcOperations implements VoteDAO {
      */
     @Override
     public boolean deleteVote(String topicId) {
-        if (StringUtil.isEmpty(topicId)) return false;
+        if (StringUtil.isEmpty(topicId)) {
+            return false;
+        }
         try {
             /////////////删除投票begin
             super.delete(VoteTopic.class, topicId, true);
@@ -153,10 +161,14 @@ public class VoteDAOImpl extends JdbcOperations implements VoteDAO {
 
     @Override
     public boolean deleteVote(String[] topicIds) {
-        if (ArrayUtil.isEmpty(topicIds)) return false;
+        if (ArrayUtil.isEmpty(topicIds)) {
+            return false;
+        }
         try {
             for (String topicId : topicIds) {
-                if (StringUtil.isEmpty(topicId)) continue;
+                if (StringUtil.isEmpty(topicId)) {
+                    continue;
+                }
                 /////////////删除投票begin
                 super.delete(VoteTopic.class, topicId, true);
                 /////////////删除投票end
@@ -181,12 +193,18 @@ public class VoteDAOImpl extends JdbcOperations implements VoteDAO {
      */
     @Override
     public boolean updateSortType(String[] topicIds, int sortType) {
-        if (ArrayUtil.isEmpty(topicIds)) return true;
+        if (ArrayUtil.isEmpty(topicIds)) {
+            return true;
+        }
         try {
             for (String topicId : topicIds) {
-                if (StringUtil.isEmpty(topicId)) continue;
+                if (StringUtil.isEmpty(topicId)) {
+                    continue;
+                }
                 VoteTopic votetopic =  get(VoteTopic.class, topicId);
-                if (votetopic == null) continue;
+                if (votetopic == null) {
+                    continue;
+                }
                 votetopic.setSortType(sortType);
                 super.update(votetopic, new String[]{"sortType"});
             }
@@ -206,12 +224,18 @@ public class VoteDAOImpl extends JdbcOperations implements VoteDAO {
      */
     @Override
     public boolean updateSortDate(String[] topicIds) {
-        if (null == topicIds) return true;
+        if (null == topicIds) {
+            return true;
+        }
         try {
             for (String topicId : topicIds) {
-                if (StringUtil.isEmpty(topicId)) continue;
+                if (StringUtil.isEmpty(topicId)) {
+                    continue;
+                }
                 VoteTopic votetopic =  get(VoteTopic.class, topicId);
-                if (votetopic == null) continue;
+                if (votetopic == null) {
+                    continue;
+                }
                 votetopic.setSortDate(new Date());
                 update(votetopic, new String[]{"sortDate"});
             }
@@ -244,14 +268,14 @@ public class VoteDAOImpl extends JdbcOperations implements VoteDAO {
             String groupId,
             int ipage, int count) throws Exception {
         Criteria criteria = createCriteria(VoteTopic.class);
-        if (!StringUtil.isNULL(find)) {
+        if (!StringUtil.isNull(find)) {
 
             criteria = criteria.add(Expression.like("topicText", "%" + StringUtil.checkSql(find) + "%"));
         }
         if (uid > 0) {
             criteria = criteria.add(Expression.eq("putUid", uid));
         }
-        if (!StringUtil.isNULL(groupId) && !"*".equals(groupId)) {
+        if (!StringUtil.isNull(groupId) && !"*".equals(groupId)) {
             criteria = criteria.add(Expression.eq("groupId", groupId));
         }
         criteria = SSqlExpression.getTermExpression(criteria, term);
@@ -276,14 +300,14 @@ public class VoteDAOImpl extends JdbcOperations implements VoteDAO {
             String groupId
     ) throws Exception {
         Criteria criteria = createCriteria(VoteTopic.class);
-        if (!StringUtil.isNULL(find)) {
+        if (!StringUtil.isNull(find)) {
             criteria = criteria.add(Expression.like("topicText", "%" + StringUtil.checkSql(find) + "%"));
         }
 
         if (uid > 0) {
             criteria = criteria.add(Expression.eq("putUid", uid));
         }
-        if (!StringUtil.isNULL(groupId) && !"*".equals(groupId)) {
+        if (!StringUtil.isNull(groupId) && !"*".equals(groupId)) {
             criteria = criteria.add(Expression.eq("groupId", groupId));
         }
         criteria = SSqlExpression.getTermExpression(criteria, term);
@@ -313,7 +337,7 @@ public class VoteDAOImpl extends JdbcOperations implements VoteDAO {
             String sortString,
             int page, int count) throws Exception {
         Criteria criteria = createCriteria(VoteItem.class).add(Expression.eq("topicId", tid));
-        if (!StringUtil.isNULL(find)) {
+        if (!StringUtil.isNull(find)) {
             criteria = criteria.add(Expression.like("title", "%" + StringUtil.checkSql(find) + "%"));
         }
         if (!StringUtil.isEmpty(id)) {
@@ -340,7 +364,7 @@ public class VoteDAOImpl extends JdbcOperations implements VoteDAO {
             String term
     ) throws Exception {
         Criteria criteria = createCriteria(VoteItem.class).add(Expression.eq("topicId", tid));
-        if (!StringUtil.isNULL(find)) {
+        if (!StringUtil.isNull(find)) {
             criteria = criteria.add(Expression.like("title", "%" + StringUtil.checkSql(find) + "%"));
         }
         if (!StringUtil.isEmpty(id)) {
@@ -362,6 +386,6 @@ public class VoteDAOImpl extends JdbcOperations implements VoteDAO {
         valueMap.put("voteTopicTable", soberTable.getName());
         valueMap.put("topicText", null);
         SqlMapClient sqlMapClient = buildSqlMap();
-        return sqlMapClient.queryForList(DemoIoc.namespace, getClassMethodName(), valueMap, 1, 10, false, false);
+        return sqlMapClient.query(DemoIoc.namespace, getClassMethodName(), valueMap, 1, 10, false, false);
     }
 }

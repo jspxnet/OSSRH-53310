@@ -2,7 +2,7 @@ package jspx.example.controller.impl;
 
 
 import com.github.jspxnet.boot.environment.Environment;
-import com.github.jspxnet.boot.sign.ErrorRocCode;
+import com.github.jspxnet.enums.ErrorEnumType;
 import com.github.jspxnet.json.JSONObject;
 import com.github.jspxnet.sioc.annotation.Bean;
 import com.github.jspxnet.sioc.annotation.Ref;
@@ -94,7 +94,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
 
     json 格式不会封装成RocResponse
    */
-    @Operate(caption = "得到", submit = false)
+    @Operate(caption = "得到", post = false)
     public JSONObject get()
     {
         //System.out.println("--------------------id=" + getInt("id"));
@@ -104,7 +104,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
     /**
      * 方法别名访问  http://127.0.0.1:8080/demo/persion/path.jhtml
      */
-    @Operate(caption = "路径参数", method = "path", submit = false)
+    @Operate(caption = "路径参数", method = "path", post = false)
     public JSONObject getPath() {
         return new JSONObject(persion);
     }
@@ -123,7 +123,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
             "version": "3.0"
     }
    */
-    @Operate(caption = "路径参数", method = "/pname/${name}/${id}", submit = false)
+    @Operate(caption = "路径参数", method = "/pname/${name}/${id}", post = false)
     public RocResponse getPathValue(@PathVar(name = "name") String name, @PathVar(name = "id") String id) {
         JSONObject json = new JSONObject();
         json.put("name", name);
@@ -138,7 +138,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
      * @param id
      * @return
      */
-    @Operate(caption = "路径参数", method = "/pname/${name}/${id}", submit = false)
+    @Operate(caption = "路径参数", method = "/pname/${name}/${id}", post = false)
     public RocResponse getPathValue2(@PathVar String name, @PathVar String id) {
         JSONObject json = new JSONObject();
         json.put("name", name);
@@ -241,7 +241,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
 
     @Operate(caption = "得到")
     public RocResponse getRocError() {
-        return RocResponse.error(ErrorRocCode.invalid_parameters, "故意的错误");
+        return RocResponse.error(ErrorEnumType.PARAMETERS.getValue(), "故意的错误");
     }
 
 
@@ -390,6 +390,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
      * @param var3 注释限制值范围 10-20之间
      * @return 演示参数不正确将会提示
      */
+    @Override
     @Operate(caption = "演示参数安全")
     public int validUpdate(@Param(min = 5, max = 10) int var1, @Param(min = 10, max = 20) int var3)
     {
@@ -414,13 +415,13 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
     }
 
     @Operate(caption = "演示参数验证消息")
-    public String[] testMessage(@Param(caption = "参数1",noEmpty = true,message = "参数不允许为空") @Validate String[] array) {
+    public String[] testMessage(@Param(caption = "参数1",required = true,message = "参数不允许为空") @Validate String[] array) {
         //返回对象 DTO
         return array;
     }
 
     @Operate(caption = "演示参数验证消息")
-    public String testMessage2(@Param(caption = "参数1",noEmpty = true,message = "参数不允许为空") @Validate String str) {
+    public String testMessage2(@Param(caption = "参数1",required = true,message = "参数不允许为空") @Validate String str) {
         //返回对象 DTO
         return str;
     }
@@ -429,6 +430,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
     @Ref(namespace = DemoIoc.namespace)
     private AnonDemoDAO anonDemoDAO;
 
+    @Override
     @Operate(caption = "演示事务")
     @Transaction(message = "保存异常")
     public int save() throws Exception
@@ -453,6 +455,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
     }
 
 
+    @Override
     @Operate(caption = "演示事务")
     @Transaction(message = "edit异常")
     public int edit() throws Exception

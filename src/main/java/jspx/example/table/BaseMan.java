@@ -151,7 +151,7 @@ public class BaseMan
 
         try
         {
-            birthday = StringUtil.toDate("1970-01-01");
+            birthday = StringUtil.getDate("1970-01-01");
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -511,7 +511,7 @@ public class BaseMan
 
     public String getSkin()
     {
-        if (StringUtil.isNULL(skin))
+        if (StringUtil.isNull(skin))
         {
             return "default";
         }

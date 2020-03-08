@@ -10,18 +10,15 @@
 package jspx.example.table;
 
 
-
-
-import com.github.jspxnet.boot.sign.MappingType;
 import com.github.jspxnet.json.JsonIgnore;
 import com.github.jspxnet.sober.annotation.Column;
 import com.github.jspxnet.sober.annotation.Id;
 import com.github.jspxnet.sober.annotation.Nexus;
 import com.github.jspxnet.sober.annotation.Table;
+import com.github.jspxnet.sober.enums.MappingType;
 import com.github.jspxnet.sober.table.OperateTable;
 import com.github.jspxnet.utils.DateUtil;
 import com.github.jspxnet.utils.StringUtil;
-
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;

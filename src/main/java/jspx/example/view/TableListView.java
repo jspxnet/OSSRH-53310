@@ -67,7 +67,7 @@ public class TableListView extends ActionSupport
         return sort;
     }
 
-    @Param(caption = "排序",length = 20)
+    @Param(caption = "排序",max = 20)
     public void setSort(String sort) {
         this.sort = sort;
     }
@@ -127,7 +127,9 @@ public class TableListView extends ActionSupport
     public List<Employee> getList()
     {
         //实际使用的时候，可以使用sober 或者 hibnate ,jdbc 查询后返回数据
-        if (currentPage <= 0) currentPage = 1;
+        if (currentPage <= 0) {
+            currentPage = 1;
+        }
         int ibegin = currentPage * getCount() - getCount();
         List<Employee> resultList = new ArrayList<Employee>();
         List<Employee> list = getDatabase();

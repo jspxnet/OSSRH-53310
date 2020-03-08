@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>jspx.demo</groupId>
     <artifactId>demo</artifactId>
-    <version>6.0</version>
+    <version>6.4</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -17,7 +17,7 @@
         <dependency>
             <groupId>com.github.jspxnet</groupId>
             <artifactId>jspx-framework</artifactId>
-            <version>6.0</version>
+            <version>6.4</version>
         </dependency>
     </dependencies>
     <build>
@@ -71,41 +71,7 @@
                 </executions>
 
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <finalName>jcms</finalName>
-                    <appendAssemblyId>false</appendAssemblyId>  <!-- 如果只想有finalName,不需要连接release.xml中的id -->
-                    <descriptors>
-                        <descriptor>assembly.xml</descriptor>
-                    </descriptors>
-                    <outputDirectory>${project.build.directory}/output</outputDirectory>
-                    <attach>false</attach>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20.1</version>
-                <configuration>
-                    <!--跳过测试-->
-                    <skip>true</skip>
-                    <suiteXmlFiles>
-                        <suiteXmlFile>testng.xml</suiteXmlFile>
-                    </suiteXmlFiles>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>

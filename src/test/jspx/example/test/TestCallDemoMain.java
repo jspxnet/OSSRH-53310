@@ -48,7 +48,7 @@ public class TestCallDemoMain {
     public void testHttpgetPathId() throws Exception {
         String url = "http://127.0.0.1:8080/demo/persion/path.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
-        String out = httpClient.post(null);
+        String out = httpClient.post();
         JSONObject json = new JSONObject(out);
         Assert.assertEquals(json.getInt("age"), 18);
         System.out.println(out);
@@ -59,7 +59,7 @@ public class TestCallDemoMain {
     public void testHttpgetPathValue() throws Exception {
         String url = "http://127.0.0.1:8080/demo/persion/pname/cy/2343.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
-        String out = httpClient.post(null);
+        String out = httpClient.post();
         System.out.println(out);
         JSONObject json = new JSONObject(out);
         JSONObject data = json.getJSONObject("data");
@@ -71,7 +71,7 @@ public class TestCallDemoMain {
     public void testHttpgetPathValue2() throws Exception {
         String url = "http://127.0.0.1:8080/demo/persion/pname/chenyuan/23243.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
-        String out = httpClient.post(null);
+        String out = httpClient.post();
         System.out.println(out);
         JSONObject json = new JSONObject(out);
         JSONObject data = json.getJSONObject("data");
@@ -84,7 +84,7 @@ public class TestCallDemoMain {
     public void testHttpPersionObject() throws Exception {
         String url = "http://127.0.0.1:8080/demo/persion/getPersion.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
-        String out = httpClient.post(null);
+        String out = httpClient.post();
         System.out.println(out);
         JSONObject json = new JSONObject(out);
         JSONObject data = json.getJSONObject("data");
@@ -96,7 +96,7 @@ public class TestCallDemoMain {
     public void testHttpgetPersion2() throws Exception {
         String url = "http://127.0.0.1:8080/demo/persion/persion2.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
-        String out = httpClient.post(null);
+        String out = httpClient.post();
         JSONObject json = new JSONObject(out);
         RocResponse<Persion> response = json.parseObject(new TypeReference<RocResponse<Persion>>() {
         });

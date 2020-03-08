@@ -10,17 +10,17 @@
 package jspx.example.table;
 
 
-import com.github.jspxnet.boot.sign.MappingType;
+
 import com.github.jspxnet.json.JsonField;
 import com.github.jspxnet.sober.annotation.Column;
 import com.github.jspxnet.sober.annotation.Id;
 import com.github.jspxnet.sober.annotation.Nexus;
 import com.github.jspxnet.sober.annotation.Table;
+import com.github.jspxnet.sober.enums.MappingType;
 import com.github.jspxnet.sober.table.OperateTable;
 import com.github.jspxnet.utils.DateUtil;
 import com.github.jspxnet.utils.NumberUtil;
 import com.github.jspxnet.utils.StringUtil;
-
 import java.util.Date;
 
 /**
@@ -176,7 +176,9 @@ public class VoteItem extends OperateTable
      */
     public Float getScale(int sum)
     {
-        if (sum<=0) return (float) 0;
+        if (sum<=0) {
+            return (float) 0;
+        }
         return (NumberUtil.mul(NumberUtil.div(votePoint, sum).doubleValue(), 100)).floatValue();
     }
 
