@@ -109,6 +109,19 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
         return new JSONObject(persion);
     }
 
+
+    @Operate(caption = "默认参数", method = "defvalue", post = false)
+    public JSONObject getDefValue(@Param(caption = "默认参数89",value = "89") String intValue,@Param(caption = "默认参数abc",value = "abc") String strValue,
+                                  @Param(caption = "默认数组",value = "[one,two,three]") String[] array)
+    {
+        JSONObject json = new JSONObject();
+        json.put("intValue",intValue);
+        json.put("strValue",strValue);
+        json.put("array",array);
+        return json;
+    }
+
+
     /*
        路径作为参数
        直接访问地址 : http://127.0.0.1:8080/demo/persion/pname/cy/2343.jhtml
@@ -123,8 +136,9 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
             "version": "3.0"
     }
    */
-    @Operate(caption = "路径参数", method = "/pname/${name}/${id}", post = false)
-    public RocResponse getPathValue(@PathVar(name = "name") String name, @PathVar(name = "id") String id) {
+    @Operate(caption = "路径参数", method = "/pname/{name}/{id}", post = false)
+    public RocResponse getPathValue(@PathVar(name = "name") String name, @PathVar(name = "id") String id)
+    {
         JSONObject json = new JSONObject();
         json.put("name", name);
         json.put("id", id);
@@ -437,17 +451,18 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
     {
         for (int i = 0; i < 4; i++)
         {
-            TransactionManager.debugPrint();
+
             Employee employee = new Employee();
             employee.setOld(concur++);
             employee.setName("中文" + i);
             anonDemoDAO.save(employee);
-            TransactionManager.debugPrint();
+            System.out.println("TransactionManager="+TransactionManager.getInstance().toString());
+
             employee.setName("update" + i);
             iocDemoDAO.update(employee);
            if (i==3)
             {
-                TransactionManager.debugPrint();
+
                 throw new RocException(RocResponse.error(111,"测试事务回滚"));
             }
         }
