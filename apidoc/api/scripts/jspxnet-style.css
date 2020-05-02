@@ -1,0 +1,181 @@
+#pan{
+	min-width:800px;
+	clear: both;
+	overflow: hidden;
+	margin-right: auto;
+	margin-left: auto;
+	width: 98%;
+	margin-top: 10px;
+}
+
+#pan a:link,#pan a:visited{
+	line-height: 20px;
+	text-decoration: none;
+	color: #000000;
+}
+
+#pan a:hover {
+	line-height: 20px;
+	text-decoration: underline;
+	color: #000000;
+}
+
+/*--------------------------------------*/
+#placard{
+	background: url(images/icon_placard.gif) no-repeat 10px 10px;
+	background-color: #EEF7FF;
+	width: 96%;
+	line-height: 20px;
+	border: 1px solid #1B87C5;
+	background-color: #EEF7FF;
+	margin-right: auto;
+	margin-left: auto;
+	height: 100%;
+	overflow: hidden;
+}
+
+#placardCon{
+	width:75%;
+	float:right;
+	margin:5px;
+}
+
+#placardCon td{
+	background:#E4E9F3;
+	border: 3px solid #EEF7FF;
+	color: #5B6A96;
+}
+
+#placardCon a:link{
+	line-height: 20px;
+	text-decoration: none;
+	color: #5B6A96;
+}
+
+#placardCon a:visited{
+	
+	line-height: 20px;
+	text-decoration: none;
+	color: #666666;
+}
+
+#placardCon a:hover{
+	line-height: 20px;
+	text-decoration: underline;
+	color: #5B6A96;
+}
+
+/*-------------------ҳlogo-------------------*/
+#conTit{
+	height:45px;
+	filter:Dropshadow(offx=2,offy=0,color=#ffffff) Dropshadow(offx=0,offy=2,color=#ffffff) Dropshadow(offx=-2,offy=0,color=#ffffff) Dropshadow(offx=0,offy=-2,color=#ffffff);
+	font-size: 16px;
+	font-weight: bolder;
+	color: #5B6A96;
+	line-height: 45px;
+	clear: right;
+	float: left;
+}
+
+
+.conLogo{
+	width:60px;
+	height:45px;
+	float:left;
+	padding-left: 10px;
+	background-repeat: no-repeat;
+	background-position: 15px;
+}
+#cmsattrLisLogo{
+	background-image:url(icons/cmsattrlist_icon.gif);
+} /**/
+
+#addconLogo{
+	background-image:url(icons/addcontext_icon.gif);
+} /**/
+
+#editConLogo{
+	background-image:url(icons/editcontext_icon.gif);
+}/**/
+
+#auditingListLogo{
+	background-image:url(icons/auditinglist_icon.gif);
+}/**/
+
+#fileListLogo{
+	background-image:url(icons/filelist_icon.gif);
+}/**/
+
+#votetopicListLogo{
+	background-image:url(icons/votetopiclist_icon.gif);
+}/**/
+
+#downListLogo{
+	background-image:url(icons/downlist_icon.gif);
+}/**/
+
+#recycleListLogo{
+	background-image:url(icons/recyclelist_icon.gif);
+}/**/
+
+#aboutUsLogo{
+	background-image:url(icons/aboutus_icon.gif);
+}/**/
+
+#contactUsLogo{
+	background-image:url(icons/contactus_icon.gif);
+}/**/
+
+#friendLinkLogo{
+	background-image:url(icons/friendlink_icon.gif);
+}/**/
+
+#myLinkLogo{
+	background-image:url(icons/mylink_icon.gif);
+}/**/
+
+#plusLogo{
+	background-image:url(icons/plus_icon.gif);
+}/**/
+
+#editConfigLogo{
+	background-image:url(icons/editconfig_icon.gif);
+}/**/
+
+#editMyInfoLogo{
+	background-image:url(icons/editmyinfo_icon.gif);
+}/**/
+
+#addUserLogo{
+	background-image:url(icons/adduser_icon.gif);
+}/**/
+
+#userListLogo{
+	background-image:url(icons/userlist_icon.gif);
+}/**/
+
+#userCertLogo{
+	background-image:url(/manage/skin/default/images/js_leftmenu09.png);
+}/*用户证书*/
+
+#monitorLogo{
+	background-image:url(/manage/skin/default/images/js_leftmenu15.png);
+}/*用户证书*/
+
+#operatingRiskLogo{
+	background-image:url(/manage/skin/default/images/js_leftmenu14.png);
+}/*风险管理*/
+
+#dangerThingLogo{
+	background-image:url(/manage/skin/default/images/js_leftmenu13.png);
+}/*监控管理*/
+
+#complainLogo{
+	background-image:url(/manage/skin/default/images/js_leftmenu10.png);
+}/*投诉关联*/
+
+#dutyMemberLogo{
+	background-image:url(/manage/skin/default/images/js_leftmenu11.png);
+}/*投诉关联*/
+
+

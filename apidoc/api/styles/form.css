@@ -1,0 +1,408 @@
+@charset "utf-8";
+/* CSS Document */
+a:link,a:active{
+	text-decoration: none;
+}
+
+a:hover{
+	text-decoration: underline;
+}
+
+.formContainer{
+	font-size:16px;
+	line-height:1.6em;
+	display:block;
+	clear:both;
+	height:100%;
+	overflow:hidden;
+}
+
+.formContainer .row .con span.clear{
+	display:block;
+	clear:both;
+	margin-left:0;
+}
+
+.formContainer em{
+	color:red;
+	font-style: normal;
+	margin:0 1%;
+}
+
+.formContainer input,select{
+    vertical-align: middle;
+}
+
+/*带边框表单（不含fieldset）*/
+.formContainer.borderStyle{
+	border-top: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+}
+
+/*带边框表单（含fieldset）*/
+.formContainer.borderFieldset fieldset{
+	padding: 0;
+	border: 1px solid #ccc;
+	border-left:none;
+	border-bottom:none;
+}
+
+.formContainer.borderStyle .row,
+.formContainer.borderFieldset .row,
+.formContainer.borderStyle .row .con,
+.formContainer.borderFieldset .row .con{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+	border-left: 1px solid #CCCCCC;
+}
+
+/*行（默认一行两列）*/
+.formContainer .row{
+	width:50%;
+	float:left;
+	border-bottom:1px double #CCC;
+	font-size:0.875em;
+}
+
+.formContainer .row .tit{
+	width:24%;
+	float:left;
+	padding:1%;
+}
+
+.formContainer .row .tit span{
+	font-size:0.75em;
+	color:#999;
+}
+
+.formContainer .row .tit input[type=text]{
+	width:90%;
+}
+
+.formContainer .row .con{
+	width:72%;
+	float:left;
+	display: block;
+	overflow: hidden;
+	padding:1%;
+}
+
+.formContainer .con textarea{
+	width:98%;
+	padding:1%;
+}
+.formContainer .con label{
+	margin-right:1%;
+	white-space: nowrap;
+}
+.formContainer .row input[type="text"],.formContainer .row input[type="password"]{
+	width:50%;
+}
+
+.formContainer .con a{
+	margin:1%;
+}
+
+.formContainer .con p a{
+	margin:1%;
+	border-bottom: 1px dashed;
+}
+
+.formContainer .con span a{
+	margin:auto 0.5%;
+}
+
+/*短字符输入框*/
+.formContainer .row input.short{
+	 width:6em;
+}
+
+.formContainer .row .con.shortText input[type="text"],
+.formContainer .row .con.shortText input[type="password"]{
+	 width:6em;
+}
+/*数字类输入框*/
+.formContainer .row input.umber{
+	 width:3em;
+}
+
+.formContainer .row .con.umberData input[type="text"],
+.formContainer .row .con.umberData input[type="password"]{
+	 width:3em;
+}
+/**/
+.formContainer input:focus,
+.formContainer select:focus,
+.formContainer textarea:focus{
+	outline:none;
+	-webkit-box-shadow:inset 0 1px 1px #fff,0 0 5px 0px #00FFFF;
+	box-shadow:inset 0 1px 1px #fff,0 0 5px 0px #00FFFF;
+}
+.formContainer input[type="radio"],
+.formContainer input[type="checkbox"],
+.formContainer .row button{
+	margin: auto 0.5%;
+	-webkit-box-shadow:none;
+	box-shadow:none;
+}
+.formContainer .row:hover,.formContainer .columnPanel:hover,
+.formContainer .multiseriate .row-3columns:hover,
+.formContainer .multiseriate .row-4columns:hover{
+	background-color:#E8E8E8;
+}
+
+.formContainer .row .con span{
+	font-size:0.875em;
+	margin-left:0.5em;
+}
+
+/*一行多列*/
+.formContainer .multiseriate{
+	font-size:0.875em;
+}
+
+.formContainer .multiseriate .row-3columns.tit,
+.formContainer .multiseriate .row-4columns.tit{
+	font-weight: bold;
+	width:100%;
+}
+
+.formContainer .multiseriate .row-3columns,
+.formContainer .multiseriate .row-4columns{
+	text-align:center;
+	height:100%;
+	overflow: hidden;
+	border-bottom:1px double #CCC;
+	padding: 1%;
+	clear:both;
+}
+
+.formContainer .multiseriate .row-3columns div{
+	width:30%;
+	margin-right:3%;
+	float:left;
+}
+
+.formContainer .multiseriate .row-4columns div{
+	width:23%;
+	margin-right:2%;
+	float:left;
+}
+
+.formContainer .multiseriate .row-3columns input,
+.formContainer .multiseriate .row-4columns input,
+.formContainer .w1column .con.multiseriate input[type="text"],
+.formContainer .w1column .con.multiseriate input[type="password"]{
+	width:98%;
+}
+{
+	width:auto;
+}
+/*说明*/
+.formContainer span.note{
+	color:#999999;
+}
+/*提示*/
+.formContainer span.tips{
+	color:red;
+}
+/*错误*/
+.formContainer span.error{
+	padding:0.5% 1%;
+	border:1px solid #FFDD99;
+	background-color:#FFE8E6;
+}
+/*密码
+.formContainer span.pass {
+	overflow: hidden;
+}
+.formContainer span.pass i{
+	width:16px;
+	height:16px;
+	margin-right:1%;
+	display:inline-block;
+}
+.formContainer span.pass i.jIcoCorrect {
+	background: url(/share/pimg/basesys/icon_button.gif) 0 -480px;
+}
+.formContainer span[class="note clear"]{
+	margin:5px 0 0 0;
+}*/
+.formContainer .row .con .passPanel div{
+	margin:1% auto;
+}
+
+/*缩略图*/
+.formContainer .row span.upImg{
+	display: inline-block;
+	width:2.5em;
+}
+.formContainer .row span.upImg img{
+	max-width:2.5em;
+	max-height:1.8em;
+}
+.formContainer .row .upImg:hover img{
+	position:absolute;
+	max-width:300px;
+	max-height:200px;
+	z-index:9;
+}
+/*row内多行*/
+.formContainer .row .con .list{
+	display:block;
+	margin:1% auto;
+}
+/*
+.formContainer .progressName{
+	display:none;
+}*/
+.formContainer .row input[type="text"].wWide{
+	width:70%;
+}
+/*长文字框*/
+.formContainer .w1column input[type="text"].wWide{
+	width:90%;
+}
+.formContainer .upImg img,.formContainer object{
+	vertical-align: middle;
+}
+/*-------------------------修正到此处！！！！！！！！！！！！！！！！！！---------------------------------------*/
+/*-----单列行,前台单列显示效果*/
+.formContainer .w1column,.singleRowShow .row{
+	width:100%;
+	float:none;
+	clear:both;
+	overflow: hidden;
+}
+
+.formContainer .w1column .tit,.singleRowShow .row .tit{
+	width:12%;
+	display: block;
+	padding:0.5%;
+}
+.singleRowShow .row .tit{
+	text-align:right;
+}
+.formContainer .w1column .con,.singleRowShow .row .con{
+	width:86%;
+	float:left;
+	display: block;
+	overflow: hidden;
+	padding:0.5%;
+}
+.formContainer .w1column .con input[type="text"],
+.formContainer .w1column .con input[type="password"],
+.singleRowShow .row .con input[type="text"],
+.singleRowShow .row .con input[type="password"]{	
+	width:70%;
+}
+
+.formContainer .w1column ul.tagboxList-bits,.singleRowShow .row ul.tagboxList-bits{	
+	width:70%;
+}
+.formContainer div.buttonPanel{
+	text-align:center;
+}
+
+.formContainer div.buttonPanel button{
+	margin:1%;
+}
+
+/*完全通栏*/
+.formContainer .columnPanel{
+	border-bottom:1px double #CCC;
+	font-size:0.875em;
+    display: block;
+}
+.formContainer .columnPanel .tit{
+	padding:0.5%;
+    display: block;
+}
+.formContainer .columnPanel .con{
+	padding:0.5%;
+    display: block;
+}
+/*文字输出控制*/
+fieldset.textCon .tit{
+	color:#666666;
+}
+
+/*快捷文字选择输入文本框*/
+.formContainer .row .quickSelect{
+	clear:both;
+	display:block;
+}
+
+.formContainer .row .quickSelect a{
+	color:#666666;
+	font-size:0.875em;
+	cursor:pointer;
+}
+
+.formContainer .smallImg img{
+	width:90px;
+}
+
+.formContainer .pureCon{
+	text-align:center;
+	padding:0.5%;
+	width:100%;
+}
+
+.formContainer .pureCon img{
+	vertical-align: middle;
+}
+
+/*重要信息*/
+.formContainer .important{
+	font-size:1.2em;
+	font-weight: bold;
+}
+
+.formContainer .secondary{
+	color:#666666;
+}
+@media (max-width:640px){
+.formContainer .row{
+	width:100%;
+}
+.formContainer .row .tit{
+	width: 18%;
+    padding: 0.5%;
+	font-weight: bold;
+}
+.formContainer .row .con{
+    width: 80%;
+    padding: 0.5%;
+}
+}
+
+@media (max-width:320px){
+.formContainer .row .tit,.formContainer .row .con{
+	width:100%;
+	float:none;
+    padding: 0.5%;
+    display: block;
+}
+
+.formContainer .con .note,.formContainer .con .error{
+	clear:both;
+	display:block;
+}
+
+.formContainer .row input[type="text"],
+.formContainer .row input[type="password"]{
+	width:70%;
+}
+
+.formContainer .w1column input[type="text"].wWide{
+	width:98%;
+}
+
+.singleRowShow .row .tit{
+	text-align:left;
+}
+}

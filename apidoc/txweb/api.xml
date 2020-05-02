@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<txweb>
+    <package extends="${softName}" namespace="${softName}/api">
+        <action name="indexing|fielding|appname" class="com.github.jspxnet.txweb.view.ApiDocView" caption="API文档"/>
+    </package>
+    <package extends="${softName}/api/document" namespace="${softName}/api">
+        <action name="*" class="com.github.jspxnet.txweb.view.ApiDocView" caption="API文档"/>
+    </package>
+    <package extends="${softName}/api/table" namespace="${softName}/api">
+        <action name="*" class="com.github.jspxnet.txweb.view.ApiDocView" caption="API文档"/>
+    </package>
+</txweb>

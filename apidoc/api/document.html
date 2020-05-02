@@ -1,0 +1,265 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta content="no-cache" http-equiv="cache-control">
+    <link href="styles/form.css" rel="stylesheet" type="text/css"/>
+    <link href="scripts/highlighter/styles/shCore.css" rel="stylesheet" type="text/css"/>
+    <link href="scripts/highlighter/styles/shThemeDefault.css" rel="stylesheet" type="text/css"/>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script type="text/javascript" src="scripts/mootools.js"></script>
+    <script type="text/javascript" src="scripts/jspxnet.js"></script>
+    <script type="text/javascript" src="scripts/highlighter/scripts/shCore.js"></script>
+    <script type="text/javascript" src="scripts/highlighter/scripts/shBrushCss.js"></script>
+    <script type="text/javascript" src="scripts/highlighter/scripts/shBrushJScript.js"></script>
+
+
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        div.shortText label {
+            display: inline-table;
+        }
+
+        label.filed {
+            color: brown;
+        }
+
+        fieldset {
+            margin-bottom: 10px;
+        }
+
+        label.filed, label.filedTh {
+            width: 10%;
+        }
+
+        label.filedType {
+            width: 8%;
+        }
+
+        label.required {
+            width: 6%;
+        }
+
+        label.safety {
+            width: 10%;
+        }
+
+        label.caption {
+            width: 40%;
+        }
+
+
+    </style>
+    <script type="text/javascript">
+        function getUrlParam(name) {
+            var reg = new RegExp('(^|&)' + name + '=(.*)(&[^&=]+=)');
+            var regLast = new RegExp('(^|&)' + name + '=(.*)($)');
+            var r = window.location.search.substr(1).match(reg) || window.location.search.substr(1).match(regLast);
+            if (r != null) {
+                var l = r[2].match(/&[^&=]+=/)
+                if (l) {
+                    return decodeURIComponent(r[2].split(l[0])[0]);
+                } else return decodeURIComponent(r[2]);
+            }
+            return null;
+        }
+
+        window.addEvent('domready', function () {
+            var id = getUrlParam("id");
+            if (!id) return;
+            new Request.ROC({
+                    'url': 'document/' + id + '.jhtml',
+                    'link': "ignore",
+                    'async': false,
+                    'timeout': 10000,
+                    onSuccess: function (obj) {
+                        if (obj.success && obj.data) {
+                            $('title').set('html', obj.data.title);
+
+                        }
+                        if (obj.success && obj.data) {
+                            new Vue({
+                                el: '#apiDoc',
+                                data: obj.data
+                            });
+                            SyntaxHighlighter.config.clipboardSwf = 'scripts/highlighter/scripts/clipboard.swf';
+                            SyntaxHighlighter.all();
+
+                        }
+                    }
+                    , onException(headerName, value) {
+                        $('apiDoc').adopt("请求失败," + value);
+                    }
+                }
+            ).send();
+        });
+
+    </script>
+    <title></title>
+</head>
+<body>
+<div id="container" class="formContainer borderFieldset">
+    <h4 id="title"></h4>
+    <div id="apiDoc" v-cloak>
+
+
+        <fieldset>
+            <div class="row w1column"><label class="tit">类对象</label>
+                <div class="con">
+                    {{ className }}
+                </div>
+            </div>
+
+            <div class="row w1column"><label class="tit">URL域</label>
+                <div class="con">
+                    {{url}}
+                </div>
+            </div>
+        </fieldset>
+
+        <div v-if="typeof(operateList)!=='undefined'">
+            <div v-for="op in operateList">
+                <fieldset>
+                    <div class="row"><label class="tit">名称</label>
+                        <div class="con">
+                            {{ op.caption }}
+                        </div>
+                    </div>
+
+                    <div class="row"><label class="tit">方法名</label>
+                        <div class="con">
+                            {{op.method.name}}
+                        </div>
+                    </div>
+
+                    <div class="row"><label class="tit">URL</label>
+                        <div class="con">
+                            {{op.url}}
+                        </div>
+                    </div>
+                    <div class="row"><label class="tit">调用方法</label>
+                        <div class="con">
+                            {{ op.action }}
+                        </div>
+                    </div>
+
+					<div class="row w1column" v-if="typeof(op.describe)!=='undefined'"><label class="tit">描述</label> <p v-html='op.describe'></p></div>
+
+                    <div v-if="Object.keys(op.method.params).length!=0">
+						<div class="row w1column"><label class="tit">方法参数</label></div>
+                        <div class="row w1column">
+                            <div class="con shortText">
+                                <label class="filedTh">名称</label>
+                                <label class="filedType">类型</label>
+                                <label class="required">必须</label>
+                                <label class="safety">值域</label>
+                                <label class="caption">描述</label>
+                            </div>
+                        </div>
+                        <div v-for="(p,key, index) in op.method.params">
+                            <div class="row w1column">
+                                <div class="con shortText">
+                                    <label class="filed">{{ p.name }}</label>
+                                    <label class="filedType">{{ p.filedType }}</label>
+                                    <label class="required">{{p.required }}</label>
+                                    <label class="safety">{{p.safety}}</label>
+                                    <label class="caption">{{p.caption }} {{p.format }}</label>
+                                </div>
+                            </div>
+                        </div>
+						 <div v-for="(p,key, index) in op.method.params">
+							<div v-if="Object.keys(p.children).length!=0">
+							<div class="row w1column"><label class="tit">包含字段</label></div>
+							 <div v-for="(c,ckey, cindex) in p.children">
+										<div class="row w1column">
+										<div class="con shortText">
+											<label class="filed">{{ c.name }}</label>
+											<label class="filedType">{{ c.filedType }}</label>
+											<label class="required">{{c.required }}</label>
+											<label class="safety">{{c.safety}}</label>
+											<label class="caption">{{c.caption }} {{c.format }}</label>
+										</div>
+										</div>
+								 </div>
+							 </div>
+						 </div>
+                    </div>
+
+					<div class="w1column"></div>
+
+					<div class="row w1column"><label class="tit">返回类型</label><p>{{ op.resultType }}</p></div>
+					<div v-if="typeof(op.result)!=='undefined'">
+							<div class="row w1column">
+								<div class="con shortText">
+									<label class="filedTh">名称</label>
+									<label class="filedType">类型</label>
+									<label class="caption">描述</label>
+								</div>
+							</div>
+
+							 <div  v-for="(r, index) in op.result">
+								<div class="row w1column">&nbsp;
+									<div class="con shortText">
+										<label class="filed">{{ r.name }}</label>
+										<label class="filedType">{{ r.type }}</label>
+										<label class="caption">{{r.caption }}</label>
+									</div>
+								</div>
+							</div>
+					</div>	
+                    <div class="w1column"></div>
+
+                    <div v-if="op.methodJson!='{}'" class="row w1column">
+                        <label class="tit">例子</label>
+                        <div class="con">
+                            <pre class="brush:js">{{op.methodJson}}</pre>
+                            <span class="note clear">说明:调用方法名和url文件名相同时，不用参数，url直接调用</span>
+                        </div>
+                    </div>
+
+				
+                </fieldset>
+            </div>
+        </div>
+        <!--------- 参数--------->
+        <div v-if="typeof(params)!=='undefined'&&Object.keys(params).length!=0">
+            <div class="row w1column"></div>
+            <div class="row w1column"><label class="tit">全局参数</label></div>
+            <div class="row w1column"><label class="tit">说明</label>
+                <div class="con">根据业务逻辑,来确定是否需要,一般是显示列表等功能使用。不是必须参数。</div>
+            </div>
+
+            <div class="row w1column"><label class="tit">序号</label>
+                <div class="con shortText">
+                    <label class="filedTh">名称</label>
+                    <label class="filedType">类型</label>
+                    <label class="required">必须</label>
+                    <label class="safety">值域</label>
+                    <label class="caption">描述</label>
+                </div>
+            </div>
+
+            <div v-for="(p, key,index) in params">
+                <div class="row w1column"><label class="tit">{{index+1}}</label>
+                    <div class="con shortText">
+                        <label class="filed">{{ p.name }}</label>
+                        <label class="filedType">{{ p.filedType }}</label>
+                        <label class="required">{{p.required }}</label>
+                        <label class="safety">{{p.safety}}</label>
+                        <label class="caption">{{p.caption }}</label>
+                    </div>
+                </div>
+            </div>
+	
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="pragma" content="no-cache">
+    <title>API参考手册</title>
+    <link type="text/css" rel="stylesheet" href="styles/jspxnet-ui.css"/>
+    <link href="styles/docs.css" rel="stylesheet" type="text/css" media="screen"/>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script type="text/javascript" src="scripts/mootools.js"></script>
+    <script type="text/javascript" src="scripts/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="scripts/jspxnet.js"></script>
+    <script type="text/javascript" src="scripts/jspxnet-ui.js"></script>
+    <style>
+        .searchPanel{
+            position: relative;
+        }
+        .searchPanel ul{
+            position: absolute;
+            display: none;
+            min-width: 300px;
+            padding: 0 0 20px;
+            top: 20px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            border: 1px solid #999999;
+            background-color: pink;
+            text-align: center;
+        }
+    </style>
+    <script>
+        var menuData=1;
+        function getTitle() {
+            new Request.ROC({
+                'url': 'appname.jhtml',
+                onSuccess: function (obj) {
+                    if (obj.success) {
+                        new Vue({
+                            el: '#appName',
+                            data: obj
+                        })
+                    } else {
+                        $('appName').adopt(obj.message);
+                    }
+                }
+            }).send();
+        }
+
+        var getIndexing=function () {
+            new Request.ROC({
+                'url': 'indexing.jhtml',
+                onSuccess: function (obj) {
+                    if (obj.success) 
+					{
+					    //yql-传递参数？如何正确的传递ajax请求的传输到外部，此方法是否正确？
+                        menuData = obj;
+                        new Vue({
+                            el: '#menuIndex',
+                            data: obj
+                        })
+                    } else {
+                        $('menuIndex').adopt(obj.message);
+                    }
+                }
+            }).send();
+        };
+
+		var buildTab=function()
+		{
+			new JTabs({
+				buttons:'#main-menu ul li',
+				contexts: $$('ol.menuItems div'),
+				buttonCss: 'tabButton',
+				buttonCurrentCss: 'tabButton_current'
+			});
+		};
+
+        function getFielding() {
+            new Request.ROC({
+                'url': 'fielding.jhtml',
+                onSuccess: function (obj) {
+                    if (obj.success) {
+                        new Vue({
+                            el: '#menuTable',
+                            data: obj
+                        })
+                    } else {
+                        $('menuTable').adopt(obj.message);
+                    }
+					buildTab.delay(200);
+                }
+            }).send();
+            search();
+        }
+        //yql新增搜索框函数-begin
+        function goto(link){
+            var contentEle = jQuery("#content");
+            contentEle.attr("src",link);
+        }
+
+        function search(){
+            var boxEle = jQuery("#search");
+            var data = jQuery(menuData.data);
+            var resultEle = jQuery("#result");
+            var val;
+            boxEle.focus(function () {
+                resultEle.slideDown();
+            });
+            boxEle.blur(function () {
+                resultEle.slideUp();
+            })
+            boxEle.keyup(function () {
+                resultEle.children().remove("li");
+                val = jQuery(this).val();
+                data.each(function () {
+                    if (val && this.className.indexOf(val) >= 0){
+                        var url = "document.html?id="+this.id;
+                        var item = jQuery("<li></li>").append(jQuery("<a onclick=goto('"+ url + "')></a>").append(this.className));
+                        resultEle.append(item);
+                    }
+                })
+            })
+        }
+        //yql新增搜索框函数-end
+
+
+
+        window.addEvent('domready', function () {
+            getTitle.delay(100);
+            getIndexing.delay(200);
+            getFielding.delay(400);
+        });
+    </script>
+</head>
+<body>
+<div id="container">
+    <div id="header">
+        <h1><span id="appName">{{data}}</span> API 参考手册 </h1>
+        <div class="searchPanel">
+            <input id="search" type="text" placeholder="搜索类对象名称">
+            <button>搜索</button>
+            <ul id="result">
+                <div>一下为搜索结果</div>
+            </ul>
+        </div>
+    </div>
+    <div id="menu">
+        <div class="span-4 menulist">
+            <h4><img src="images/jspx.net.gif" width="140" height="55"></h4>
+
+            <div id="main-menu" v-cloak>
+
+                <ul class="tabMenu">
+                    <li>接口</li>
+                    <li>字段</li>
+                </ul>
+				
+                <ol class="menuItems">
+                    <div id="menuIndex">
+                        <li v-for="m in data" class="item"><a target="content" v-bind:href="['document.html?id='+m.id]">{{m.title}}</a></li>
+                    </div>
+                    <div id="menuTable">
+                        <li v-for="m in data" class="item"><a target="content" v-bind:href="['table.html?id='+m.id]">{{m.title}}</a></li>
+                    </div>
+                </ol>
+
+            </div>
+        </div>
+    </div>
+    <iframe name="content" id="content" class="dcont" frameborder="0" allowtransparency="true" src="readme.md"></iframe>
+    <div id="footer">
+        <div class="container">
+            <p class="quiet">&copy;2007-2019 <a href="http://www.jspx.net" target="_blank">www.jspx.net</a> 作者:陈原&nbsp;&nbsp;邮件:39793751@qq.com
+            </p>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="scripts/doc-top.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	background:#E4E9F3;
+}
+
+/*==================头部文件==================*/
+* {
+	font-size: 14px;
+	line-height: 22px;
+	margin:0;
+	padding:0;
+	border:0;
+}
+
+body{
+	background:#E4E9F3;
+}
+
+.hidden {
+	display: none;
+}
+
+#head{
+	width:100%;
+	height:100px;
+	display: block;
+	overflow: hidden;
+}
+
+#headLogo{
+	width:220px;
+	height:80px;
+	background: #fff;
+	float: left;
+	margin:10px 5px 0 0;
+}
+
+#headAd{
+	width:60%;
+	height:80px;
+	background: #fff;
+	float: left;
+	margin:10px 0 0 5px;
+}
+
+.headBtn{
+	width:18px;
+	height: 18px;
+	margin: 3px 10px 0 0;
+	float:right;
+	overflow:auto;
+}
+
+/*顶部软件分类菜单*/

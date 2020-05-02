@@ -1,0 +1,212 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta content="no-cache" http-equiv="cache-control">
+    <link href="styles/form.css" rel="stylesheet" type="text/css"/>
+    <link href="scripts/highlighter/styles/shCore.css" rel="stylesheet" type="text/css"/>
+    <link href="scripts/highlighter/styles/shThemeDefault.css" rel="stylesheet" type="text/css"/>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script type="text/javascript" src="scripts/mootools.js"></script>
+    <script type="text/javascript" src="scripts/jspxnet.js"></script>
+    <script type="text/javascript" src="scripts/highlighter/scripts/shCore.js"></script>
+    <script type="text/javascript" src="scripts/highlighter/scripts/shBrushCss.js"></script>
+    <script type="text/javascript" src="scripts/highlighter/scripts/shBrushJScript.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        div.shortText label {
+            display: inline-table;
+        }
+
+        fieldset {
+            margin-bottom: 10px;
+        }
+		label.filedTh
+		{
+			  width: 150px;
+		}
+        label.filed {		 
+            width: 150px;
+		    color: brown;
+        }
+
+        label.notNull {		 
+            width: 50px;
+        }
+
+        label.filedType {
+            width: 120px;
+        }
+
+        label.caption {
+            width: 250px;
+        }
+       label.sort {
+            width: 40px;
+        }
+
+       label.defaultValue {
+            width: 50px;
+        }
+
+        label.required {
+           width: 50px;
+        }
+
+        label.option {
+            width: auto;
+			white-space:nowrap;
+        }
+
+
+
+    </style>
+    <script type="text/javascript">
+        function getUrlParam(name) {
+            var reg = new RegExp('(^|&)' + name + '=(.*)(&[^&=]+=)');
+            var regLast = new RegExp('(^|&)' + name + '=(.*)($)');
+            var r = window.location.search.substr(1).match(reg) || window.location.search.substr(1).match(regLast);
+            if (r != null) {
+                var l = r[2].match(/&[^&=]+=/)
+                if (l) {
+                    return decodeURIComponent(r[2].split(l[0])[0]);
+                } else return decodeURIComponent(r[2]);
+            }
+            return null;
+        }
+
+        window.addEvent('domready', function () {
+            var id = getUrlParam("id");
+            if (!id) return;
+            new Request.ROC({
+                    'url': 'table/' + id + '.jhtml',
+                    'link': "ignore",
+                    'async': false,
+                    'timeout': 10000,
+                    onSuccess: function (obj) {
+                        if (obj.success && obj.data) {
+                            $('title').set('html', obj.data.title);
+                        }
+                        if (obj.success && obj.data) {
+                            new Vue({
+                                el: '#apiDoc',
+                                data: obj.data
+                            });
+                            SyntaxHighlighter.config.clipboardSwf = 'scripts/highlighter/scripts/clipboard.swf';
+                            SyntaxHighlighter.all();
+                        }
+                    }
+                    , onException(headerName, value) {
+                        $('apiDoc').adopt("请求失败," + value);
+                    }
+                }
+            ).send();
+        });
+
+    </script>
+    <title></title>
+</head>
+<body>
+<div id="container" class="formContainer borderFieldset">
+    <h4 id="title"></h4>
+    <div id="apiDoc" v-cloak>
+        <fieldset>
+            <div class="row"><label class="tit">表名</label>
+                <div class="con">
+                    {{ name }}
+                </div>
+            </div>
+
+            <div class="row"><label class="tit">名称</label>
+                <div class="con">
+                    {{caption}}
+                </div>
+            </div>
+
+		    <div class="row"><label class="tit">缓存</label>
+                <div class="con">
+                    {{useCache}}
+                </div>
+            </div>
+			<div class="row"><label class="tit">关键字</label>
+                <div class="con">
+                    {{primary}}
+                </div>
+            </div>
+
+        </fieldset>
+
+		<fieldset>
+				 <legend>字段</legend>
+                  <div v-if="Object.keys(columns).length!=0">
+                        <div class="w1column"></div>      
+                        
+						<div class="row w1column"><label class="tit">序号</label>
+                            <div class="con shortText">
+                                <label class="filedTh">字段</label>
+                                <label class="filedType">类型</label>
+                                <label class="caption">名称</label>
+                                <label class="defaultValue">默认值</label>
+                                <label class="notNull">必须</label>
+                                <label class="option">值域</label>
+                            </div>
+                        </div>
+						 
+                       <div v-for="(p, index) in columns">						
+                            <div class="row w1column">
+								<label class="tit">{{ index+1 }}</label>
+                                <div class="con shortText">
+                                    <label class="filed">{{ p.name }}</label>
+                                    <label class="filedType">{{ p.type }}</label>
+                                    <label class="caption">{{ p.caption }}</label>
+                                    <label class="defaultValue">{{ p.defaultValue }}</label>
+									<label class="notNull">{{ p.notNull }}</label>
+                                    <label class="option">{{ p.option }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w1column"></div>
+          </fieldset>
+		 <div class="w1column"></div>
+
+	     <div v-if="Object.keys(nexusMap).length!=0">
+		  <fieldset>
+		      <legend>关联</legend>
+                
+                        <div class="w1column"></div>      
+						
+						<div class="row w1column"><label class="tit">序号</label>
+                            <div class="con shortText">
+                                <label class="filedTh">关联表</label>
+                                <label class="filedType">映射关系</label>
+							    <label class="filedTh">关联字段</label>
+								<label class="filedTh">映射字段</label>
+								<label class="option">级联</label>
+                            </div>
+                        </div>
+						 
+                       <div v-for="(p,key, index) in nexusMap">						
+                            <div class="row w1column">
+								<label class="tit">{{ index+1 }}</label>
+                                <div class="con shortText">
+                                    <label class="filed">{{ key }}</label>
+                                    <label class="filedType">{{ p.mapping }}</label>
+									<label class="filed">{{ p.field }}</label>
+                                    <label class="filed">{{ p.targetField }}</label>
+									<label class="option">save={{ p.save }};update={{ p.update }};delete={{ p.delete }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w1column"></div>
+          </fieldset>
+	   </div>
+    </div>
+</div>
+</body>
+</html>
