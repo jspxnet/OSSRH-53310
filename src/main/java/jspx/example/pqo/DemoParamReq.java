@@ -2,7 +2,7 @@ package jspx.example.pqo;
 
 
 
-import com.github.jspxnet.json.JsonField;
+import com.github.jspxnet.txweb.annotation.Param;
 
 import java.io.Serializable;
 
@@ -12,11 +12,12 @@ import java.io.Serializable;
 
 */
 public class DemoParamReq implements Serializable {
-    @JsonField(caption="姓名")
+
+    @Param(caption="姓名")
     private String name;
-    @JsonField(caption="年龄")
+    @Param(caption="年龄")
     private int old;
-    @JsonField(caption="求和")
+    @Param(caption="求和")
     private int sumOld;
 
     public String getName() {

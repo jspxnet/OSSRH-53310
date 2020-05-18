@@ -74,6 +74,7 @@ public class ResetTestAction  extends ActionSupport {
         return info;
     }
 
+    @Override
     public String execute() throws Exception {
         put("helloList", getList());
         put("info", info==null?"显示页面":"");

@@ -75,6 +75,7 @@ public class UploadFileAction extends MultipartSupport {
      * @return json 返回结果
      * @throws Exception
      */
+    @Override
     public String execute() throws Exception {
 
         if (multipartRequest!=null)

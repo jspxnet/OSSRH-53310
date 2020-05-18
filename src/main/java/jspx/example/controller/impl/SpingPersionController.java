@@ -6,20 +6,26 @@ import com.github.jspxnet.enums.ErrorEnumType;
 import com.github.jspxnet.json.JSONObject;
 import com.github.jspxnet.sioc.annotation.Bean;
 import com.github.jspxnet.sioc.annotation.Ref;
+import com.github.jspxnet.sober.enums.PropagationEnumType;
 import com.github.jspxnet.sober.transaction.TransactionManager;
 import com.github.jspxnet.txweb.annotation.*;
 import com.github.jspxnet.txweb.result.RocException;
 import com.github.jspxnet.txweb.result.RocResponse;
 import com.github.jspxnet.txweb.support.ActionSupport;
 import com.github.jspxnet.utils.BeanUtil;
+import com.github.jspxnet.utils.ObjectUtil;
+import com.github.jspxnet.utils.RandomUtil;
 import jspx.example.conf.Persion;
 import jspx.example.controller.SpringPersionInterface;
 import jspx.example.dao.AnonDemoDAO;
 import jspx.example.dao.IocDemoDAO;
 import jspx.example.dto.DemoDto;
 import jspx.example.env.DemoIoc;
+import jspx.example.param.TestParam;
 import jspx.example.pqo.DemoParamReq;
 import jspx.example.table.Employee;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,7 +71,8 @@ import java.util.List;
  */
 @HttpMethod(caption = "sping方式", actionName = "*", namespace = DemoIoc.namespace + "/persion")
 @Bean(bind = SpingPersionController.class,namespace = DemoIoc.namespace)
-public class SpingPersionController extends ActionSupport implements SpringPersionInterface {
+public class SpingPersionController extends ActionSupport implements SpringPersionInterface
+{
     public SpingPersionController() {
 
     }
@@ -111,7 +118,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
 
 
     @Operate(caption = "默认参数", method = "defvalue", post = false)
-    public JSONObject getDefValue(@Param(caption = "默认参数89",value = "89") String intValue,@Param(caption = "默认参数abc",value = "abc") String strValue,
+    public JSONObject getDefValue(@Param(caption = "默认参数89",value = "89") int intValue,@Param(caption = "默认参数abc",value = "abc") String strValue,
                                   @Param(caption = "默认数组",value = "[one,two,three]") String[] array)
     {
         JSONObject json = new JSONObject();
@@ -223,6 +230,26 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
         persion.setName("name");
         System.out.println("---------------------run-----------getPersion2");
         return RocResponse.success(persion);
+    }
+
+    @Operate(caption = "数组参数",method = "/dataarray")
+    public RocResponse getArrayParam(@Param(caption = "数组参数") List<TestParam> list)
+    {
+        System.out.println("---------------------getArrayParam-----------list=" + list);
+        for (TestParam p:list)
+        {
+            System.out.println("---------------------p=" + p);
+        }
+        return RocResponse.success(list);
+    }
+
+
+    @Operate(caption = "嵌套参数",method = "/childparam")
+    public RocResponse getChildParam(@Param(caption = "数组参数") TestParam testParam)
+    {
+        System.out.println("---getChildParam------------------run-----------testParam type=" + testParam.getClass().getName());
+        System.out.println("--------------------getChildParam=" + new JSONObject(testParam).toString());
+        return RocResponse.success(testParam);
     }
     /**
      * 注意协议请求头
@@ -361,16 +388,18 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
      * <p>
      * 混合参数方式,  因为DemoParamReq 是一个组合参数，所以这里使用@占位，来对其参数
      * <p>
-     * {"method": {
-     * "name": "validUpdate",
-     * "params": [@,3,6]
-     * }}
+     {
+         "method": {
+             "name": "validUpdate",
+             "params": {"demoParam":{ "old": 18, "name": "小明同学", "sumOld":3 },"var2":3,"var3":6}
+         }
+     }
      *
-     * @param demoParam
-     * @return
+     * @param demoParam 对象参数
+     * @return demoDto  返回对象会自动封装
      */
     @Operate(caption = "演示参数验证")
-    public DemoDto validUpdate(@Param(caption = "参数1") @Validate DemoParamReq demoParam, @Param(caption = "参数2") int var2, @Param(caption = "参数3") int var3) {
+    public DemoDto validUpdate(@Param(caption = "参数1") DemoParamReq demoParam, @Param(caption = "参数2") int var2, @Param(caption = "参数3") int var3) {
         //接收到参数
         //这里加入自己的逻辑处理，或者封装在service中
         DemoDto demoDto = BeanUtil.copy(demoParam,DemoDto.class);
@@ -380,6 +409,12 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
         return demoDto;
     }
 
+
+    @Operate(caption = "演示参数验证2")
+    public DemoDto getObjectParam(@Param(caption = "参数1") DemoParamReq demoParam) {
+        //接收到参数
+        return BeanUtil.copy(demoParam,DemoDto.class);
+    }
     /**
      * 请求 故意设置参数二不满足要求：
      * {"method": {
@@ -419,12 +454,15 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
     @Describe(value = {"这里只是一个演示，DemoParamReq将通过请求封装参数",
             "并且通过转换保存在DTO种,通过RocResponse封装返回给用户",
             "测试是否可生成API文档"})
-    @Operate(caption = "动作名称")
-    public DemoDto getApiDemo(@Param @Validate DemoParamReq demoParam) {
+    @Operate(caption = "动作名称",method = "validatedemo")
+    public DemoDto getDemoParam(@Validate @Param  DemoParamReq demoParam,@Param(min = 1,max = 20)  String text) {
         //接收到参数
         //这里加入自己的逻辑处理，或者封装在service中
+
+        System.out.println(text+ "---------toString=" + ObjectUtil.toString(getFieldInfo()));
         DemoDto demoDto = BeanUtil.copy(demoParam,DemoDto.class);
         //返回对象 DTO
+
         return demoDto;
     }
 
@@ -444,6 +482,11 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
     @Ref(namespace = DemoIoc.namespace)
     private AnonDemoDAO anonDemoDAO;
 
+    /**
+     * 默认事务将是用通一个连接,到事务结束
+     * @return
+     * @throws Exception
+     */
     @Override
     @Operate(caption = "演示事务")
     @Transaction(message = "保存异常")
@@ -469,6 +512,63 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
         return 1;
     }
 
+    /**
+     *  Propagation.NEW 方式将自己创建一个连接完成事务
+     * @return
+     * @throws Exception
+     */
+    @Override
+    @Operate(caption = "演示事务")
+    @Transaction(message = "保存异常",propagation = PropagationEnumType.NEW)
+    public int tranSave() throws Exception
+    {
+        for (int i = 0; i < 4; i++)
+        {
+
+            Employee employee = new Employee();
+            employee.setOld(concur++);
+            employee.setName("中文" + i);
+            anonDemoDAO.save(employee);
+            System.out.println("TransactionManager="+TransactionManager.getInstance().toString());
+            employee.setName("update" + i);
+            iocDemoDAO.update(employee);
+            if (i==3)
+            {
+
+                throw new RocException(RocResponse.error(111,"测试事务回滚"));
+            }
+        }
+        return 1;
+    }
+
+    /**
+     *  Propagation.NEW 方式将自己创建一个连接完成事务
+     * @return
+     * @throws Exception
+     */
+    static List<Employee> list = new ArrayList<>();
+    @Override
+    @Operate(caption = "演示事务")
+    @Transaction(message = "保存异常")
+    public int tranSave2() throws Exception
+    {
+
+        for (int i = 0; i < 4; i++)
+        {
+
+            Employee employee = new Employee();
+            employee.setOld(concur++);
+            employee.setName("中文" + i);
+            anonDemoDAO.save(employee);
+            list.add(employee);
+        }
+        for (Employee employee:list)
+        {
+            employee.setName("中文" + RandomUtil.getRandomGUID(8));
+            anonDemoDAO.update(employee);
+        }
+        return 1;
+    }
 
     @Override
     @Operate(caption = "演示事务")
@@ -484,6 +584,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
         }
         return 1;
     }
+
 
     @Operate(caption = "错误返回",method = "errorroc")
     public RocResponse errorRoc() throws Exception

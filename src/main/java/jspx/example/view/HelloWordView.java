@@ -42,6 +42,7 @@ public class HelloWordView extends ActionSupport
         return "use bean get Method get Hello Word ";
     }
 
+    @Override
     public String execute() throws Exception
     {
 

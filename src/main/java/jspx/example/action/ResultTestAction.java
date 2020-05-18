@@ -75,6 +75,7 @@ public class ResultTestAction extends ActionSupport {
         return info;
     }
 
+    @Override
     public String execute() throws Exception {
         put("helloList", getList());
         put("info", new String(info==null?"显示页面":""));

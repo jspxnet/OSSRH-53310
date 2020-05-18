@@ -52,6 +52,7 @@ public class RepairHtmlAction extends ActionSupport
         repairHtml = HtmlUtil.getSafeFilter(html);
     }
 
+    @Override
     public String execute() throws Exception
     {
         put("repairHtml", repairHtml);

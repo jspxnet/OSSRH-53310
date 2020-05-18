@@ -25,6 +25,7 @@ public class ChatFunAction extends ActionSupport {
 
     }
 
+    @Override
     public String execute() throws Exception {
         StringBuilder sb = new StringBuilder();
         sb.append("<graph baseFont=\"宋体\" baseFontSize=\"12\" outCnvBaseFontSize=\"12\" caption=\"得分时间线型图\" subcaption=\"10-18--10-24\" hovercapbg=\"FFECAA\" hovercapborder=\"F47E00\" formatNumberScale=\"0\" decimalPrecision=\"0\" showvalues=\"0\" numdivlines=\"3\" numVdivlines=\"0\" rotateNames=\"1\">\n" +
