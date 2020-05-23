@@ -80,6 +80,19 @@ public class TestCallDemoMain {
     }
 
 
+
+    @Test//(threadPoolSize = 10, invocationCount = 4)
+    public void testAllPath() throws Exception {
+        String url = "http://127.0.0.1:8080/demo/persion/all/xyza/aab.jhtml";
+        HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
+        String out = httpClient.post();
+        JSONObject json = new JSONObject(out);
+        Assert.assertEquals(json.getString("data"), "ok");
+        System.out.println(out);
+
+    }
+
+
     @Test//(threadPoolSize = 10, invocationCount = 4)
     public void testHttpPersionObject() throws Exception {
         String url = "http://127.0.0.1:8080/demo/persion/getPersion.jhtml";
@@ -260,24 +273,22 @@ public class TestCallDemoMain {
    */
     @Test//(threadPoolSize = 10, invocationCount = 4)
     public void tesValidUpdate() throws Exception {
-        String jsonStr = "    {\n\"method\": {\n" +
-                "        \"name\": \"validUpdate\",\n" +
-                "        \"params\": [@,3,6]\n" +
-                "    }," +
-                "    \"params\": {\n" +
-                "    \"old\": 18,\n" +
-                "    \"name\": \"小明@同学\",\n" +
-                "    \"sumOld\": 3\n" +
-                "    }}";
+        String jsonStr = "{\n" +
+                "         \"method\": {\n" +
+                "             \"name\": \"validUpdate\",\n" +
+                "             \"params\": {\"demoParam\":{ \"old\": 18, \"name\": \"小明同学\", \"sumOld\":3 },\"var2\":3,\"var3\":6}\n" +
+                "         }\n" +
+                "     }";
         JSONObject json = new JSONObject(jsonStr);
         System.out.println("---调用json\r\n" + json.toString(4));
         String url = "http://127.0.0.1:8080/demo/persion/validUpdate.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(json);
-
-        JSONObject jsonResult = new JSONObject(out);
-        Assert.assertEquals(jsonResult.getBoolean("success"), false);
         System.out.println(out);
+        JSONObject jsonResult = new JSONObject(out);
+
+        Assert.assertEquals(jsonResult.getBoolean("success"), true);
+
     }
 
     /*

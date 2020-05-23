@@ -143,7 +143,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
             "version": "3.0"
     }
    */
-    @Operate(caption = "路径参数", method = "/pname/{name}/{id}", post = false)
+    @Operate(caption = "路径参数", method = "/pname/${name}/${id}", post = false)
     public RocResponse getPathValue(@PathVar(name = "name") String name, @PathVar(name = "id") String id)
     {
         JSONObject json = new JSONObject();
@@ -251,6 +251,14 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
         System.out.println("--------------------getChildParam=" + new JSONObject(testParam).toString());
         return RocResponse.success(testParam);
     }
+
+    @Operate(caption = "通配符路径",method = "/all/*/aab")
+    public RocResponse getAllPath()
+    {
+        System.out.println("---------------------getAllPath-----------");
+        return RocResponse.success("ok");
+    }
+
     /**
      * 注意协议请求头
      * 直接ROC请求地址："http://127.0.0.1:8080/demo/persion/getRocPersion.jhtml

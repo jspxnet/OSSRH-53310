@@ -1,6 +1,5 @@
 package jspx.example.param;
 
-
 import lombok.Data;
 
 /**
