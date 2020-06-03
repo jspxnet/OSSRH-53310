@@ -496,7 +496,6 @@ public class TestCallDemoMain {
 
         Assert.assertEquals(response!=0, true);
 
-
     }
 
     /**
@@ -519,5 +518,16 @@ public class TestCallDemoMain {
         }
     }
 
+    /**
+     * 无连接测试
+     * @throws Exception
+     */
+    @Test
+    public void testnoLink() throws Exception {
+        String url = "http://127.0.0.1:8080/demo/persion/34253452345345.jhtml";
+        HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
+        String out = httpClient.post(new JSONObject());
+        System.out.println(out);
+    }
 
 }
