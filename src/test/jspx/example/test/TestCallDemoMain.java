@@ -428,13 +428,13 @@ public class TestCallDemoMain {
 
         HessianClient hessianClient = HessianClientFactory.getInstance();
         //token
-        hessianClient.setSessionId("12345679xxxxxx");
+        hessianClient.setToken("12345679xxxxxx");
         SpringPersionInterface springPersionInterface = hessianClient.getInterface(SpringPersionInterface.class, url);
         //简单的返回对象
         Persion persion = springPersionInterface.getPersion();
         JSONObject json = new JSONObject(persion);
         System.out.println(json.toString(4));
-
+        Assert.assertEquals(persion.getName(), "张三");
     }
 
     /**
@@ -447,7 +447,7 @@ public class TestCallDemoMain {
         String url = "http://127.0.0.1:8080/demo/persion/index.jhtml";
         //token
         HessianClient hessianClient = HessianClientFactory.getInstance();
-        hessianClient.setSessionId("12345679xxxxxx99999999999999"); //认证token  Auth 2.0
+        hessianClient.setToken("12345679xxxxxx99999999999999"); //认证token  Auth 2.0
         SpringPersionInterface springPersionInterface = hessianClient.getInterface(SpringPersionInterface.class, url);
         //简单的返回对象
         DemoParamReq demoParamReq = new DemoParamReq();
@@ -455,6 +455,8 @@ public class TestCallDemoMain {
         demoParamReq.setOld(10);
         demoParamReq.setSumOld(4);
         DemoDto demoDto = springPersionInterface.update(demoParamReq);
+
+        Assert.assertEquals(demoDto.getName(), "中文");
         JSONObject json = new JSONObject(demoDto);
         System.out.println(json.toString(4));
     }
@@ -470,6 +472,8 @@ public class TestCallDemoMain {
         String url = "http://127.0.0.1:8080/demo/persion/save.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(new JSONObject());
+        JSONObject json = new JSONObject(out);
+        Assert.assertEquals(json.getString("message"), "保存异常");
         System.out.println(out);
     }
 
@@ -483,18 +487,17 @@ public class TestCallDemoMain {
         String url = "http://127.0.0.1:8080/demo/persion/save.jhtml";
         //token
         HessianClient hessianClient = HessianClientFactory.getInstance();
-        hessianClient.setSessionId("12345679xxxxxx99999999999999"); //认证token  Auth 2.0
-        int response = 0;
+        hessianClient.setToken("12345679xxxxxx99999999999999"); //认证token  Auth 2.0
+
         try {
             SpringPersionInterface springPersionInterface = hessianClient.getInterface(SpringPersionInterface.class, url);
-            response = springPersionInterface.save();
-
+            springPersionInterface.save();
         } catch (RocException e) {
-             e.getResponse();
-            System.out.println(new JSONObject(response).toString());
+            Assert.assertEquals(e.getMessage(), "测试事务回滚");
+            e.printStackTrace();
         }
 
-        Assert.assertEquals(response!=0, true);
+       // Assert.assertEquals(response!=0, true);
 
     }
 
@@ -508,14 +511,15 @@ public class TestCallDemoMain {
         String url = "http://127.0.0.1:8080/demo/persion/save.jhtml";
         //token
         HessianClient hessianClient = HessianClientFactory.getInstance();
-        hessianClient.setSessionId("12345679xxxxxx99999999999999"); //认证token  Auth 2.0
+        hessianClient.setToken("12345679xxxxxx99999999999999"); //认证token  Auth 2.0
         try {
             SpringPersionInterface springPersionInterface = hessianClient.getInterface(SpringPersionInterface.class, url);
             int response = springPersionInterface.validUpdate(8, 10);
-            System.out.println(new JSONObject(response).toString(4));
+            Assert.assertEquals(response, 18);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     /**
@@ -527,6 +531,7 @@ public class TestCallDemoMain {
         String url = "http://127.0.0.1:8080/demo/persion/34253452345345.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(new JSONObject());
+        Assert.assertEquals(httpClient.getStatusCode(), 404);
         System.out.println(out);
     }
 

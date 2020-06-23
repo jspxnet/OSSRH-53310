@@ -70,7 +70,7 @@ import java.util.List;
  *
  */
 @HttpMethod(caption = "sping方式", actionName = "*", namespace = DemoIoc.namespace + "/persion")
-@Bean(bind = SpingPersionController.class,namespace = DemoIoc.namespace)
+@Bean(namespace = DemoIoc.namespace)
 public class SpingPersionController extends ActionSupport implements SpringPersionInterface
 {
     public SpingPersionController() {
