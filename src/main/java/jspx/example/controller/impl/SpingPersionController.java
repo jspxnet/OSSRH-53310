@@ -83,6 +83,12 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
     @Ref(namespace = DemoIoc.namespace)
     private IocDemoDAO iocDemoDAO;
 
+    @Operate(caption = "默认入口", post = false)
+    public String index()
+    {
+       System.out.println("index--------------------提供给远程的一个默认入口");
+       return ("提供给远程的一个默认入口");
+    }
     /*
     请求参数:
     {"params": {"id": 2}}
@@ -107,6 +113,8 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
         //System.out.println("--------------------id=" + getInt("id"));
         return new JSONObject(persion);
     }
+
+
 
     /**
      * 方法别名访问  http://127.0.0.1:8080/demo/persion/path.jhtml
