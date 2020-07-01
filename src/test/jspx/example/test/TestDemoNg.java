@@ -72,9 +72,9 @@ public class TestDemoNg {
         beanModel.setNamespace(DemoIoc.namespace);
         beanFactory.registerBean(beanModel);
 
-        SinglePersion persion1 = (SinglePersion)beanFactory.getBean(SinglePersion.class,DemoIoc.namespace);
+        SinglePersion persion1 = beanFactory.getBean(SinglePersion.class,DemoIoc.namespace);
         System.out.println(beanFactory.hashCode()+"   " + persion1.hashCode()+"----------------result=" + new JSONObject(persion1));
-        SinglePersion persion2 = (SinglePersion)beanFactory.getBean(SinglePersion.class,DemoIoc.namespace);
+        SinglePersion persion2 = beanFactory.getBean(SinglePersion.class,DemoIoc.namespace);
         System.out.println(beanFactory.hashCode()+"   " + persion2.hashCode()+"----------------result=" + new JSONObject(persion2));
 
         Assert.assertEquals(persion1.hashCode(),persion2.hashCode());

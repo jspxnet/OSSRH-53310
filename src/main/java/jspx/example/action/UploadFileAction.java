@@ -32,6 +32,7 @@ public class UploadFileAction extends MultipartSupport {
     /**
      * @return 得到配置允许上传的文件类型
      */
+    @Override
     public String getFileTypes() {
         return "*";
     }
@@ -39,6 +40,7 @@ public class UploadFileAction extends MultipartSupport {
     /**
      * @return 最大上传限制
      */
+    @Override
     public int getMaxPostSize() {
 
         return 1024*1024*20;
@@ -47,6 +49,7 @@ public class UploadFileAction extends MultipartSupport {
     /**
      * @return 得到上传路径
      */
+    @Override
     public String getSaveDirectory() {
         return "d:/upload";
     }
@@ -56,6 +59,7 @@ public class UploadFileAction extends MultipartSupport {
     /**
      * @return 是否覆盖
      */
+    @Override
     public boolean getCovering() {
         return false;
     }
@@ -64,6 +68,7 @@ public class UploadFileAction extends MultipartSupport {
      * @param multipartRequest 请求接口
      */
     @MulRequest(covering = "@covering", saveDirectory = "@saveDirectory", fileTypes = "@fileTypes", maxPostSize = "@maxPostSize")
+    @Override
     public void setMultipartRequest(MultipartRequest multipartRequest) {
         request = this.multipartRequest = multipartRequest;
     }
@@ -79,10 +84,11 @@ public class UploadFileAction extends MultipartSupport {
     public String execute() throws Exception {
 
         if (multipartRequest!=null)
-        for (UploadedFile uf : multipartRequest.getFiles()) {
-            addActionMessage("上传结束:" + uf.getOriginal());
+        {
+            for (UploadedFile uf : multipartRequest.getFiles()) {
+                addActionMessage("上传结束:" + uf.getOriginal());
+            }
         }
-
         return getActionResult();
     }
 

@@ -1,0 +1,59 @@
+package jspx.example.remote;
+
+import com.github.jspxnet.boot.EnvFactory;
+import com.github.jspxnet.boot.JspxNetApplication;
+import com.github.jspxnet.network.rpc.client.NettyRpcProxy;
+import com.github.jspxnet.sioc.BeanFactory;
+import com.github.jspxnet.utils.*;
+import jspx.example.conf.Persion;
+import jspx.example.controller.SpringPersionInterface;
+import jspx.example.env.DemoIoc;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+/**
+ * Created by jspx.net
+ *
+ * @author: chenYuan
+ * @date: 2020/6/23 21:31
+ * @description: jspx-framework
+ **/
+public class TestClient {
+    @BeforeClass
+    public static void init() {
+        JspxNetApplication.autoRun();
+        System.out.println("------------开始");
+    }
+
+    // @AfterClass
+    public void afterExit() {
+        System.out.println("------------结束");
+    }
+
+
+    @Test
+    static void testClient() {
+        SpringPersionInterface springPersionInterface = NettyRpcProxy.create(SpringPersionInterface.class, "demo", IpUtil.getSocketAddress("127.0.0.1:8991"));
+        System.out.println(ObjectUtil.toString(springPersionInterface.getPersion()));
+    }
+
+    @Test
+    static void testTcpClient()
+    {
+        BeanFactory beanFactory = EnvFactory.getBeanFactory();
+        SpringPersionInterface springPersionTcp = beanFactory.getBean(SpringPersionTcp.class,DemoIoc.namespace);
+        System.out.println("-----------springPersionTcp:" + springPersionTcp);
+        Persion persion = springPersionTcp.getPersion();
+        System.out.println("------" + ObjectUtil.toString(persion));
+    }
+
+    @Test
+    static void testHttpClient()  {
+        BeanFactory beanFactory = EnvFactory.getBeanFactory();
+        SpringPersionInterface springPersionHttp = beanFactory.getBean(SpringPersionHttp.class,DemoIoc.namespace);
+        Persion persion = springPersionHttp.getPersion();
+        System.out.println("------" + ObjectUtil.toString(persion));
+
+    }
+
+}
