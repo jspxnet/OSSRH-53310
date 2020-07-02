@@ -11,6 +11,8 @@ import jspx.example.env.DemoIoc;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * Created by jspx.net
  *
@@ -55,8 +57,7 @@ public class TestClient {
         System.out.println("------" + ObjectUtil.toString(persion));
     }
     @Test
-    static void testTcpMaxClient()
-    {
+    static void testTcpMaxClient() throws UnsupportedEncodingException {
         BeanFactory beanFactory = EnvFactory.getBeanFactory();
         SpringPersionInterface springPersionTcp = beanFactory.getBean(SpringPersionTcp.class,DemoIoc.namespace);
         System.out.println("-----------springPersionTcp:" + springPersionTcp);

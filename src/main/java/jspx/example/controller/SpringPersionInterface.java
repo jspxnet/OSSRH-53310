@@ -10,6 +10,7 @@ import jspx.example.pqo.DemoParamReq;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 
 /**
  * 这里是提供给远程分布式调用的接口
@@ -42,5 +43,5 @@ public interface SpringPersionInterface extends Serializable {
     RocResponse getRequestParam();
 
     @Operate(caption = "测试大数据量")
-    Persion getMaxPersion();
+    Persion getMaxPersion() throws UnsupportedEncodingException;
 }
