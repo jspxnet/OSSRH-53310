@@ -30,13 +30,19 @@ public class TestClient {
         System.out.println("------------结束");
     }
 
-
+    /**
+     * 代码方式直接调用RPC
+     */
     @Test
     static void testClient() {
         SpringPersionInterface springPersionInterface = NettyRpcProxy.create(SpringPersionInterface.class, "demo", IpUtil.getSocketAddress("127.0.0.1:8991"));
         System.out.println(ObjectUtil.toString(springPersionInterface.getPersion()));
     }
 
+    /**
+     * 注释方式调用RPC, TCP方式
+     * 注意看 SpringPersionTcp 中的 @RpcClient 配置
+     */
     @Test
     static void testTcpClient()
     {
@@ -47,13 +53,17 @@ public class TestClient {
         System.out.println("------" + ObjectUtil.toString(persion));
     }
 
+    /**
+     * 注释方式调用RPC, http 方式
+     * 注意看 SpringPersionHttp 中的 @RpcClient 配置
+     */
     @Test
     static void testHttpClient()  {
         BeanFactory beanFactory = EnvFactory.getBeanFactory();
         SpringPersionInterface springPersionHttp = beanFactory.getBean(SpringPersionHttp.class,DemoIoc.namespace);
         Persion persion = springPersionHttp.getPersion();
         System.out.println("------" + ObjectUtil.toString(persion));
-
     }
+
 
 }

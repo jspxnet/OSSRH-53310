@@ -12,6 +12,7 @@ import com.github.jspxnet.txweb.annotation.*;
 import com.github.jspxnet.txweb.result.RocException;
 import com.github.jspxnet.txweb.result.RocResponse;
 import com.github.jspxnet.txweb.support.ActionSupport;
+import com.github.jspxnet.txweb.util.RequestUtil;
 import com.github.jspxnet.utils.BeanUtil;
 import com.github.jspxnet.utils.ObjectUtil;
 import com.github.jspxnet.utils.RandomUtil;
@@ -24,7 +25,10 @@ import jspx.example.env.DemoIoc;
 import jspx.example.param.TestParam;
 import jspx.example.pqo.DemoParamReq;
 import jspx.example.table.Employee;
+import org.apache.http.HttpRequest;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -608,11 +612,13 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
         throw new RocException(RocResponse.error(300,"错误直接返回"));
     }
 
-
-    @Operate(caption = "测试方法")
-    public void toDo()
+    @Override
+    @Operate(caption = "测试Request")
+    public RocResponse getRequestParam()
     {
-        System.out.println("------run----todo");
+        RocResponse rocResponse = RocResponse.success("模拟httpRequest tcp调用").setProperty("token",RequestUtil.getToken(request));
+        rocResponse.setProperty("test",getString("test"));
+        return rocResponse;
     }
 
 }

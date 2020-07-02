@@ -12,6 +12,7 @@
         <bean class="com.github.jspxnet.txweb.view.RRSReadView" />
         <bean id="codeView" class="jspx.example.view.CodeView" singleton="false"/>
         <bean id="repairHtmlAction" class="jspx.example.action.RepairHtmlAction" singleton="true"/>
+        <bean id="rpchello" class="jspx.example.view.RpcHelloWordView" singleton="false"/>
         <bean id="helloWordView" class="jspx.example.view.HelloWordView" singleton="false"/>
         <bean id="helloListView" class="jspx.example.view.HelloListView" singleton="false"/>
         <bean id="turnpagedemo" class="jspx.example.view.TurnPageListView" singleton="false"/>

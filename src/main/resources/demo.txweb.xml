@@ -9,6 +9,7 @@
         <action name="chatfun" class="chatfunAction" />
         <action name="showrepair" class="repairHtmlAction" method="@method" />
         <action name="hello" class="helloWordView" />
+        <action name="rpchello" class="rpchello" />
         <action name="hellolist" class="helloListView" />
         <action name="turnlist" class="turnPageListTwoAction"/>
         <action name="adduser" class="tablePostAction" method="save" />
