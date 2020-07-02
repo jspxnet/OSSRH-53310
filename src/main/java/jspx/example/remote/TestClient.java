@@ -39,6 +39,8 @@ public class TestClient {
         System.out.println(ObjectUtil.toString(springPersionInterface.getPersion()));
     }
 
+
+
     /**
      * 注释方式调用RPC, TCP方式
      * 注意看 SpringPersionTcp 中的 @RpcClient 配置
@@ -52,7 +54,15 @@ public class TestClient {
         Persion persion = springPersionTcp.getPersion();
         System.out.println("------" + ObjectUtil.toString(persion));
     }
-
+    @Test
+    static void testTcpMaxClient()
+    {
+        BeanFactory beanFactory = EnvFactory.getBeanFactory();
+        SpringPersionInterface springPersionTcp = beanFactory.getBean(SpringPersionTcp.class,DemoIoc.namespace);
+        System.out.println("-----------springPersionTcp:" + springPersionTcp);
+        Persion persion = springPersionTcp.getMaxPersion();
+        System.out.println("------" + ObjectUtil.toString(persion));
+    }
     /**
      * 注释方式调用RPC, http 方式
      * 注意看 SpringPersionHttp 中的 @RpcClient 配置

@@ -40,4 +40,7 @@ public interface SpringPersionInterface extends Serializable {
 
 
     RocResponse getRequestParam();
+
+    @Operate(caption = "测试大数据量")
+    Persion getMaxPersion();
 }
