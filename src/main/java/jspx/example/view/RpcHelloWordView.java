@@ -31,16 +31,21 @@ public class RpcHelloWordView extends ActionSupport {
     @Override
     public String execute() throws Exception
     {
-        RequestTo requestTo = new RequestTo(request);
+     RequestTo requestTo = new RequestTo(request);
         requestTo.put(RequestUtil.AUTHORIZATION_KEY,"测试的token.987342543534315342543");
         ResponseTo responseTo = new ResponseTo(response);
 
-        System.out.println("requestTo------" + ObjectUtil.toString(requestTo));
-        SpringPersionInterface springPersionInterface = NettyRpcProxy.create(SpringPersionInterface.class, "demo", requestTo,responseTo);
+        //直接调用,无拦截
+        SpringPersionInterface springPersionInterface = NettyRpcProxy.create(SpringPersionInterface.class, "demo/persion", requestTo,responseTo);
         RocResponse rocResponse = springPersionInterface.getRequestParam();
-        System.out.println("RpcHelloWordView------" + ObjectUtil.toString(rocResponse));
         put("value",ObjectUtil.toString(rocResponse));
-        //TXWebUtil.print(ObjectUtil.toString(rocResponse), WebOutEnumType.TEXT.getValue(),response);
+
+        //action方式调用,有权限控制,会执行拦截器
+        SpringPersionInterface springPersionInterface2 = NettyRpcProxy.create(SpringPersionInterface.class, "update","demo/persion", requestTo,responseTo);
+        Object str = springPersionInterface2.update(1,3,"abc");
+        System.out.println("---------------"+ObjectUtil.toString(str));
+        put("actionParam",ObjectUtil.toString(str));
+
         return SUCCESS;
     }
 

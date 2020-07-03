@@ -30,6 +30,28 @@ public interface SpringPersionInterface extends Serializable {
 
     DemoDto update(@Param DemoParamReq demoParam);
 
+    /*
+   请求：
+    {
+       "method": {
+           "name": "update",
+           "params": [3,6,"小明同学"]
+       }
+    }
+
+   返回:
+   {
+       "protocol": "jspx.net-remote",
+       "data": "小明同学9",
+       "success": 1,
+       "version": "3.0"
+   }
+
+        实际场景中没必要，建议不用同名函数，因为看API会有点晕
+        */
+    @Operate(caption = "演示多参数")
+    String update(@Param(caption = "参数1") int var1, @Param(caption = "参数2") int var2, @Param(caption = "参数3") String var3);
+
     int validUpdate(@Param(min = 5, max = 10) int var1, @Param(min = 10, max = 20) int var3);
 
     int tranSave() throws Exception;

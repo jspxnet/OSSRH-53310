@@ -397,8 +397,10 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
 
         实际场景中没必要，建议不用同名函数，因为看API会有点晕
         */
+    @Override
     @Operate(caption = "演示多参数")
-    public String update(@Param(caption = "参数1") int var1, @Param(caption = "参数2") int var2, @Param(caption = "参数3") String var3) {
+    public String update(@Param(caption = "参数1") int var1, @Param(caption = "参数2") int var2, @Param(caption = "参数3") String var3)
+    {
         //返回对象 DTO
         return (var3 + (var1 + var2));
     }
