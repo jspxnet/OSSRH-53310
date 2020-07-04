@@ -10,6 +10,7 @@ import com.github.jspxnet.txweb.result.RocResponse;
 import com.github.jspxnet.txweb.service.HessianClient;
 import com.github.jspxnet.txweb.service.client.HessianClientFactory;
 import com.github.jspxnet.util.TypeReference;
+import com.github.jspxnet.utils.ObjectUtil;
 import jspx.example.conf.Persion;
 import jspx.example.controller.SpringPersionInterface;
 import jspx.example.dto.DemoDto;
@@ -532,6 +533,35 @@ public class TestCallDemoMain {
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(new JSONObject());
         Assert.assertEquals(httpClient.getStatusCode(), 404);
+        System.out.println(out);
+    }
+
+
+    /**
+     * 禁止重复提交
+     */
+    @Test(threadPoolSize = 5,invocationCount = 5)
+    public void repeatPost1() {
+        String url = "http://127.0.0.1:8080/demo/persion/repeat/post.jhtml";
+        //token
+        HessianClient hessianClient = HessianClientFactory.getInstance();
+        hessianClient.setToken("12345699999999999"); //认证token  Auth 2.0
+        try {
+            SpringPersionInterface springPersionInterface = hessianClient.getInterface(SpringPersionInterface.class, url);
+            RocResponse response = springPersionInterface.getRepeatPost();
+            System.out.println("-------------response=" + ObjectUtil.toString(response));
+            //  Assert.assertEquals(response, 18);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test(threadPoolSize = 5,invocationCount = 5)
+    public void repeatPost2() throws Exception {
+        String url = "http://127.0.0.1:8080/demo/persion/repeat/post.jhtml";
+        HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
+        String out = httpClient.post();
+
         System.out.println(out);
     }
 

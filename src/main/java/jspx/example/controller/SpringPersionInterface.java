@@ -66,4 +66,7 @@ public interface SpringPersionInterface extends Serializable {
 
     @Operate(caption = "测试大数据量")
     Persion getMaxPersion() throws UnsupportedEncodingException;
+
+    @Operate(caption = "3秒类禁止重复访问",repeat=3)
+    RocResponse getRepeatPost();
 }

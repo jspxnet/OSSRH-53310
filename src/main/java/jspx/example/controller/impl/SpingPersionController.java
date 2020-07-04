@@ -26,10 +26,6 @@ import jspx.example.env.DemoIoc;
 import jspx.example.param.TestParam;
 import jspx.example.pqo.DemoParamReq;
 import jspx.example.table.Employee;
-import org.apache.http.HttpRequest;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -639,5 +635,12 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
         return persion;
     }
 
+    @Override
+    @Operate(caption = "3秒类禁止重复访问",repeat=10,method = "repeat/post")
+    public RocResponse getRepeatPost()
+    {
+        RocResponse rocResponse = RocResponse.success(persion).setProperty("repeat",3);
+        return rocResponse;
+    }
 
 }
