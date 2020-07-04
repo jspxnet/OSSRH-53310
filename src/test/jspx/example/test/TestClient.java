@@ -1,4 +1,4 @@
-package jspx.example.remote;
+package jspx.example.test;
 
 import com.github.jspxnet.boot.EnvFactory;
 import com.github.jspxnet.boot.JspxNetApplication;
@@ -8,6 +8,8 @@ import com.github.jspxnet.utils.*;
 import jspx.example.conf.Persion;
 import jspx.example.controller.SpringPersionInterface;
 import jspx.example.env.DemoIoc;
+import jspx.example.remote.SpringPersionHttp;
+import jspx.example.remote.SpringPersionTcp;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
