@@ -636,7 +636,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
     }
 
     @Override
-    @Operate(caption = "3秒类禁止重复访问",repeat=10,method = "repeat/post")
+    @Operate(caption = "3秒类禁止重复访问",post = false,repeat=10,method = "repeat/post")
     public RocResponse getRepeatPost()
     {
         RocResponse rocResponse = RocResponse.success(persion).setProperty("repeat",3);

@@ -540,7 +540,7 @@ public class TestCallDemoMain {
     /**
      * 禁止重复提交
      */
-    @Test(threadPoolSize = 5,invocationCount = 5)
+    @Test
     public void repeatPost1() {
         String url = "http://127.0.0.1:8080/demo/persion/repeat/post.jhtml";
         //token
@@ -556,13 +556,16 @@ public class TestCallDemoMain {
         }
     }
 
-    @Test(threadPoolSize = 5,invocationCount = 5)
+    @Test
     public void repeatPost2() throws Exception {
         String url = "http://127.0.0.1:8080/demo/persion/repeat/post.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post();
-
-        System.out.println(out);
+        System.out.println("1-------------"+out);
+         out = httpClient.post();
+        System.out.println("2-------------"+out);
+        out = httpClient.post();
+        System.out.println("3-------------"+out);
     }
 
 }
