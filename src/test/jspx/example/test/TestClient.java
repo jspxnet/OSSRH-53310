@@ -2,7 +2,7 @@ package jspx.example.test;
 
 import com.github.jspxnet.boot.EnvFactory;
 import com.github.jspxnet.boot.JspxNetApplication;
-import com.github.jspxnet.network.rpc.client.NettyRpcProxy;
+import com.github.jspxnet.network.rpc.client.proxy.NettyRpcProxy;
 import com.github.jspxnet.sioc.BeanFactory;
 import com.github.jspxnet.utils.*;
 import jspx.example.conf.Persion;
@@ -33,6 +33,17 @@ public class TestClient {
     public void afterExit() {
         System.out.println("------------结束");
     }
+
+    @Test
+    static void testPersion() {
+
+        BeanFactory beanFactory = EnvFactory.getBeanFactory();
+        Persion persion = beanFactory.getBean(Persion.class,DemoIoc.namespace);
+
+        System.out.println("------" + ObjectUtil.toString(persion));
+
+    }
+
 
     /**
      * 代码方式直接调用RPC

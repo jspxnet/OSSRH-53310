@@ -80,8 +80,13 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
 
     }
 
-    @Ref(namespace = DemoIoc.namespace)
     private Persion persion;
+    @Ref(namespace = DemoIoc.namespace)
+    public void setPersion(Persion persion) {
+        this.persion = persion;
+    }
+
+
 
     @Ref(namespace = DemoIoc.namespace)
     private IocDemoDAO iocDemoDAO;
@@ -229,7 +234,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
     @Operate(caption = "得到")
     public Persion getPersion()
     {
-        System.out.println("---------------------run-----------getPersion");
+        System.out.println("---------------------run-----------getPersion:" + ObjectUtil.toString(persion));
         return persion;
     }
 
