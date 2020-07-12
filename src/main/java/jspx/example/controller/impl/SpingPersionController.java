@@ -498,6 +498,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
         return array;
     }
 
+    //报错信息
     @Operate(caption = "演示参数验证消息")
     public String testMessage2(@Param(caption = "参数1",required = true,message = "参数不允许为空") @Validate String str) {
         //返回对象 DTO
