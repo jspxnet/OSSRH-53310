@@ -370,7 +370,7 @@ public class TestCallDemoMain {
         String out = httpClient.post(json);
         System.out.println(out);
         JSONObject jsonResult = new JSONObject(out);
-        Assert.assertEquals(jsonResult.getBoolean("success"), false);
+        Assert.assertEquals(jsonResult.getBoolean("success"), true);
 
     }
 
