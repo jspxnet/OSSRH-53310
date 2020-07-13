@@ -7,6 +7,7 @@ import com.github.jspxnet.json.JSONObject;
 import com.github.jspxnet.sioc.annotation.Bean;
 import com.github.jspxnet.sioc.annotation.Ref;
 import com.github.jspxnet.sober.enums.PropagationEnumType;
+import com.github.jspxnet.sober.exception.TransactionException;
 import com.github.jspxnet.sober.transaction.TransactionManager;
 import com.github.jspxnet.txweb.annotation.*;
 import com.github.jspxnet.txweb.result.RocException;
@@ -516,7 +517,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
      */
     @Override
     @Operate(caption = "演示事务")
-    @Transaction(message = "保存异常")
+    //@Transaction(message = "保存异常")
     public int save() throws Exception
     {
         for (int i = 0; i < 4; i++)
@@ -533,7 +534,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
            if (i==3)
             {
 
-                throw new RocException(RocResponse.error(111,"测试事务回滚"));
+                throw new RocException(RocResponse.error(111,"保存异常"));
             }
         }
         return 1;
@@ -546,25 +547,17 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
      */
     @Override
     @Operate(caption = "演示事务")
-    @Transaction(message = "保存异常",propagation = PropagationEnumType.NEW)
+    @Transaction(message = "测试事务回滚")
     public int tranSave() throws Exception
     {
-        for (int i = 0; i < 4; i++)
-        {
-
-            Employee employee = new Employee();
-            employee.setOld(concur++);
-            employee.setName("中文" + i);
-            anonDemoDAO.save(employee);
-            System.out.println("TransactionManager="+TransactionManager.getInstance().toString());
-            employee.setName("update" + i);
-            iocDemoDAO.update(employee);
-            if (i==3)
-            {
-
-                throw new RocException(RocResponse.error(111,"测试事务回滚"));
-            }
-        }
+        Employee employee = new Employee();
+        employee.setId(1);
+        employee.setOld(concur++);
+        employee.setName("中文");
+        anonDemoDAO.save(employee);
+        System.out.println("TransactionManager="+TransactionManager.getInstance().toString());
+        employee.setId(1);
+        anonDemoDAO.save(employee);
         return 1;
     }
 

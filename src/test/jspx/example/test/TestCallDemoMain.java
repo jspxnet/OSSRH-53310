@@ -335,7 +335,7 @@ public class TestCallDemoMain {
         String jsonStr = "{\n" +
                 "        \"method\": {\n" +
                 "            \"name\": \"testMessage\",\n" +
-                "            \"params\": [null]\n" +
+                "            \"params\": []\n" +
                 "        }\n" +
                 "   }";
         JSONObject json = new JSONObject(jsonStr);
@@ -344,8 +344,9 @@ public class TestCallDemoMain {
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(json);
         System.out.println(out);
-       JSONObject jsonResult = new JSONObject(out);
-        Assert.assertEquals(jsonResult.getBoolean("success"), true);
+        JSONObject jsonResult = new JSONObject(out);
+        Assert.assertEquals(jsonResult.getBoolean("success"), false);
+        Assert.assertEquals(jsonResult.getString("message"), "参数不允许为空");
         System.out.println(out);
     }
 
@@ -481,6 +482,17 @@ public class TestCallDemoMain {
         System.out.println(out);
     }
 
+    @Test
+    public void tranSave() throws Exception {
+        String url = "http://127.0.0.1:8080/demo/persion/tranSave.jhtml";
+        HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
+        String out = httpClient.post(new JSONObject());
+        //JSONObject json = new JSONObject(out);
+      //  Assert.assertEquals(json.getString("message"), "保存异常");
+        System.out.println(out);
+    }
+
+
     /**
      * 演示通过标签实现事务 演示事务,接口方式是否成功
      *
@@ -497,7 +509,7 @@ public class TestCallDemoMain {
             SpringPersionInterface springPersionInterface = hessianClient.getInterface(SpringPersionInterface.class, url);
             springPersionInterface.save();
         } catch (RocException e) {
-            Assert.assertEquals(e.getMessage(), "测试事务回滚");
+            Assert.assertEquals(e.getMessage(), "保存异常");
             e.printStackTrace();
         }
 
