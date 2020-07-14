@@ -6,8 +6,6 @@ import com.github.jspxnet.enums.ErrorEnumType;
 import com.github.jspxnet.json.JSONObject;
 import com.github.jspxnet.sioc.annotation.Bean;
 import com.github.jspxnet.sioc.annotation.Ref;
-import com.github.jspxnet.sober.enums.PropagationEnumType;
-import com.github.jspxnet.sober.exception.TransactionException;
 import com.github.jspxnet.sober.transaction.TransactionManager;
 import com.github.jspxnet.txweb.annotation.*;
 import com.github.jspxnet.txweb.result.RocException;
