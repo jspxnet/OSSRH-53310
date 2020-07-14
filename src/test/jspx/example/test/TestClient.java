@@ -2,6 +2,7 @@ package jspx.example.test;
 
 import com.github.jspxnet.boot.EnvFactory;
 import com.github.jspxnet.boot.JspxNetApplication;
+import com.github.jspxnet.cache.redis.RedissonClientConfig;
 import com.github.jspxnet.network.rpc.client.proxy.NettyRpcProxy;
 import com.github.jspxnet.sioc.BeanFactory;
 import com.github.jspxnet.utils.*;
@@ -10,6 +11,7 @@ import jspx.example.controller.SpringPersionInterface;
 import jspx.example.env.DemoIoc;
 import jspx.example.remote.SpringPersionHttp;
 import jspx.example.remote.SpringPersionTcp;
+import org.redisson.api.RedissonClient;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -25,7 +27,7 @@ import java.io.UnsupportedEncodingException;
 public class TestClient {
     @BeforeClass
     public static void init() {
-        JspxNetApplication.autoRun();
+        JspxNetApplication.autoRun("D:\\website\\webapps\\root\\WEB-INF\\classes2\\");
         System.out.println("------------开始");
     }
 
@@ -43,6 +45,17 @@ public class TestClient {
         System.out.println("------" + ObjectUtil.toString(persion));
 
     }
+
+    @Test
+    static void testRedissonClient() {
+
+        BeanFactory beanFactory = EnvFactory.getBeanFactory();
+        RedissonClient redissonClient = (RedissonClient)beanFactory.getBean(RedissonClientConfig .class);
+
+        System.out.println("------redissonClient=" + redissonClient);
+
+    }
+    BeanFactory beanFactory = EnvFactory.getBeanFactory();
 
 
     /**
