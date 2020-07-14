@@ -56,6 +56,7 @@ public class AnonDemoDAOImpl  extends JdbcOperations implements AnonDemoDAO
 
 
     //这里演示使用sql查询
+    @Override
     @Query(id="getVoteTopic",namespace="jspx.apply.table.VoteTopic")
     public List getTestList2(Object[] parms,int ipage,int icount)
     {
@@ -63,6 +64,7 @@ public class AnonDemoDAOImpl  extends JdbcOperations implements AnonDemoDAO
     }
     
 
+    @Override
     @Update(entity= VoteTopic.class,sql="update ${table_name} set topicText=? where id=?")
     public int getTestUpdate(Object[] parms)
     {
@@ -71,7 +73,7 @@ public class AnonDemoDAOImpl  extends JdbcOperations implements AnonDemoDAO
         */
         return 0;
     }
-
+    @Override
     @Update(entity= VoteTopic.class,sql="update ${table_name} set topicText='${topicText}' where ${primary_key}='${id}'")
     public int getTestUpdate2(Map<String,Object> valueMap)
     {

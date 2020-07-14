@@ -69,6 +69,7 @@ public class TestClient {
         Persion persion = springPersionTcp.getPersion();
         System.out.println("------" + ObjectUtil.toString(persion));
     }
+
     @Test
     static void testTcpMaxClient() throws UnsupportedEncodingException {
         BeanFactory beanFactory = EnvFactory.getBeanFactory();

@@ -128,8 +128,8 @@ public class TestCallDemoMain {
         System.out.println(out);
         JSONObject json = new JSONObject(out);
         JSONObject data = json.getJSONObject("data");
-//        Assert.assertEquals(data.getString("name"), "张三");
-      //  Assert.assertEquals(data.getInt("age"), 18);
+        Assert.assertEquals(data.getString("name"), "张三");
+        Assert.assertEquals(data.getInt("age"), 18);
 
     }
 
@@ -371,6 +371,7 @@ public class TestCallDemoMain {
         String out = httpClient.post(json);
         System.out.println(out);
         JSONObject jsonResult = new JSONObject(out);
+        Assert.assertEquals(jsonResult.getInt("data"), 11);
         Assert.assertEquals(jsonResult.getBoolean("success"), true);
 
     }
@@ -487,9 +488,11 @@ public class TestCallDemoMain {
         String url = "http://127.0.0.1:8080/demo/persion/tranSave.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(new JSONObject());
-        //JSONObject json = new JSONObject(out);
-      //  Assert.assertEquals(json.getString("message"), "保存异常");
         System.out.println(out);
+        JSONObject json = new JSONObject(out);
+        Assert.assertEquals(json.getString("message"), "测试事务回滚");
+        Assert.assertEquals(json.getBoolean("success"), false);
+
     }
 
 
@@ -564,8 +567,9 @@ public class TestCallDemoMain {
         try {
             SpringPersionInterface springPersionInterface = hessianClient.getInterface(SpringPersionInterface.class, url);
             RocResponse response = springPersionInterface.getRepeatPost();
-            System.out.println("-------------response=" + ObjectUtil.toString(response));
-            //  Assert.assertEquals(response, 18);
+
+             Assert.assertEquals(response.getSuccess(), 1);
+            Assert.assertEquals(response.getProperty("repeat"), 3);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -576,11 +580,14 @@ public class TestCallDemoMain {
         String url = "http://127.0.0.1:8080/demo/persion/repeat/post.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post();
-        System.out.println("1-------------"+out);
-         out = httpClient.post();
-        System.out.println("2-------------"+out);
+        Assert.assertEquals(out.contains("张三"), true);
+
+         httpClient.post();
+
         out = httpClient.post();
         System.out.println("3-------------"+out);
+        JSONObject json = new JSONObject(out);
+        Assert.assertEquals(json.getString("message"), "10秒后再试");
     }
 
 }
