@@ -27,7 +27,7 @@ import java.io.UnsupportedEncodingException;
 public class TestClient {
     @BeforeClass
     public static void init() {
-        JspxNetApplication.autoRun("D:\\website\\webapps\\root\\WEB-INF\\classes\\");
+        JspxNetApplication.autoRun("D:\\website\\webapps\\root\\WEB-INF\\classes2\\");
         System.out.println("------------开始");
     }
 
@@ -35,15 +35,7 @@ public class TestClient {
     public void afterExit() {
         System.out.println("------------结束");
     }
-    @Test
-    static void testRedissonClient() {
 
-        BeanFactory beanFactory = EnvFactory.getBeanFactory();
-        RedissonClient redissonClient = (RedissonClient)beanFactory.getBean(RedissonClientConfig.class);
-
-        System.out.println("------redissonClient=" + redissonClient);
-
-    }
     @Test
     static void testPersion() {
 
@@ -53,6 +45,17 @@ public class TestClient {
         System.out.println("------" + ObjectUtil.toString(persion));
 
     }
+
+    @Test
+    static void testRedissonClient() {
+
+        BeanFactory beanFactory = EnvFactory.getBeanFactory();
+        RedissonClient redissonClient = (RedissonClient)beanFactory.getBean(RedissonClientConfig .class);
+
+        System.out.println("------redissonClient=" + redissonClient);
+
+    }
+    BeanFactory beanFactory = EnvFactory.getBeanFactory();
 
 
     /**
