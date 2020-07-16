@@ -17,7 +17,7 @@
         <dependency>
             <groupId>com.github.jspxnet</groupId>
             <artifactId>jspx-framework</artifactId>
-            <version>6.9</version>
+            <version>6.10</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
