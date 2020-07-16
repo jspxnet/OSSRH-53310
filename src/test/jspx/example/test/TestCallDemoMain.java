@@ -10,7 +10,6 @@ import com.github.jspxnet.txweb.result.RocResponse;
 import com.github.jspxnet.txweb.service.HessianClient;
 import com.github.jspxnet.txweb.service.client.HessianClientFactory;
 import com.github.jspxnet.util.TypeReference;
-import com.github.jspxnet.utils.ObjectUtil;
 import jspx.example.conf.Persion;
 import jspx.example.controller.SpringPersionInterface;
 import jspx.example.dto.DemoDto;
@@ -20,7 +19,6 @@ import jspx.example.table.VoteItem;
 import jspx.example.table.VoteTopic;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 

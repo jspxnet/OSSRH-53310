@@ -27,7 +27,7 @@ import java.io.UnsupportedEncodingException;
 public class TestClient {
     @BeforeClass
     public static void init() {
-        JspxNetApplication.autoRun("D:\\website\\webapps\\root\\WEB-INF\\classes2\\");
+        JspxNetApplication.autoRun("D:\\website\\webapps\\root\\WEB-INF\\classes\\");
         System.out.println("------------开始");
     }
 
