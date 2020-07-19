@@ -3,8 +3,7 @@ package jspx.example.remote;
 import com.github.jspxnet.sioc.annotation.RpcClient;
 import com.github.jspxnet.txweb.enums.RpcProtocolEnumType;
 import jspx.example.controller.SpringPersionInterface;
-import jspx.example.env.DemoIoc;
-import jspx.example.env.RemoteApiUrl;
+
 
 /**
  * Created by jspx.net
