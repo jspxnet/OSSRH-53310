@@ -43,7 +43,7 @@ public class TestCallDemoMain {
         Assert.assertEquals(outJson.getInt("age"), 18);
     }
 
-    @Test//(threadPoolSize = 10, invocationCount = 4)
+    @Test(threadPoolSize = 10, invocationCount = 4)
     public void testHttpgetPathId() throws Exception {
         String url = "http://127.0.0.1:8080/demo/persion/path.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
@@ -54,7 +54,7 @@ public class TestCallDemoMain {
     }
 
     //路径作为参数
-    @Test//(threadPoolSize = 10, invocationCount = 4)
+    @Test(threadPoolSize = 10, invocationCount = 4)
     public void testHttpgetPathValue() throws Exception {
         String url = "http://127.0.0.1:8080/demo/persion/pname/cy/2343.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
@@ -66,7 +66,7 @@ public class TestCallDemoMain {
         Assert.assertEquals(data.getString("id"), "2343");
     }
 
-    @Test//(threadPoolSize = 10, invocationCount = 4)
+    @Test(threadPoolSize = 10, invocationCount = 4)
     public void testHttpgetPathValue2() throws Exception {
         String url = "http://127.0.0.1:8080/demo/persion/pname/chenyuan/23243.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
@@ -80,7 +80,7 @@ public class TestCallDemoMain {
 
 
 
-    @Test//(threadPoolSize = 10, invocationCount = 4)
+    @Test(threadPoolSize = 10, invocationCount = 4)
     public void testAllPath() throws Exception {
         String url = "http://127.0.0.1:8080/demo/persion/all/xyza/aab.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
@@ -92,7 +92,7 @@ public class TestCallDemoMain {
     }
 
 
-    @Test//(threadPoolSize = 10, invocationCount = 4)
+    @Test(threadPoolSize = 10, invocationCount = 4)
     public void testHttpPersionObject() throws Exception {
         String url = "http://127.0.0.1:8080/demo/persion/getPersion.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
