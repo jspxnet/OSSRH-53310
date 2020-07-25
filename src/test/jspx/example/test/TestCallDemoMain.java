@@ -43,7 +43,7 @@ public class TestCallDemoMain {
         Assert.assertEquals(outJson.getInt("age"), 18);
     }
 
-    @Test(threadPoolSize = 10, invocationCount = 4)
+    @Test(threadPoolSize = 100, invocationCount = 100)
     public void testHttpgetPathId() throws Exception {
         String url = "http://127.0.0.1:8080/demo/persion/path.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
