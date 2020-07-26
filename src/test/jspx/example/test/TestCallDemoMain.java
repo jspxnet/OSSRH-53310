@@ -92,7 +92,7 @@ public class TestCallDemoMain {
     }
 
 
-    @Test(threadPoolSize = 10, invocationCount = 4)
+    @Test(threadPoolSize = 50, invocationCount = 50)
     public void testHttpPersionObject() throws Exception {
         String url = "http://127.0.0.1:8080/demo/persion/getPersion.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
