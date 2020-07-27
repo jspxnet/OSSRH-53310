@@ -95,7 +95,7 @@ public class VoteDAOImpl extends JdbcOperations implements VoteDAO {
             criteria = criteria.add(Expression.eq("groupId", groupId));
         }
 
-        VoteTopic v = (VoteTopic) criteria.addOrder(Order.desc("sortType"))
+        VoteTopic v = criteria.addOrder(Order.desc("sortType"))
                 .addOrder(Order.desc("sortDate"))
                 .addOrder(Order.desc("createDate"))
                 .objectUniqueResult(true);

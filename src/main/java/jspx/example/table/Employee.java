@@ -20,7 +20,7 @@ import java.io.Serializable;
  * User: chenYuan
  * Date: 2009-8-11
  * Time: 11:09:18
- * 
+ *
  */
 @Table(name = "demo_employee")
 public class Employee  implements Serializable {
