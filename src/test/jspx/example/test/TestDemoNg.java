@@ -2,6 +2,7 @@ package jspx.example.test;
 
 
 import com.github.jspxnet.boot.EnvFactory;
+import com.github.jspxnet.boot.JspxNetApplication;
 import com.github.jspxnet.json.JSONArray;
 import com.github.jspxnet.json.JSONObject;
 import com.github.jspxnet.sioc.BeanFactory;
@@ -10,19 +11,28 @@ import com.github.jspxnet.txweb.config.ActionConfig;
 import com.github.jspxnet.txweb.config.TXWebConfigManager;
 import com.github.jspxnet.utils.ClassUtil;
 import com.github.jspxnet.utils.FileUtil;
+import com.github.jspxnet.utils.ObjectUtil;
 import jspx.example.conf.Persion;
 import jspx.example.conf.SinglePersion;
+import jspx.example.controller.SpringPersionInterface;
 import jspx.example.controller.impl.SpingPersionController;
+import jspx.example.dao.IocDemoDAO;
 import jspx.example.env.DemoIoc;
 import jspx.example.pqo.DemoParamReq;
+import jspx.example.remote.SpringPersionTcp;
+import jspx.example.table.Employee;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 public class TestDemoNg {
     static BeanFactory beanFactory = null;
-/*
+
     @BeforeClass
     public static void init() {
         JspxNetApplication.autoRun();
@@ -34,7 +44,22 @@ public class TestDemoNg {
     public static void afterExit() {
         System.out.println("------------结束");
     }
-*/
+
+    @Test
+    static void getEmployeeList()  {
+        BeanFactory beanFactory = EnvFactory.getBeanFactory();
+        IocDemoDAO iocDemoDAO = beanFactory.getBean(IocDemoDAO.class,DemoIoc.namespace);
+        for(int i=1;i<=3;i++)
+        {
+            List<Employee>  list = iocDemoDAO.getEmployeeList(i,2);
+            System.out.println("-----------第"+i+"页,size=" + list.size());
+            for (Employee employee:list)
+            {
+                System.out.println(ObjectUtil.toString(employee));
+            }
+        }
+    }
+
 
     @Test
     public static void testFilePath() throws IOException {
