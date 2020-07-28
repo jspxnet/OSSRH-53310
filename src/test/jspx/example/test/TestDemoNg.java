@@ -147,7 +147,6 @@ public class TestDemoNg {
 
     @Test
     public static void getimplements()  {
-
         System.out.println(ClassUtil.getImplements(DemoParamReq.class).getName());
     }
 }
