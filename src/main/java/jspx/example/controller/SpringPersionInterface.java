@@ -2,6 +2,7 @@ package jspx.example.controller;
 
 import com.github.jspxnet.txweb.annotation.Operate;
 import com.github.jspxnet.txweb.annotation.Param;
+import com.github.jspxnet.txweb.result.RocException;
 import com.github.jspxnet.txweb.result.RocResponse;
 import jspx.example.conf.Persion;
 import jspx.example.dto.DemoDto;
@@ -69,4 +70,10 @@ public interface SpringPersionInterface extends Serializable {
 
     @Operate(caption = "3秒类禁止重复访问",repeat=3)
     RocResponse getRepeatPost();
+
+    @Operate(caption = "测试显示异常",post = false,repeat=10,method = "test/exception")
+    RocResponse getException() throws Exception;
+
+    @Operate(caption = "roc测试显示异常",post = false,method = "test/rocexception")
+    RocResponse getRocException() throws RocException;
 }

@@ -589,4 +589,28 @@ public class TestCallDemoMain {
         Assert.assertEquals(json.getBoolean("success"), false);
     }
 
+
+    @Test
+    public void testException() throws Exception {
+        String url = "http://127.0.0.1/demo/persion/test/exception.jhtml";
+        HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
+        String out = httpClient.post();
+
+        System.out.println("1-------------"+out);
+    /*    JSONObject json = new JSONObject(out);
+
+        Assert.assertEquals(json.getBoolean("success"), false);*/
+    }
+    @Test
+    public void testException2() throws Exception {
+        String url = "http://127.0.0.1/demo/persion/test/rocexception.jhtml";
+        HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
+        String out = httpClient.post();
+
+        System.out.println("2-------------"+out);
+    /*    JSONObject json = new JSONObject(out);
+
+        Assert.assertEquals(json.getBoolean("success"), false);*/
+    }
+
 }

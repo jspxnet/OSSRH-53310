@@ -640,4 +640,24 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
         return rocResponse;
     }
 
+
+    @Override
+    @Operate(caption = "测试显示异常",post = false,method = "test/exception")
+    public RocResponse getException() throws Exception {
+        if (persion!=null)
+        {
+            throw  new Exception("测试显示异常");
+        }
+        return RocResponse.success(persion);
+    }
+
+    @Override
+    @Operate(caption = "roc测试显示异常",post = false,method = "test/rocexception")
+    public RocResponse getRocException() throws RocException {
+        if (persion!=null)
+        {
+            throw  new RocException(RocResponse.error(-100,"roc测试显示异常"));
+        }
+        return RocResponse.success(persion);
+    }
 }
