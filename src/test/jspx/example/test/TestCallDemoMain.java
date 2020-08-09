@@ -35,7 +35,7 @@ public class TestCallDemoMain {
                 "        };";
         JSONObject json = new JSONObject(jsonStr);
         System.out.println("---调用json\r\n" + json.toString(4));
-        String url = "http://127.0.0.1/demo/persion/get.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/get.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(json);
         System.out.println(out);
@@ -45,7 +45,7 @@ public class TestCallDemoMain {
 
     @Test(threadPoolSize = 4, invocationCount = 4)
     public void testHttpgetPathId() throws Exception {
-        String url = "http://127.0.0.1/demo/persion/path.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/path.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post();
         System.out.println(out);
@@ -55,9 +55,9 @@ public class TestCallDemoMain {
     }
 
     //路径作为参数
-    @Test(threadPoolSize = 4, invocationCount = 4)
+    @Test
     public void testHttpgetPathValue() throws Exception {
-        String url = "http://127.0.0.1/demo/persion/pname/cy/2343.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/pname/cy/2343.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post();
         System.out.println(out);
@@ -67,9 +67,9 @@ public class TestCallDemoMain {
         Assert.assertEquals(data.getString("id"), "2343");
     }
 
-    @Test(threadPoolSize = 4, invocationCount = 4)
+    @Test
     public void testHttpgetPathValue2() throws Exception {
-        String url = "http://127.0.0.1/demo/persion/pname/chenyuan/23243.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/pname/chenyuan/23243.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post();
         System.out.println(out);
@@ -83,7 +83,7 @@ public class TestCallDemoMain {
 
     @Test(threadPoolSize = 4, invocationCount = 4)
     public void testAllPath() throws Exception {
-        String url = "http://127.0.0.1/demo/persion/all/xyza/aab.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/all/xyza/aab.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post();
         JSONObject json = new JSONObject(out);
@@ -95,7 +95,7 @@ public class TestCallDemoMain {
 
     @Test(threadPoolSize = 4, invocationCount = 4)
     public void testHttpPersionObject() throws Exception {
-        String url = "http://127.0.0.1/demo/persion/getPersion.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/getPersion.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post();
         System.out.println(out);
@@ -107,7 +107,7 @@ public class TestCallDemoMain {
 
     @Test(threadPoolSize = 4, invocationCount = 4)
     public void testHttpgetPersion2() throws Exception {
-        String url = "http://127.0.0.1/demo/persion/persion2.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/persion2.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post();
         JSONObject json = new JSONObject(out);
@@ -121,7 +121,7 @@ public class TestCallDemoMain {
     @Test(threadPoolSize = 4, invocationCount = 4)
     public void testHttpRocPersion() throws Exception {
 
-        String url = "http://127.0.0.1/demo/persion/getRocPersion.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/getRocPersion.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post();
         System.out.println(out);
@@ -148,7 +148,7 @@ public class TestCallDemoMain {
                 "        };";
         JSONObject json = new JSONObject(jsonStr);
         System.out.println("---调用json\r\n" + json.toString(4));
-        String url = "http://127.0.0.1/demo/persion/getRocError.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/getRocError.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(json);
         JSONObject outJson = new JSONObject(out);
@@ -186,7 +186,7 @@ public class TestCallDemoMain {
                 " }";
         JSONObject json = new JSONObject(jsonStr);
         System.out.println("---调用json\r\n" + json.toString(4));
-        String url = "http://127.0.0.1/demo/persion/update.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/update.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(json);
         System.out.println(out);
@@ -217,7 +217,7 @@ public class TestCallDemoMain {
                 "}";
         JSONObject json = new JSONObject(jsonStr);
         System.out.println("---调用json\r\n" + json.toString(4));
-        String url = "http://127.0.0.1/demo/persion/update.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/update.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(json);
         System.out.println(out);
@@ -237,7 +237,7 @@ public class TestCallDemoMain {
                 "}";
         JSONObject json = new JSONObject(jsonStr);
         System.out.println("---调用json\r\n" + json.toString(4));
-        String url = "http://127.0.0.1/demo/persion/update.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/update.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(json);
         System.out.println(out);
@@ -282,7 +282,7 @@ public class TestCallDemoMain {
                 "     }";
         JSONObject json = new JSONObject(jsonStr);
         System.out.println("---调用json\r\n" + json.toString(4));
-        String url = "http://127.0.0.1/demo/persion/validUpdate.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/validUpdate.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(json);
         System.out.println(out);
@@ -314,7 +314,7 @@ public class TestCallDemoMain {
                 "   }";
         JSONObject json = new JSONObject(jsonStr);
         System.out.println("---调用json\r\n" + json.toString(4));
-        String url = "http://127.0.0.1/demo/persion/validUpdate.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/validUpdate.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(json);
         JSONObject jsonResult = new JSONObject(out);
@@ -339,7 +339,7 @@ public class TestCallDemoMain {
                 "   }";
         JSONObject json = new JSONObject(jsonStr);
         System.out.println("---调用json\r\n" + json.toString(4));
-        String url = "http://127.0.0.1/demo/persion/testMessage.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/testMessage.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(json);
         System.out.println(out);
@@ -365,7 +365,7 @@ public class TestCallDemoMain {
                 "   }";
         JSONObject json = new JSONObject(jsonStr);
         System.out.println("---调用json\r\n" + json.toString(4));
-        String url = "http://127.0.0.1/demo/persion/testMessage2.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/testMessage2.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(json);
         System.out.println(out);
@@ -428,7 +428,7 @@ public class TestCallDemoMain {
     @Test
     public void testHessianClientFactory() throws Exception {
         ///URL 是入口点 就可用，能够调用那些接口方式取决于 SpringPersionInterface.class 的提供
-        String url = "http://127.0.0.1/demo/persion/getPersion.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/getPersion.jhtml";
         //这里
 
         HessianClient hessianClient = HessianClientFactory.getInstance();
@@ -449,7 +449,7 @@ public class TestCallDemoMain {
      */
     @Test
     public void testHessianClientFactory2() throws Exception {
-        String url = "http://127.0.0.1/demo/persion/index.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/index.jhtml";
         //token
         HessianClient hessianClient = HessianClientFactory.getInstance();
         hessianClient.setToken("12345679xxxxxx99999999999999"); //认证token  Auth 2.0
@@ -474,7 +474,7 @@ public class TestCallDemoMain {
      */
     @Test
     public void testsave1() throws Exception {
-        String url = "http://127.0.0.1/demo/persion/save.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/save.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(new JSONObject());
         JSONObject json = new JSONObject(out);
@@ -484,7 +484,7 @@ public class TestCallDemoMain {
 
     @Test
     public void tranSave() throws Exception {
-        String url = "http://127.0.0.1/demo/persion/tranSave.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/tranSave.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(new JSONObject());
         System.out.println(out);
@@ -502,7 +502,7 @@ public class TestCallDemoMain {
      */
     @Test
     public void testsave2() throws Exception {
-        String url = "http://127.0.0.1/demo/persion/save.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/save.jhtml";
         //token
         HessianClient hessianClient = HessianClientFactory.getInstance();
         hessianClient.setToken("12345679xxxxxx99999999999999"); //认证token  Auth 2.0
@@ -526,7 +526,7 @@ public class TestCallDemoMain {
      */
     @Test
     public void validUpdate() {
-        String url = "http://127.0.0.1/demo/persion/save.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/save.jhtml";
         //token
         HessianClient hessianClient = HessianClientFactory.getInstance();
         hessianClient.setToken("12345679xxxxxx99999999999999"); //认证token  Auth 2.0
@@ -546,7 +546,7 @@ public class TestCallDemoMain {
      */
     @Test
     public void testnoLink() throws Exception {
-        String url = "http://127.0.0.1/demo/persion/34253452345345.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/34253452345345.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(new JSONObject());
         Assert.assertEquals(httpClient.getStatusCode(), 404);
@@ -559,7 +559,7 @@ public class TestCallDemoMain {
      */
     @Test
     public void repeatPost1() {
-        String url = "http://127.0.0.1/demo/persion/repeat/post.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/repeat/post.jhtml";
         //token
         HessianClient hessianClient = HessianClientFactory.getInstance();
         hessianClient.setToken("12345699999999999"); //认证token  Auth 2.0
@@ -575,7 +575,7 @@ public class TestCallDemoMain {
 
     @Test
     public void repeatPost2() throws Exception {
-        String url = "http://127.0.0.1/demo/persion/repeat/post.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/repeat/post.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post();
         Assert.assertEquals(out.contains("张三"), true);
@@ -592,25 +592,24 @@ public class TestCallDemoMain {
 
     @Test
     public void testException() throws Exception {
-        String url = "http://127.0.0.1/demo/persion/test/exception.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/test/exception.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post();
 
-        System.out.println("1-------------"+out);
-    /*    JSONObject json = new JSONObject(out);
-
-        Assert.assertEquals(json.getBoolean("success"), false);*/
+        JSONObject json = new JSONObject(out);
+        Assert.assertEquals(json.getBoolean("success"), false);
+        Assert.assertEquals(json.getString("message"), "测试显示异常");
     }
+
     @Test
     public void testException2() throws Exception {
-        String url = "http://127.0.0.1/demo/persion/test/rocexception.jhtml";
+        String url = "http://127.0.0.1:8080/demo/persion/test/rocexception.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post();
+        JSONObject json = new JSONObject(out);
+        Assert.assertEquals(json.getBoolean("success"), false);
+        Assert.assertEquals(json.getInt("code"), -100);
 
-        System.out.println("2-------------"+out);
-    /*    JSONObject json = new JSONObject(out);
-
-        Assert.assertEquals(json.getBoolean("success"), false);*/
     }
 
 }
