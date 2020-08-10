@@ -35,7 +35,7 @@ public class TestDemoNg {
 
     @BeforeClass
     public static void init() {
-        JspxNetApplication.autoRun();
+        JspxNetApplication.autoRun("D:\\website\\webapps\\root\\WEB-INF\\classes\\");
         System.out.println("------------开始");
         beanFactory = EnvFactory.getBeanFactory();
     }
@@ -126,7 +126,16 @@ public class TestDemoNg {
         Assert.assertEquals(persion1.hashCode()==persion2.hashCode(),false);
     }
 
+    @Test
+    public static void testIoc() throws Exception {
+        //PersionController
 
+        ActionConfig actionConfig = TXWebConfigManager.getInstance().getActionConfig("update","demo/persion",false);
+        Assert.assertEquals(actionConfig.getClassName(), SpingPersionController.class.getName());
+        System.out.println("---------------1-result=" + actionConfig.toString());
+        Object obj = beanFactory.getBean(actionConfig.getClassName(),"demo/persion");
+        System.out.println("---------------2-result=" + obj);
+    }
 
     @Test
     public static void testActionInput2() throws Exception {
