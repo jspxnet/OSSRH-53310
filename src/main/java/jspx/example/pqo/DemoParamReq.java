@@ -13,7 +13,7 @@ import java.io.Serializable;
 */
 public class DemoParamReq implements Serializable {
 
-    @Param(caption="姓名")
+    @Param(caption="姓名",required = true)
     private String name;
     @Param(caption="年龄")
     private int old;

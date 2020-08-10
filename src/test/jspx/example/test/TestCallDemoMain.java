@@ -190,11 +190,11 @@ public class TestCallDemoMain {
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(json);
         System.out.println(out);
-/*
+
         JSONObject outJson = new JSONObject(out);
         Assert.assertEquals(outJson.getBoolean("success"), true);
         Assert.assertEquals(outJson.getString("data"), "小明同学9");
-*/
+
 
     }
 
@@ -288,12 +288,30 @@ public class TestCallDemoMain {
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post(json);
         System.out.println(out);
-
-
-      //  Assert.assertEquals(jsonResult.getBoolean("success"), true);
+        JSONObject jsonResult = new JSONObject(out);
+        Assert.assertEquals(jsonResult.getJSONObject("data").getInt("sumOld"), 30);
+        Assert.assertEquals(jsonResult.getBoolean("success"), true);
 
     }
+    @Test//(threadPoolSize = 10, invocationCount = 4)
+    public void tesValidUpdate3() throws Exception {
+        String jsonStr = "{\n" +
+                "         \"method\": {\n" +
+                "             \"name\": \"validUpdate\",\n" +
+                "             \"params\": {\"demoParam\":{ \"sumOld\":3 },\"var2\":3,\"var3\":6}\n" +
+                "         }\n" +
+                "     }";
+        JSONObject json = new JSONObject(jsonStr);
+        System.out.println("---调用json\r\n" + json.toString(4));
+        String url = "http://127.0.0.1:8080/demo/persion/validUpdate.jhtml";
+        HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
+        String out = httpClient.post(json);
+        System.out.println(out);
+     /*   JSONObject jsonResult = new JSONObject(out);
+        Assert.assertEquals(jsonResult.getJSONObject("data").getInt("sumOld"), 30);
+        Assert.assertEquals(jsonResult.getBoolean("success"), true);*/
 
+    }
     /*
 
     注释限制值范围
