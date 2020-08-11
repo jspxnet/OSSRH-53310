@@ -12,7 +12,7 @@ import java.io.Serializable;
 */
 public class DemoParamReq implements Serializable {
 
-    @Param(caption = "姓名", required = true)
+    @Param(caption = "姓名", required = true,message = "DemoParamReq.name不能为空")
     private String name;
     @Param(caption = "年龄", min = 1, max = 100, message = "年龄不在范围")
     private int old;

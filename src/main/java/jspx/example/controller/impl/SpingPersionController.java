@@ -24,6 +24,7 @@ import jspx.example.dto.DemoDto;
 import jspx.example.env.DemoIoc;
 import jspx.example.param.TestParam;
 import jspx.example.pqo.DemoParamReq;
+import jspx.example.pqo.ReDemoParamReq;
 import jspx.example.table.Employee;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -424,7 +425,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
      * @return demoDto  返回对象会自动封装
      */
     @Operate(caption = "演示参数验证")
-    public DemoDto validUpdate(@Param(caption = "参数1",required = true) DemoParamReq demoParam, @Param(caption = "参数2",required = true,min = 1,max = 10,message = "var2不允许空") int var2, @Param(caption = "参数3") int var3) {
+    public DemoDto validParam1(@Param(caption = "参数1",required = true) DemoParamReq demoParam, @Param(caption = "参数2",required = true,min = 1,max = 10,message = "var2不允许空") int var2, @Param(caption = "参数3") int var3) {
         //接收到参数
         //这里加入自己的逻辑处理，或者封装在service中
         DemoDto demoDto = BeanUtil.copy(demoParam,DemoDto.class);
@@ -443,6 +444,13 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
         demoDto.setSumOld(var3);
         //返回对象 DTO
         return demoDto;
+    }
+
+
+    @Operate(caption = "演示参数验证List")
+    public ReDemoParamReq validParamList(@Param(caption = "参数1",required = true) ReDemoParamReq param)
+    {
+        return param;
     }
     @Operate(caption = "演示参数验证2")
     public DemoDto getObjectParam(@Param(caption = "参数1") DemoParamReq demoParam) {
@@ -475,7 +483,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
      */
     @Override
     @Operate(caption = "演示参数安全")
-    public int validUpdate(@Param(min = 5, max = 10) int var1, @Param(min = 10, max = 20) int var3)
+    public int validUpdate(@Param(min = 5, max = 10) int var1, @Param(min = 5, max = 20) int var3)
     {
         //接收到参数
         //这里加入自己的逻辑处理，或者封装在service中
