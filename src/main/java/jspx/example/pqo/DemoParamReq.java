@@ -1,7 +1,6 @@
 package jspx.example.pqo;
 
 
-
 import com.github.jspxnet.txweb.annotation.Param;
 
 import java.io.Serializable;
@@ -13,11 +12,11 @@ import java.io.Serializable;
 */
 public class DemoParamReq implements Serializable {
 
-    @Param(caption="姓名",required = true)
+    @Param(caption = "姓名", required = true)
     private String name;
-    @Param(caption="年龄")
+    @Param(caption = "年龄", min = 1, max = 100, message = "年龄不在范围")
     private int old;
-    @Param(caption="求和")
+    @Param(caption = "求和")
     private int sumOld;
 
     public String getName() {

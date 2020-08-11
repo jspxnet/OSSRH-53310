@@ -424,7 +424,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
      * @return demoDto  返回对象会自动封装
      */
     @Operate(caption = "演示参数验证")
-    public DemoDto validUpdate(@Param(caption = "参数1",required = true) DemoParamReq demoParam, @Param(caption = "参数2") int var2, @Param(caption = "参数3") int var3) {
+    public DemoDto validUpdate(@Param(caption = "参数1",required = true) DemoParamReq demoParam, @Param(caption = "参数2",required = true,min = 1,max = 10,message = "var2不允许空") int var2, @Param(caption = "参数3") int var3) {
         //接收到参数
         //这里加入自己的逻辑处理，或者封装在service中
         DemoDto demoDto = BeanUtil.copy(demoParam,DemoDto.class);
@@ -434,7 +434,16 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
         return demoDto;
     }
 
-
+    @Operate(caption = "演示参数验证")
+    public DemoDto validParam(@Param(caption = "参数1",required = true) DemoParamReq demoParam, @Param(caption = "参数2",required = true,min = 1,max = 10) int var2, @Param(caption = "参数3",value = "20") int var3) {
+        //接收到参数
+        //这里加入自己的逻辑处理，或者封装在service中
+        DemoDto demoDto = BeanUtil.copy(demoParam,DemoDto.class);
+        demoDto.setOld(demoDto.getOld() + var2);
+        demoDto.setSumOld(var3);
+        //返回对象 DTO
+        return demoDto;
+    }
     @Operate(caption = "演示参数验证2")
     public DemoDto getObjectParam(@Param(caption = "参数1") DemoParamReq demoParam) {
         //接收到参数
