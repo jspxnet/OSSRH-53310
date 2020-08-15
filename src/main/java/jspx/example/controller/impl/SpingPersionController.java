@@ -677,4 +677,12 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
         }
         return RocResponse.success(persion);
     }
+
+    @Override
+    @Operate(caption = "缺省参数方式",method = "some/param")
+    public RocResponse getSomeParam(@Param(caption = "参数1") int var1, @Param(caption = "参数2",min=2,max = 10,value = "love") String var2, @Param(caption = "参数3",required = true) String var3)
+    {
+        return RocResponse.success("缺省参数方式").setProperty("var1",var1).setProperty("var2",var2).setProperty("var3",var3);
+    }
+
 }

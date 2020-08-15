@@ -76,4 +76,7 @@ public interface SpringPersionInterface extends Serializable {
 
     @Operate(caption = "roc测试显示异常",post = false,method = "test/rocexception")
     RocResponse getRocException() throws RocException;
+
+    @Operate(caption = "缺省参数方式",method = "some/param")
+    RocResponse getSomeParam(@Param(caption = "参数1") int var1, @Param(caption = "参数2", min = 2, max = 10) String var2, @Param(caption = "参数3", required = true) String var3);
 }

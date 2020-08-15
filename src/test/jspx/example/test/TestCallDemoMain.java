@@ -720,7 +720,7 @@ public class TestCallDemoMain {
          httpClient.post();
 
         out = httpClient.post();
-        System.out.println("3-------------"+out);
+
         JSONObject json = new JSONObject(out);
         Assert.assertEquals(json.getString("message"), "10秒后再试");
         Assert.assertEquals(json.getBoolean("success"), false);
@@ -749,4 +749,59 @@ public class TestCallDemoMain {
 
     }
 
-}
+    @Test
+    public void testSomeParam() throws Exception {
+        String url = "http://127.0.0.1:8080/demo/persion/some/param.jhtml";
+        HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
+        String jsonStr = "{\n" +
+                "         \"method\": {\n" +
+                "             \"name\": \"validParam1\",\n" +
+                "             \"params\": {\"var1\":1,\"var3\":\"var3data\"}\n" +
+                "         }\n" +
+                "     }";
+        JSONObject json = new JSONObject(jsonStr);
+
+        String out = httpClient.post(json);
+        JSONObject result = new JSONObject(out);
+        Assert.assertEquals(result.getJSONObject("property").getInt("var1"), 1);
+        Assert.assertEquals(result.getJSONObject("property").getString("var3"), "var3data");
+        Assert.assertEquals(result.getJSONObject("property").getString("var2"), "love");
+
+
+    }
+
+    @Test
+    public void testSomeParam1() throws Exception {
+        String url = "http://127.0.0.1:8080/demo/persion/some/param.jhtml";
+        HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
+        String jsonStr = "{\n" +
+                "         \"method\": {\n" +
+                "             \"name\": \"validParam1\",\n" +
+                "             \"params\": {\"var2\":\"1\",\"var3\":\"var3data\"}\n" +
+                "         }\n" +
+                "     }";
+        JSONObject json = new JSONObject(jsonStr);
+
+        String out = httpClient.post(json);
+        JSONObject result = new JSONObject(out);
+        Assert.assertEquals(result.getString("message").contains("参数不合规,参数2"), true);
+
+    }
+
+    @Test
+    public void testSomeParam2() throws Exception {
+        String url = "http://127.0.0.1:8080/demo/persion/some/param.jhtml";
+        HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
+        String jsonStr = "{\n" +
+                "         \"method\": {\n" +
+                "             \"name\": \"validParam1\",\n" +
+                "             \"params\": {\"var1\":\"3\"}\n" +
+                "         }\n" +
+                "     }";
+        JSONObject json = new JSONObject(jsonStr);
+
+        String out = httpClient.post(json);
+        JSONObject result = new JSONObject(out);
+        Assert.assertEquals(result.getString("message").contains("var3参数不允许空"), true);
+
+    }}
