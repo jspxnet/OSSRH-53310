@@ -803,5 +803,21 @@ public class TestCallDemoMain {
         String out = httpClient.post(json);
         JSONObject result = new JSONObject(out);
         Assert.assertEquals(result.getString("message").contains("var3参数不允许空"), true);
+    }
 
-    }}
+    @Test
+    public void testSomeParam3() throws Exception {
+        String url = "http://127.0.0.1:8080/demo/persion/some/param.jhtml";
+        HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
+        String jsonStr = "{\n" +
+                "         \"method\": {\n" +
+                "             \"name\": \"validParam1\",\n" +
+                "             \"params\": {\"var1\":1,\"var3\":\"var3d<script>alert(1)</script>ata\"}\n" +
+                "         }\n" +
+                "     }";
+        JSONObject json = new JSONObject(jsonStr);
+        String out = httpClient.post(json);
+        JSONObject result = new JSONObject(out);
+        Assert.assertEquals(result.getString("message").contains("参数不合规,参数3"), true);
+    }
+}
