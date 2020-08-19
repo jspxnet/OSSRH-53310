@@ -15,5 +15,4 @@ import jspx.example.controller.SpringPersionInterface;
 @RpcClient(bind = SpringPersionInterface.class, value = "jspx.example.conf.RemoteConfig@demo.remoteTestUrl",protocol = RpcProtocolEnumType.HTTP)
 public interface SpringPersionHttp extends SpringPersionInterface {
 
-
 }
