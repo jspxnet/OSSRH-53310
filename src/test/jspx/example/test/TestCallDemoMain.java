@@ -1,6 +1,7 @@
 package jspx.example.test;
 
 
+import com.github.jspxnet.json.JSONArray;
 import com.github.jspxnet.json.JSONObject;
 import com.github.jspxnet.json.XML;
 import com.github.jspxnet.network.http.HttpClient;
@@ -819,5 +820,27 @@ public class TestCallDemoMain {
         String out = httpClient.post(json);
         JSONObject result = new JSONObject(out);
         Assert.assertEquals(result.getString("message").contains("参数不合规,参数3"), true);
+    }
+
+
+    @Test
+    public  void RocResponse() throws Exception {
+        //todo
+        RocResponse rocResponse1 = RocResponse.success(new ArrayList<>());
+        JSONObject json = new JSONObject(rocResponse1);
+        JSONArray array = json.getJSONArray("data");
+        Assert.assertEquals(array.size(), 0);
+        System.out.println("--------------SkinListView="+ new JSONObject(rocResponse1).toString());
+        RocResponse rocResponse2 = RocResponse.success();
+        JSONObject json2 = new JSONObject(rocResponse2);
+        JSONArray array2 = json2.getJSONArray("data");
+        System.out.println("--------------SkinListView="+ array2);
+        Assert.assertEquals(array2, null);
+
+        RocResponse rocResponse3 = RocResponse.success();
+        rocResponse3.setCount(1);
+        rocResponse3.setCurrentPage(2);
+        JSONObject json3 = new JSONObject(rocResponse3);
+        System.out.println("--------------SkinListView="+ json3.toString(4));
     }
 }
