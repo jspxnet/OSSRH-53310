@@ -252,7 +252,7 @@ public class TestCallDemoMain {
 
     /*
 
-    请求-不满足验证条件的参数:验证配置看，demo.validator.xml 看 <validator formId="jspx.example.pqo.DemoParamReq">  部分
+    请求-不满足验证条件的参数:验证配置看，demo.validator.xml 看 <validator id="jspx.example.pqo.DemoParamReq">  部分
 
     {
     "method": {
