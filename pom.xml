@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>jspx.demo</groupId>
     <artifactId>demo</artifactId>
-    <version>6.17</version>
+    <version>6.18</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -17,7 +17,7 @@
         <dependency>
             <groupId>com.github.jspxnet</groupId>
             <artifactId>jspx-framework</artifactId>
-            <version>6.17</version>
+            <version>6.18</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
