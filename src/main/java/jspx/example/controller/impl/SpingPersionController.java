@@ -26,9 +26,12 @@ import jspx.example.param.TestParam;
 import jspx.example.pqo.DemoParamReq;
 import jspx.example.pqo.ReDemoParamReq;
 import jspx.example.table.Employee;
+import jspx.example.table.VoteItem;
+
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -548,7 +551,6 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
             iocDemoDAO.update(employee);
            if (i==3)
             {
-
                 throw new RocException(RocResponse.error(111,"保存异常"));
             }
         }
@@ -566,12 +568,23 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
     public int tranSave() throws Exception
     {
         Employee employee = new Employee();
-        employee.setId(1);
         employee.setOld(concur++);
         employee.setName("中文");
         anonDemoDAO.save(employee);
+
         System.out.println("TransactionManager="+TransactionManager.getInstance().toString());
-        employee.setId(1);
+
+        VoteItem voteItem = new VoteItem();
+        voteItem.setTitle("AAAA");
+        voteItem.setTopicId(222);
+        voteItem.setImages("2222");
+        voteItem.setFormatDate(new Date());
+        voteItem.setVotePoint(2);
+        voteItem.setPutName("cy");
+        voteItem.setPutUid(222);
+        anonDemoDAO.save(voteItem);
+
+//        employee.setId(1);
         anonDemoDAO.save(employee);
         return 1;
     }

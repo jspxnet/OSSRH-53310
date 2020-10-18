@@ -648,7 +648,8 @@ public class TestCallDemoMain {
         try {
             SpringPersionInterface springPersionInterface = hessianClient.getInterface(SpringPersionInterface.class, url);
             springPersionInterface.save();
-        } catch (RocException e) {
+        } catch (Exception e) {
+
             Assert.assertEquals(e.getMessage(), "保存异常");
             e.printStackTrace();
         }
@@ -716,12 +717,13 @@ public class TestCallDemoMain {
         String url = "http://127.0.0.1:8080/demo/persion/repeat/post.jhtml";
         HttpClient httpClient = HttpClientFactory.createRocHttpClient(url);
         String out = httpClient.post();
-        Assert.assertEquals(out.contains("张三"), true);
 
+        System.out.println("1---------out=" + out);
          httpClient.post();
 
         out = httpClient.post();
 
+        System.out.println("---------out=" + out);
         JSONObject json = new JSONObject(out);
         Assert.assertEquals(json.getString("message"), "10秒后再试");
         Assert.assertEquals(json.getBoolean("success"), false);

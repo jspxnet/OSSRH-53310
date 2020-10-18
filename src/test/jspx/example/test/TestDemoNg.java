@@ -19,6 +19,7 @@ import jspx.example.controller.impl.SpingPersionController;
 import jspx.example.dao.IocDemoDAO;
 import jspx.example.env.DemoIoc;
 import jspx.example.pqo.DemoParamReq;
+import jspx.example.remote.SpringPersionHttp;
 import jspx.example.remote.SpringPersionTcp;
 import jspx.example.table.Employee;
 import org.testng.Assert;
@@ -149,13 +150,27 @@ public class TestDemoNg {
 
 
     @Test
-    public static void classToJson() throws Exception {
-        JSONArray json =   new JSONArray(DemoParamReq.class);
-        System.out.println(json.toString(4));
-    }
-
-    @Test
     public static void getimplements()  {
         System.out.println(ClassUtil.getImplements(DemoParamReq.class).getName());
     }
+
+
+    @Test
+    public static void testT() throws Exception {
+        //PersionController
+        ActionConfig actionConfig = TXWebConfigManager.getInstance().getActionConfig("get","demo/persion",false);
+        Assert.assertEquals(actionConfig.getClassName(), SpingPersionController.class.getName());
+        System.out.println("---------------1-result=" + actionConfig.toString());
+        Object obj = beanFactory.getBean(actionConfig.getClassName(),"demo/persion");
+        System.out.println("---------------2-result=" + obj);
+    }
+
+    @Test
+    static void tranSave() throws Exception {
+        BeanFactory beanFactory = EnvFactory.getBeanFactory();
+        SpringPersionInterface springPersionInterface = beanFactory.getBean(SpringPersionInterface.class,DemoIoc.namespace);
+        springPersionInterface.tranSave();
+
+    }
+
 }
