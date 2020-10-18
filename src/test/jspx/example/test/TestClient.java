@@ -51,7 +51,6 @@ public class TestClient {
 
         BeanFactory beanFactory = EnvFactory.getBeanFactory();
         RedissonClient redissonClient = (RedissonClient)beanFactory.getBean(RedissonClientConfig .class);
-
         System.out.println(redissonClient.hashCode()+"------redissonClient=" + redissonClient.hashCode());
 
     }

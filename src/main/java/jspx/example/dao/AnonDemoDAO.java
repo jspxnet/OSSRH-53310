@@ -10,6 +10,9 @@
 package jspx.example.dao;
 
 import com.github.jspxnet.sober.SoberSupport;
+import com.github.jspxnet.sober.annotation.SqlMap;
+import jspx.example.env.DemoIoc;
+
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +26,9 @@ import java.util.Map;
 public interface AnonDemoDAO  extends SoberSupport
 {
        List getTestList(Object[] parms,int ipage,int icount);
-       List getTestList2(Object[] parms,int ipage,int icount);
-       int getTestUpdate(Object[] parms);
-       int getTestUpdate2(Map<String,Object> valueMap);
+
+       //这里演示使用sql查询
+       <T> List<T> getTestList2(Map<String, Object> valueMap, int ipage, int icount, Class<T> cls);
+
+       int getTestUpdate(Map<String, Object> valueMap);
 }

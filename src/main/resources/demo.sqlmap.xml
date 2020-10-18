@@ -3,15 +3,21 @@
     <querys>
         <!-- 这里边使用的是js语言 scriptmarker标签 -->
         <query id="jspx.example.dao.VoteDAO.getVoteTopicList" class="jspx.example.table.VoteTopic">
-         <![CDATA[
             SELECT * FROM ${voteTopicTable} WHERE
-            <#if where="typeof(topicText)&&!isEmpty(topicText)">topicText like '%${topicText}%' AND </#if>
-        ]]>
+            <if where="typeof(topicText)&amp;&amp;!isEmpty(topicText)">topicText like #{'%'+topicText+'%'} AND</if>
         </query>
         <query id="jspx.example.dao.IocDemoDAO.getEmployeeList" class="jspx.example.table.Employee">
-        <![CDATA[
             SELECT * FROM ${employeeTable} ORDER BY id limit ${beginRow},${totalCount}
-        ]]>
+        </query>
+
+        <query id="jspx.example.dao.impl.AnonDemoDAO.getTestList2" >
+            SELECT * FROM ${voteTopicTable} ORDER BY id limit ${beginRow},${totalCount}
         </query>
     </querys>
+    <updates>
+        <query id="jspx.example.dao.impl.AnonDemoDAO.getTestUpdate" >
+            update ${voteTopicTable} set topicText=#${topicText} where id=${id}
+        </query>
+    </updates>
+
 </sqlMap>
