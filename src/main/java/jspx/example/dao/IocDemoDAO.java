@@ -11,5 +11,5 @@ public interface IocDemoDAO extends SoberSupport {
     String getPersionJson(Persion persion);
 
 
-    List<Employee> getEmployeeList(int page, int count);
+    List<Employee> getEmployeeList(int page, int count) throws Exception;
 }

@@ -44,8 +44,7 @@ public class IocDemoDAOImpl  extends JdbcOperations implements IocDemoDAO {
     }
 
     @Override
-    public List<Employee> getEmployeeList(int page,int count)
-    {
+    public List<Employee> getEmployeeList(int page,int count) throws Exception {
         Map<String, Object> valueMap = new HashMap<String, Object>();
         valueMap.put("employeeTable", getTableName(Employee.class));
         SqlMapClient sqlMapClient = buildSqlMap();

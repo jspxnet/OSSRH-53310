@@ -61,6 +61,6 @@ public interface VoteDAO extends SoberSupport {
     ) throws Exception;
 
 
-    List<VoteTopic> getVoteTopicList();
+    List<VoteTopic> getVoteTopicList() throws Exception;
 
 }

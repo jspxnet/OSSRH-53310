@@ -47,7 +47,7 @@ public class TestDemoNg {
     }
 
     @Test
-    static void getEmployeeList()  {
+    static void getEmployeeList() throws Exception {
         BeanFactory beanFactory = EnvFactory.getBeanFactory();
         IocDemoDAO iocDemoDAO = beanFactory.getBean(IocDemoDAO.class,DemoIoc.namespace);
         for(int i=1;i<=3;i++)

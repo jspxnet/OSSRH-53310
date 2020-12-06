@@ -379,8 +379,7 @@ public class VoteDAOImpl extends JdbcOperations implements VoteDAO {
      * @return 投票列表
      */
     @Override
-    public List<VoteTopic> getVoteTopicList()
-    {
+    public List<VoteTopic> getVoteTopicList() throws Exception {
         TableModels soberTable = getSoberTable(VoteTopic.class);
         Map<String, Object> valueMap = new HashMap<String, Object>();
         valueMap.put("voteTopicTable", soberTable.getName());
