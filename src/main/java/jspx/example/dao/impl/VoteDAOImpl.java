@@ -26,7 +26,7 @@ import java.util.*;
  *
  * 一个标准的DAO例子
  *
- *  @Bean 表示ioc容器注入 ,调用使用 VoteDAO.class ,命名空间是 DemoIoc.namespace
+ *  @ Bean 表示ioc容器注入 ,调用使用 VoteDAO.class ,命名空间是 DemoIoc.namespace
  *
  *  演示大部分的用法
  *
@@ -125,7 +125,7 @@ public class VoteDAOImpl extends JdbcOperations implements VoteDAO {
      * @return boolean
      */
     @Override
-    public boolean postVote(String[] voteIds) {
+    public boolean postVote(String[] voteIds) throws Exception {
         if (ArrayUtil.isEmpty(voteIds)) {
             return false;
         }
