@@ -125,7 +125,7 @@ public class VoteDAOImpl extends JdbcOperations implements VoteDAO {
     /**
      * @param voteIds 投票
      * @return boolean
-     */BlogView
+     */
     @Override
     public boolean postVote(String[] voteIds) throws Exception {
         if (ArrayUtil.isEmpty(voteIds)) {
