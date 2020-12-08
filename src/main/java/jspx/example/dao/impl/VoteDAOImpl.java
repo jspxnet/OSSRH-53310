@@ -115,7 +115,9 @@ public class VoteDAOImpl extends JdbcOperations implements VoteDAO {
      */
     @Override
     public List<VoteItem> getVoteList(String topicId) {
-        if (StringUtil.isEmpty(topicId)) return new ArrayList<VoteItem>();
+        if (StringUtil.isEmpty(topicId)) {
+            return new ArrayList<>(0);
+        }
         return createCriteria(VoteItem.class).add(Expression.eq("topicId", topicId))
                 .addOrder(Order.asc("sortType")).list(false);
     }
@@ -123,7 +125,7 @@ public class VoteDAOImpl extends JdbcOperations implements VoteDAO {
     /**
      * @param voteIds 投票
      * @return boolean
-     */
+     */BlogView
     @Override
     public boolean postVote(String[] voteIds) throws Exception {
         if (ArrayUtil.isEmpty(voteIds)) {
