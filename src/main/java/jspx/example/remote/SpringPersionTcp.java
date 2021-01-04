@@ -18,7 +18,7 @@ import java.io.Serializable;
  * date: 2020/6/30 22:14
  *
  **/
-@RpcClient(bind = SpringPersionInterface.class,namespace = DemoIoc.namespace,protocol = RpcProtocolEnumType.TCP)
+@RpcClient(bind = SpringPersionInterface.class,namespace = DemoIoc.namespace, protocol = RpcProtocolEnumType.TCP)
 public interface SpringPersionTcp extends SpringPersionInterface {
 
 

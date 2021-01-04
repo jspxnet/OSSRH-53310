@@ -170,7 +170,9 @@ public class TestDemoNg {
         BeanFactory beanFactory = EnvFactory.getBeanFactory();
         SpringPersionInterface springPersionInterface = beanFactory.getBean(SpringPersionInterface.class,DemoIoc.namespace);
         springPersionInterface.tranSave();
-
     }
+
+
+
 
 }

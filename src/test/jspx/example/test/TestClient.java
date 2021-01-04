@@ -60,11 +60,13 @@ public class TestClient {
     /**
      * 代码方式直接调用RPC
      */
+/*
     @Test
     static void testClient() {
-        SpringPersionInterface springPersionInterface = NettyRpcProxy.create(SpringPersionInterface.class, "demo", IpUtil.getSocketAddress("127.0.0.1:8991"));
+        SpringPersionInterface springPersionInterface = NettyRpcProxy.create(SpringPersionInterface.class, "demo");
         System.out.println(ObjectUtil.toString(springPersionInterface.getPersion()));
     }
+*/
 
 
 

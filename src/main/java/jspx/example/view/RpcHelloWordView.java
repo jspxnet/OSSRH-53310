@@ -36,7 +36,7 @@ public class RpcHelloWordView extends ActionSupport {
         put("value",ObjectUtil.toString(rocResponse));
 
         //action方式调用,有权限控制,会执行拦截器
-        SpringPersionInterface springPersionInterface2 = NettyRpcProxy.create(SpringPersionInterface.class, "update","demo/persion", requestTo,responseTo);
+        SpringPersionInterface springPersionInterface2 = NettyRpcProxy.create(SpringPersionInterface.class, "demo/persion/update", requestTo,responseTo);
         Object str = springPersionInterface2.update(1,3,"abc");
 
         put("actionParam",ObjectUtil.toString(str));
