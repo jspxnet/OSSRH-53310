@@ -6,7 +6,6 @@ import com.github.jspxnet.json.JSONObject;
 import com.github.jspxnet.json.XML;
 import com.github.jspxnet.network.http.HttpClient;
 import com.github.jspxnet.network.http.HttpClientFactory;
-import com.github.jspxnet.txweb.result.RocException;
 import com.github.jspxnet.txweb.result.RocResponse;
 import com.github.jspxnet.txweb.service.HessianClient;
 import com.github.jspxnet.txweb.service.client.HessianClientFactory;
@@ -571,8 +570,7 @@ public class TestCallDemoMain {
 
         HessianClient hessianClient = HessianClientFactory.getInstance();
         //token
-        hessianClient.setToken("12345679xxxxxx");
-        SpringPersionInterface springPersionInterface = hessianClient.getInterface(SpringPersionInterface.class, url);
+        SpringPersionInterface springPersionInterface = hessianClient.create(SpringPersionInterface.class, url,null);
         //简单的返回对象
         Persion persion = springPersionInterface.getPersion();
         JSONObject json = new JSONObject(persion);
@@ -590,8 +588,7 @@ public class TestCallDemoMain {
         String url = "http://127.0.0.1:8080/demo/persion/index.jhtml";
         //token
         HessianClient hessianClient = HessianClientFactory.getInstance();
-        hessianClient.setToken("12345679xxxxxx99999999999999"); //认证token  Auth 2.0
-        SpringPersionInterface springPersionInterface = hessianClient.getInterface(SpringPersionInterface.class, url);
+        SpringPersionInterface springPersionInterface = hessianClient.create(SpringPersionInterface.class, url,null);
         //简单的返回对象
         DemoParamReq demoParamReq = new DemoParamReq();
         demoParamReq.setName("中文");
@@ -643,10 +640,8 @@ public class TestCallDemoMain {
         String url = "http://127.0.0.1:8080/demo/persion/save.jhtml";
         //token
         HessianClient hessianClient = HessianClientFactory.getInstance();
-        hessianClient.setToken("12345679xxxxxx99999999999999"); //认证token  Auth 2.0
-
         try {
-            SpringPersionInterface springPersionInterface = hessianClient.getInterface(SpringPersionInterface.class, url);
+            SpringPersionInterface springPersionInterface = hessianClient.create(SpringPersionInterface.class, url,null);
             springPersionInterface.save();
         } catch (Exception e) {
 
@@ -668,9 +663,8 @@ public class TestCallDemoMain {
         String url = "http://127.0.0.1:8080/demo/persion/save.jhtml";
         //token
         HessianClient hessianClient = HessianClientFactory.getInstance();
-        hessianClient.setToken("12345679xxxxxx99999999999999"); //认证token  Auth 2.0
         try {
-            SpringPersionInterface springPersionInterface = hessianClient.getInterface(SpringPersionInterface.class, url);
+            SpringPersionInterface springPersionInterface = hessianClient.create(SpringPersionInterface.class, url,null);
             int response = springPersionInterface.validUpdate(8, 10);
             Assert.assertEquals(response, 18);
         } catch (Exception e) {
@@ -701,9 +695,8 @@ public class TestCallDemoMain {
         String url = "http://127.0.0.1:8080/demo/persion/repeat/post.jhtml";
         //token
         HessianClient hessianClient = HessianClientFactory.getInstance();
-        hessianClient.setToken("12345699999999999"); //认证token  Auth 2.0
         try {
-            SpringPersionInterface springPersionInterface = hessianClient.getInterface(SpringPersionInterface.class, url);
+            SpringPersionInterface springPersionInterface = hessianClient.create(SpringPersionInterface.class, url,null);
             RocResponse response = springPersionInterface.getRepeatPost();
             Assert.assertEquals(response.getSuccess(), 1);
             Assert.assertEquals(response.getProperty("repeat"), 3);
