@@ -6,8 +6,7 @@ html,body {
 
 body {
 	text-shadow: 0 1px 0 #fff;
-	font-family: Helvetica,Arial,sans-serif;
-	font-size: 0.8em;
+	font-size: 0.9em;
 }
 
 a {
@@ -48,8 +47,8 @@ pre {
 	margin:0;
 	padding:0;
 	color: #C17878;
-  text-rendering: optimizelegibility;
-  text-shadow: 0 2px 2px rgba(0,0,0,0.2);
+    text-rendering: optimizelegibility;
+    text-shadow: 0 2px 2px rgba(0,0,0,0.2);
 }
 
 #header .link{
@@ -59,7 +58,7 @@ pre {
 }
 
 #header h1 a{
-	text-decoration:none;
+  text-decoration:none;
   text-rendering: optimizelegibility;
   text-shadow: 0 2px 2px rgba(0,0,0,0.1);
 }
@@ -100,6 +99,7 @@ pre {
 	height:14px;
 	line-height:14px;
 	clear:left;
+	padding:2px;
 }
 
 #menu .item a {
@@ -107,8 +107,8 @@ pre {
 	text-decoration: none;
 }
 
-#menu .item a.selected {
-	color: #313334;
+#menu li.selected,#menu li.selected a {
+	color: #E87F16;
 	font-weight: bold;
 	text-decoration: none;
 }

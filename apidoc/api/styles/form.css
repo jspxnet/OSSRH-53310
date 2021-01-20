@@ -10,10 +10,9 @@ a:hover{
 
 .formContainer{
 	font-size:16px;
-	line-height:1.6em;
 	display:block;
 	clear:both;
-	height:100%;
+    line-height:1.6em;
 	overflow:hidden;
 }
 
@@ -21,6 +20,7 @@ a:hover{
 	display:block;
 	clear:both;
 	margin-left:0;
+	
 }
 
 .formContainer em{
@@ -60,11 +60,11 @@ a:hover{
 }
 
 /*行（默认一行两列）*/
-.formContainer .row{
+.formContainer .row{	
 	width:50%;
 	float:left;
 	border-bottom:1px double #CCC;
-	font-size:0.875em;
+	font-size:0.9em;
 }
 
 .formContainer .row .tit{
@@ -211,7 +211,7 @@ a:hover{
 }
 /*错误*/
 .formContainer span.error{
-	padding:0.5% 1%;
+	padding:0.4% 1%;
 	border:1px solid #FFDD99;
 	background-color:#FFE8E6;
 }
@@ -281,7 +281,7 @@ a:hover{
 .formContainer .w1column .tit,.singleRowShow .row .tit{
 	width:12%;
 	display: block;
-	padding:0.5%;
+	padding:0.4%;
 }
 .singleRowShow .row .tit{
 	text-align:right;
@@ -291,7 +291,7 @@ a:hover{
 	float:left;
 	display: block;
 	overflow: hidden;
-	padding:0.5%;
+	padding:0.4%;
 }
 .formContainer .w1column .con input[type="text"],
 .formContainer .w1column .con input[type="password"],
@@ -318,11 +318,11 @@ a:hover{
     display: block;
 }
 .formContainer .columnPanel .tit{
-	padding:0.5%;
+	padding:0.4%;
     display: block;
 }
 .formContainer .columnPanel .con{
-	padding:0.5%;
+	padding:0.4%;
     display: block;
 }
 /*文字输出控制*/

@@ -1,0 +1,68 @@
+		[v-cloak] {
+            display: none;
+        }
+
+        div.shortText label {
+            display: inline-table;
+			margin-left: 10px;
+        }
+
+        label.filed {
+            color: brown;
+        }
+
+        fieldset {
+            margin-bottom: 10px;
+        }
+
+        label.filed, label.filedTh {
+            width: 10%;
+        }
+
+        label.filedType {
+            width: 12%;
+        }
+
+        label.required {
+            width: 6%;
+        }
+
+        label.safety {
+            width: 20%;
+        }
+
+        label.caption {
+            width: 28%;
+        }
+		div.child {
+			padding-left:5%;
+		}
+		div.index ul {
+			margin: 0;
+			padding: 0;
+		}		
+		div.index ul li  {
+			list-style-type: decimal-leading-zero;
+			display: inline;
+			white-space:nowrap;
+			padding-left: 10px;
+			cursor: pointer;
+		}
+		div.index ul li:hover {
+			 text-decoration: underline;
+		}
+		
+		#topPanel{
+					position: fixed;
+					float: right;
+					padding-right: 10px;
+					bottom: 240px;
+					right:20px;
+					background-color: #FFDD99;
+					z-index: 1000;
+					border: 1px solid #ccc;
+	    }
+		#topPanel a{
+					padding-left: 10px;
+					color:#AA7700;
+		}

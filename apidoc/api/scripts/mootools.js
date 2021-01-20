@@ -2114,33 +2114,17 @@ var getInstance = function(klass){
 
 Class.implement('implement', implement.overloadSetter());
 
-
-function deepClone(data){
-　　if(!data || !(data instanceof Object) || (typeof data=="function"))
-　　{
-　　　　return data||undefined;
-　　}
-　　var constructor = data.constructor;
-　　var result = new constructor();
-　　for(var key in data){
-　　　　if(data.hasOwnProperty(key)){
-　　　　　　result[key]=deepClone(data[key]);
-　　　　}
-　　}
-　　return result;
-}
-
 Class.Mutators = {
 
 	Extends: function(parent){
 		this.parent = parent;
 		this.prototype = getInstance(parent);
 	},
+
 	Implements: function(items){
 		Array.convert(items).each(function(item){
-			var instance = new (item);
-			for (var key in instance) 
-				implement.call(this, key, instance[key], true);
+			var instance = new item;
+			for (var key in instance) implement.call(this, key, instance[key], true);
 		}, this);
 	}
 };

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta content="no-cache" http-equiv="cache-control">
     <link href="styles/form.css" rel="stylesheet" type="text/css"/>
+	<link href="styles/doc.css" rel="stylesheet" type="text/css"/>
     <link href="scripts/highlighter/styles/shCore.css" rel="stylesheet" type="text/css"/>
     <link href="scripts/highlighter/styles/shThemeDefault.css" rel="stylesheet" type="text/css"/>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -12,49 +13,31 @@
     <script type="text/javascript" src="scripts/jspxnet.js"></script>
     <script type="text/javascript" src="scripts/highlighter/scripts/shCore.js"></script>
     <script type="text/javascript" src="scripts/highlighter/scripts/shBrushCss.js"></script>
+    <script type="text/javascript" src="scripts/highlighter/scripts/shBrushXml.js"></script>
+    <script type="text/javascript" src="scripts/highlighter/scripts/shBrushJava.js"></script>
     <script type="text/javascript" src="scripts/highlighter/scripts/shBrushJScript.js"></script>
-
-
-    <style>
-        [v-cloak] {
-            display: none;
-        }
-
-        div.shortText label {
-            display: inline-table;
-        }
-
-        label.filed {
-            color: brown;
-        }
-
-        fieldset {
-            margin-bottom: 10px;
-        }
-
-        label.filed, label.filedTh {
-            width: 10%;
-        }
-
-        label.filedType {
-            width: 8%;
-        }
-
-        label.required {
-            width: 6%;
-        }
-
-        label.safety {
-            width: 10%;
-        }
-
-        label.caption {
-            width: 40%;
-        }
-
-
-    </style>
     <script type="text/javascript">
+		function trim(value) {
+			/**去除首尾空白 */
+			return value.replace(/(^\s*)|(\s*$)/g, "").replace(/\//g,'_');
+		}
+		
+		function goAnchor(e)
+		{
+			var refId = e.target.getAttribute('refId');
+			refId = trim(refId);
+			var anchor = document.getElementById(refId);
+			
+			document.body.scrollTop = anchor.offsetTop; // chrome
+			document.documentElement.scrollTop = anchor.offsetTop; // firefox	 */	
+		}
+	    //定义treeviewitem组件
+		 Vue.component('treeviewitem', {props: ['items', 'self'],template: '#treeviewitem'});
+
+		 //定义treeview组件
+		Vue.component('treeview', {props: ['items'],template: '#treeview'});
+		
+
         function getUrlParam(name) {
             var reg = new RegExp('(^|&)' + name + '=(.*)(&[^&=]+=)');
             var regLast = new RegExp('(^|&)' + name + '=(.*)($)');
@@ -72,7 +55,7 @@
             var id = getUrlParam("id");
             if (!id) return;
             new Request.ROC({
-                    'url': 'document/' + id + '.jhtml',
+                    'url': 'document/' + id + '.jwc',
                     'link': "ignore",
                     'async': false,
                     'timeout': 10000,
@@ -91,7 +74,8 @@
 
                         }
                     }
-                    , onException(headerName, value) {
+                    ,
+                    onException:function(headerName, value) {
                         $('apiDoc').adopt("请求失败," + value);
                     }
                 }
@@ -99,38 +83,84 @@
         });
 
     </script>
-    <title></title>
+    <title>jspx.net-api文档生成</title>
 </head>
 <body>
+
+     <!-- treeviewitem模板 -->
+	 <template id="treeviewitem" style="display: none;">
+							  <div class="row w1column child">
+										<div class="con shortText">
+											<label class="filed">{{ self.name }}</label>
+											<label class="filedType">{{ self.type }}</label>
+											<label class="caption">{{ self.caption }}</label>
+									     </div>
+										   <div v-if="typeof(self.children)!=='undefined'" v v-for="item in self.children">
+											   <treeviewitem v-bind:items="item.children" v-bind:self="item"></treeviewitem>
+										  </div>    
+										  
+							 </div>
+	</template>
+
+
+  <template id="treeview">
+    <div>
+      <div v-for="item in items">
+        <treeviewitem v-bind:items="item.children" v-bind:self="item"></treeviewitem>
+      </div>
+    </div>
+  </template>
+
+
 <div id="container" class="formContainer borderFieldset">
-    <h4 id="title"></h4>
+    
     <div id="apiDoc" v-cloak>
 
-
         <fieldset>
+			<legend><span class="tit" id="title"><span></legend>
+	
             <div class="row w1column"><label class="tit">类对象</label>
                 <div class="con">
                     {{ className }}
                 </div>
             </div>
 
-            <div class="row w1column"><label class="tit">URL域</label>
+            <div class="row w1column"><label class="tit">URL入口</label>
                 <div class="con">
-                    {{url}}
+                    {{ url }}
+                </div>
+            </div>
+
+			<div class="row w1column index">
+				<label class="tit">功能目录</label>
+				<div class="con">
+					<ul v-if="typeof(operateList)!=='undefined'">
+						<li v-for="op in operateList">
+							<a @click="goAnchor($event)" v-bind:refId="op.method.name" class="caption">{{ op.caption }}</a>
+						</li>
+					</ul>
+				</div>
+		</div>	
+		
+			<div v-if="typeof(describe)!=='undefined'&&describe" class="row w1column"><label class="tit">描述</label>
+                <div class="con">
+					<p v-html='describe'></p>&nbsp;
                 </div>
             </div>
         </fieldset>
-
-        <div v-if="typeof(operateList)!=='undefined'">
+	 
+		 
+		<div class="w1column clear"><hr /></div>
+        <fieldset v-if="typeof(operateList)!=='undefined'" >
             <div v-for="op in operateList">
-                <fieldset>
-                    <div class="row"><label class="tit">名称</label>
+                    <div :id="[trim(op.method.name)]" class="row" style="background-color: aliceblue;"><label class="tit">名称</label>
                         <div class="con">
                             {{ op.caption }}
+							
                         </div>
                     </div>
 
-                    <div class="row"><label class="tit">方法名</label>
+                    <div class="row" style="background-color: aliceblue;"><label class="tit">方法名</label>
                         <div class="con">
                             {{op.method.name}}
                         </div>
@@ -138,7 +168,7 @@
 
                     <div class="row"><label class="tit">URL</label>
                         <div class="con">
-                            {{op.url}}
+                            {{op.url}}.jwc
                         </div>
                     </div>
                     <div class="row"><label class="tit">调用方法</label>
@@ -147,10 +177,14 @@
                         </div>
                     </div>
 
-					<div class="row w1column" v-if="typeof(op.describe)!=='undefined'"><label class="tit">描述</label> <p v-html='op.describe'></p></div>
+					<div class="row w1column"  v-if="typeof(op.describe)!=='undefined'">
+							<div v-html='op.describe'></div>
+					</div>
 
                     <div v-if="Object.keys(op.method.params).length!=0">
-						<div class="row w1column"><label class="tit">方法参数</label></div>
+						 <div class="row w1column" style="background-color: aliceblue;">
+								<label class="tit">请求参数</label>
+						</div>
                         <div class="row w1column">
                             <div class="con shortText">
                                 <label class="filedTh">名称</label>
@@ -160,8 +194,8 @@
                                 <label class="caption">描述</label>
                             </div>
                         </div>
-                        <div v-for="(p,key, index) in op.method.params">
-                            <div class="row w1column">
+                       
+                        <div v-for="(p,key, index) in op.method.params" class="row w1column">
                                 <div class="con shortText">
                                     <label class="filed">{{ p.name }}</label>
                                     <label class="filedType">{{ p.filedType }}</label>
@@ -169,68 +203,67 @@
                                     <label class="safety">{{p.safety}}</label>
                                     <label class="caption">{{p.caption }} {{p.format }}</label>
                                 </div>
-                            </div>
                         </div>
-						 <div v-for="(p,key, index) in op.method.params">
-							<div v-if="Object.keys(p.children).length!=0">
-							<div class="row w1column"><label class="tit">包含字段</label></div>
-							 <div v-for="(c,ckey, cindex) in p.children">
-										<div class="row w1column">
-										<div class="con shortText">
+						<div v-for="(p,key, index) in op.method.params">
+							<div  v-if="Object.keys(p.children).length!=0" class="row w1column"><label class="tit">包含字段</label></div>
+								<div v-for="(c,ckey, cindex) in p.children">
+									<div class="row w1column">
+										<div class="shortText">
 											<label class="filed">{{ c.name }}</label>
 											<label class="filedType">{{ c.filedType }}</label>
 											<label class="required">{{c.required }}</label>
 											<label class="safety">{{c.safety}}</label>
 											<label class="caption">{{c.caption }} {{c.format }}</label>
 										</div>
-										</div>
-								 </div>
-							 </div>
-						 </div>
-                    </div>
-
-					<div class="w1column"></div>
-
-					<div class="row w1column"><label class="tit">返回类型</label><p>{{ op.resultType }}</p></div>
-					<div v-if="typeof(op.result)!=='undefined'">
-							<div class="row w1column">
-								<div class="con shortText">
-									<label class="filedTh">名称</label>
-									<label class="filedType">类型</label>
-									<label class="caption">描述</label>
-								</div>
-							</div>
-
-							 <div  v-for="(r, index) in op.result">
-								<div class="row w1column">&nbsp;
-									<div class="con shortText">
-										<label class="filed">{{ r.name }}</label>
-										<label class="filedType">{{ r.type }}</label>
-										<label class="caption">{{r.caption }}</label>
 									</div>
 								</div>
 							</div>
-					</div>	
-                    <div class="w1column"></div>
+						</div>
 
-                    <div v-if="op.methodJson!='{}'" class="row w1column">
-                        <label class="tit">例子</label>
-                        <div class="con">
-                            <pre class="brush:js">{{op.methodJson}}</pre>
-                            <span class="note clear">说明:调用方法名和url文件名相同时，不用参数，url直接调用</span>
-                        </div>
-                    </div>
+						<div class="w1column"></div>
 
-				
-                </fieldset>
+						<div v-if="op.methodJson!='{}'" class="row w1column">
+							<fieldset>
+							 <legend>请求例子</legend>
+							
+								<pre class="brush:js">{{op.methodJson}}</pre>
+								<span class="note clear">说明:调用方法名和url文件名相同时,可以是用简化参数调用,包含protocol="jspx.net-roc"为标准调用</span>
+							
+							</fieldset>
+						</div>
+
+						<div class="row w1column"><label class="tit">返回模型</label><p>{{ op.resultType }}</p></div>
+
+						<div v-if="typeof(op.result)!=='undefined'">
+								<div class="row w1column">
+									<div class="con shortText">
+										<label class="filedTh">名称</label>
+										<label class="filedType">类型</label>
+										<label class="caption">描述</label>
+									</div>
+								</div>
+
+								 <div  v-for="(r, index) in op.result">
+									<div class="row w1column">&nbsp;
+										<div class="con shortText">
+											<label class="filed">{{ r.name }}</label>
+											<label class="filedType">{{ r.type }}</label>
+											<label class="caption">{{r.caption }}</label>
+										</div>
+									</div>
+									<!-- 使用treeview组件 -->
+									<treeview v-bind:items="r.children"></treeview>
+								</div>
+						</div>	
+					    <div class="row w1column clear"><hr /></div>
             </div>
-        </div>
+        </fieldset>
+		
         <!--------- 参数--------->
-        <div v-if="typeof(params)!=='undefined'&&Object.keys(params).length!=0">
-            <div class="row w1column"></div>
-            <div class="row w1column"><label class="tit">全局参数</label></div>
+        <fieldset v-if="typeof(params)!=='undefined'&&Object.keys(params).length!=0">
+			<legend>全局参数</legend>
             <div class="row w1column"><label class="tit">说明</label>
-                <div class="con">根据业务逻辑,来确定是否需要,一般是显示列表等功能使用。不是必须参数。</div>
+                <div class="con">根据业务逻辑,来确定是否需要,一般是显示列表等功能使用。不是必须参数。主要是兼容老接口调用方式.</div>
             </div>
 
             <div class="row w1column"><label class="tit">序号</label>
@@ -254,9 +287,9 @@
                     </div>
                 </div>
             </div>
-	
-        </div>
-
+        </fieldset>
+		
+		<div id="topPanel" ><a href="#container">Top</a></div>
     </div>
 
 </div>
