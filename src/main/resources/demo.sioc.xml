@@ -9,7 +9,7 @@
         <bean id="anonDemoDAO" class="jspx.example.dao.impl.AnonDemoDAOImpl" singleton="true">
             <ref name="soberFactory">${soberFactory}</ref>
         </bean>
-        <bean class="com.github.jspxnet.txweb.view.RRSReadView" />
+        <bean class="jspx.jcommon.view.RRSReadView" />
         <bean id="codeView" class="jspx.example.view.CodeView" singleton="false"/>
         <bean id="repairHtmlAction" class="jspx.example.action.RepairHtmlAction" singleton="true"/>
         <bean id="rpchello" class="jspx.example.view.RpcHelloWordView" singleton="false"/>

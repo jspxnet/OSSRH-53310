@@ -5,7 +5,7 @@
     <package namespace="demo" extends="global">
         <scan package="jspx.example.controller" />
         <action name="codeview" class="codeView"/>
-        <action name="rrsread" class="com.github.jspxnet.txweb.view.RRSReadView"/>
+        <action name="rrsread" class="jspx.jcommon.view.RRSReadView"/>
         <action name="chatfun" class="chatfunAction" />
         <action name="showrepair" class="repairHtmlAction" method="@method" />
         <action name="hello" class="helloWordView" />
