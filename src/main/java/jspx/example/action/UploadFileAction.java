@@ -10,6 +10,7 @@
 package jspx.example.action;
 
 import com.github.jspxnet.txweb.annotation.MulRequest;
+import com.github.jspxnet.txweb.enums.FileCoveringPolicyEnumType;
 import com.github.jspxnet.txweb.support.MultipartSupport;
 import com.github.jspxnet.upload.MultipartRequest;
 import com.github.jspxnet.upload.UploadedFile;
@@ -55,19 +56,10 @@ public class UploadFileAction extends MultipartSupport {
     }
 
 
-
-    /**
-     * @return 是否覆盖
-     */
-    @Override
-    public boolean getCovering() {
-        return false;
-    }
-
     /**
      * @param multipartRequest 请求接口
      */
-    @MulRequest(covering = "@covering", saveDirectory = "@saveDirectory", fileTypes = "@fileTypes", maxPostSize = "@maxPostSize")
+    @MulRequest(covering = FileCoveringPolicyEnumType.JSPX,saveDirectory = "@saveDirectory", fileTypes = "@fileTypes", maxPostSize = "@maxPostSize")
     @Override
     public void setMultipartRequest(MultipartRequest multipartRequest) {
         request = this.multipartRequest = multipartRequest;
@@ -78,7 +70,7 @@ public class UploadFileAction extends MultipartSupport {
      *
      * 兼容swfupload 和 kindeditor, 和UEditor 1.2.0 的返回结果，当然普通页面上传也没问题
      * @return json 返回结果
-     * @throws Exception
+     * @throws Exception 异常
      */
     @Override
     public String execute() throws Exception {
