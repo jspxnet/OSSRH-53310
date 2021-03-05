@@ -81,7 +81,7 @@ public class TestDemoNg {
     public static void testFilePath3() throws IOException {
 
         File dir = new File("D:\\website\\webapps\\root\\WEB-INF\\template\\");
-        File[] files = FileUtil.getPatternFiles(dir.getAbsolutePath(), "txweb/permission_roc.xml");
+        List<File> files = FileUtil.getPatternFiles(dir.getAbsolutePath(), "txweb/permission_roc.xml");
         for (File f:files)
             System.out.println("------------file=" + f);
     }
