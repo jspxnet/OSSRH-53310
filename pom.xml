@@ -49,35 +49,25 @@
         </resources>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                    <fork>true</fork>
-                    <meminitial>512m</meminitial>
-                    <maxmem>1024m</maxmem>
-                    <compilerArgument>-XDignore.symbol.file</compilerArgument>
-                    <compilerArgs>
-                        <arg>-parameters</arg>
-                        <arg>-verbose</arg>
-                    </compilerArgs>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.1.0</version>
+                <artifactId>maven-resources-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
                         <goals>
-                            <goal>jar-no-fork</goal>
+                            <goal>copy-resources</goal>
                         </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/classes/resources</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
                     </execution>
                 </executions>
-
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -88,42 +78,11 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <outputDirectory>D:\website\webapps\root\WEB-INF\lib\</outputDirectory>
                     <includes>
-                        <include>**/${project.artifactId}/**/*</include>
+                        <include>jspx/**/*</include>
+                        <include>resources/**/*</include>
                     </includes>
-                    <excludes>
-                        <include>**/tools/**/*</include>
-                    </excludes>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.6</version>
-                <executions>
-                    <execution>
-                        <id>package</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <target>
-                        <echo message="start copy..................................${project.artifactId}-${project.version}.jar"/>
-                        <copy todir="../../lib/" overwrite="true" >
-                            <fileset dir="${project.build.directory}" erroronmissingdir="false">
-                                <include name="${project.artifactId}-${project.version}.jar"/>
-                            </fileset>
-                        </copy>
-                        <echo message="start copy..................................xml"/>
-                        <copy todir="../../classes/" overwrite="true" >
-                            <fileset dir="src/main/resources" erroronmissingdir="false">
-                                <include name="*.xml"/>
-                            </fileset>
-                        </copy>
-                    </target>
                 </configuration>
             </plugin>
         </plugins>

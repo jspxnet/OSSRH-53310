@@ -3,28 +3,9 @@
     <sioc demo="emp" extends="global" >
         <!-- 这里 配置 bean 扫描范围，如果懒可以设置比较广，但启动慢点 -->
         <scan package="jspx.example" />
-        <scan package="jspx.example.dao.impl" />
-
         <!-- demo 演示部分的配置 -->
         <bean id="anonDemoDAO" class="jspx.example.dao.impl.AnonDemoDAOImpl" singleton="true">
             <ref name="soberFactory">${soberFactory}</ref>
-        </bean>
-        <bean class="jspx.jcommon.view.RRSReadView" />
-        <bean id="codeView" class="jspx.example.view.CodeView" singleton="false"/>
-        <bean id="repairHtmlAction" class="jspx.example.action.RepairHtmlAction" singleton="true"/>
-        <bean id="rpchello" class="jspx.example.view.RpcHelloWordView" singleton="false"/>
-        <bean id="helloWordView" class="jspx.example.view.HelloWordView" singleton="false"/>
-        <bean id="helloListView" class="jspx.example.view.HelloListView" singleton="false"/>
-        <bean id="turnpagedemo" class="jspx.example.view.TurnPageListView" singleton="false"/>
-        <bean id="turnPageListTwoAction" class="jspx.example.view.TurnPageListTwoView" singleton="false"/>
-        <bean id="tablePostAction" class="jspx.example.action.TablePostAction" singleton="false"/>
-        <bean id="chatfunAction" class="jspx.example.action.ChatFunAction" singleton="false"/>
-        <bean id="uploadAction" class="com.github.jspxnet.txweb.support.DefaultUploadAction" singleton="false"/>
-        <bean id="demoUploadAction" class="jspx.example.action.UploadFileAction" singleton="false"/>
-        <bean id="resultTestAction" class="jspx.example.action.ResultTestAction" singleton="false"/>
-        <bean id="resetTestAction" class="jspx.example.action.ResetTestAction" singleton="false"/>
-        <bean id="com.github.jspxnet.txweb.view.ValidatorView" class="com.github.jspxnet.txweb.view.ValidatorView" singleton="false">
-            <string name="configFile">demo.validator.xml</string>
         </bean>
     </sioc>
 

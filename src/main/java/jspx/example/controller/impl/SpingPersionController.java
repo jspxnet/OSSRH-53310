@@ -75,7 +75,7 @@ import java.util.List;
  *重要说明:ROC调用方式都会采用 RocResponse 封装返回json格式,除非你返回的就是一个json格式,不会封装
  *
  */
-@HttpMethod(caption = "sping方式", actionName = "*", namespace = DemoIoc.namespace + "/persion")
+@HttpMethod(caption = "参数演示", actionName = "*", namespace = DemoIoc.namespace + "/persion")
 @Bean(namespace = DemoIoc.namespace)
 public class SpingPersionController extends ActionSupport implements SpringPersionInterface
 {

@@ -27,7 +27,7 @@ import java.io.UnsupportedEncodingException;
 public class TestClient {
     @BeforeClass
     public static void init() {
-        JspxNetApplication.autoRun("D:\\website\\webapps\\root\\WEB-INF\\classes\\");
+        JspxNetApplication.autoRun();
         System.out.println("------------开始");
     }
 
@@ -54,21 +54,6 @@ public class TestClient {
         System.out.println(redissonClient.hashCode()+"------redissonClient=" + redissonClient.hashCode());
 
     }
-
-
-
-    /**
-     * 代码方式直接调用RPC
-     */
-/*
-    @Test
-    static void testClient() {
-        SpringPersionInterface springPersionInterface = NettyRpcProxy.create(SpringPersionInterface.class, "demo");
-        System.out.println(ObjectUtil.toString(springPersionInterface.getPersion()));
-    }
-*/
-
-
 
     /**
      * 注释方式调用RPC, TCP方式

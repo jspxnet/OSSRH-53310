@@ -10,15 +10,14 @@
 package jspx.example.view;
 
 
-import com.github.jspxnet.txweb.annotation.HttpMethod;
+import com.github.jspxnet.sioc.annotation.Ref;
 import com.github.jspxnet.txweb.annotation.Operate;
 import com.github.jspxnet.txweb.annotation.Param;
 import com.github.jspxnet.txweb.result.RocResponse;
 import com.github.jspxnet.txweb.support.ActionSupport;
-import com.github.jspxnet.utils.StringUtil;
+import jspx.example.remote.SpringPersionHttp;
 import jspx.example.table.Employee;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -26,16 +25,18 @@ import java.util.LinkedList;
  * User: chenYuan
  * Date: 2009-8-11
  * Time: 11:05:36
- * jspx.example.action.TableListAction
+ * 演示例子
  */
 
-public class TableListView extends ActionSupport
+public class DemoView extends ActionSupport
 {
-    final private static String sessionSave = "sessionSave";
 
+    //分布式调用注入
+    @Ref
+    protected SpringPersionHttp springPersionHttp;
 
     //演示数据，实际使用的时候是数据库
-    private static List<Employee> list = new LinkedList<Employee>();
+    final private static List<Employee> list = new LinkedList<>();
 
     static
     {
@@ -63,6 +64,12 @@ public class TableListView extends ActionSupport
     }
 
     //-------------------
+    @Operate(caption = "列表",post = false,method = "index")
+    public String index()
+    {
+        return "简单的演示例子";
+    }
+
     /**
      * 返回建议统一是用 RocResponse 对象封装
      * @return 数据列表,可以翻页
@@ -79,6 +86,4 @@ public class TableListView extends ActionSupport
     {
         return RocResponse.success(list).setCurrentPage(1).setCurrentPage(currentPage).setTotalCount(list.size());
     }
-
-
 }

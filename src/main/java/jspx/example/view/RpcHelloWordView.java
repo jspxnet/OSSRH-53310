@@ -5,6 +5,7 @@ package jspx.example.view;
 import com.github.jspxnet.network.rpc.client.proxy.NettyRpcProxy;
 import com.github.jspxnet.network.rpc.model.transfer.RequestTo;
 import com.github.jspxnet.network.rpc.model.transfer.ResponseTo;
+import com.github.jspxnet.sioc.annotation.Ref;
 import com.github.jspxnet.txweb.result.RocResponse;
 import com.github.jspxnet.txweb.support.ActionSupport;
 import com.github.jspxnet.txweb.util.RequestUtil;
@@ -19,6 +20,8 @@ import jspx.example.controller.SpringPersionInterface;
  * @description: jspx-framework
  **/
 public class RpcHelloWordView extends ActionSupport {
+    @Ref
+
     /**
      * 一般有request 的接口是用,http方式用http方式调用,
      * 下边演示TCP方式 模拟request参数调用
@@ -26,7 +29,7 @@ public class RpcHelloWordView extends ActionSupport {
     @Override
     public String execute() throws Exception
     {
-     RequestTo requestTo = new RequestTo(request);
+        RequestTo requestTo = new RequestTo(request);
         requestTo.put(RequestUtil.AUTHORIZATION_KEY,"测试的token.987342543534315342543");
         ResponseTo responseTo = new ResponseTo(response);
 

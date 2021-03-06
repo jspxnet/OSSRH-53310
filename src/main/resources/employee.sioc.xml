@@ -3,7 +3,7 @@
     <!-- demo 高级演示-->
     <sioc namespace="emp" extends="global">
         <!--action begin-->
-        <bean id="tableListView" class="jspx.example.view.TableListView" singleton="false" />
+        <bean id="tableListView" class="jspx.example.view.DemoView" singleton="false" />
         <bean id="tableListAction" class="jspx.example.action.TableListAction" singleton="false" />
         <!--action end-->
     </sioc>

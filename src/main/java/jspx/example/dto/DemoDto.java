@@ -3,6 +3,7 @@ package jspx.example.dto;
 
 
 import com.github.jspxnet.json.JsonField;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -12,6 +13,7 @@ import java.io.Serializable;
  * JsonField 中的 format 可以格式化输出日期和数字，也可以通过JsonField的注释生成API接口文档
  *
  */
+@Data
 public class DemoDto implements Serializable {
     @JsonField(caption="姓名")
     private String name;
@@ -19,30 +21,6 @@ public class DemoDto implements Serializable {
     private int old;
     @JsonField(caption="求和")
     private int sumOld;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getOld() {
-        return old;
-    }
-
-    public void setOld(int old) {
-        this.old = old;
-    }
-
-    public int getSumOld() {
-        return sumOld;
-    }
-
-    public void setSumOld(int sumOld) {
-        this.sumOld = sumOld;
-    }
 
     @JsonField(name = "sum")
     public int getSum() {
