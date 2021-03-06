@@ -64,7 +64,7 @@ public class DemoView extends ActionSupport
     }
 
     //-------------------
-    @Operate(caption = "列表",post = false,method = "index")
+    @Operate(caption = "首页输出",post = false,method = "index")
     public String index()
     {
         return "简单的演示例子";
