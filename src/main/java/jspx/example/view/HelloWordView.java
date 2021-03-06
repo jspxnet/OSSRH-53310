@@ -23,31 +23,10 @@ import com.github.jspxnet.txweb.support.ActionSupport;
 @HttpMethod(caption = "简单的演示")
 public class HelloWordView extends ActionSupport
 {
-    private String value = "hello";
+
     public HelloWordView()
     {
 
-    }
-      public String getValue()
-    {
-        return value;
-    }
-
-    public void setValue(String value)
-    {
-        this.value = value;
-    }
-    public String getHello()
-    {
-        return "use bean get Method get Hello Word ";
-    }
-
-    @Override
-    public String execute() throws Exception
-    {
-
-        put("hello", "use put var get Hello Word");
-        return SUCCESS;
     }
 
 }

@@ -13,6 +13,7 @@ package jspx.example.view;
 import com.github.jspxnet.txweb.annotation.HttpMethod;
 import com.github.jspxnet.txweb.annotation.Operate;
 import com.github.jspxnet.txweb.annotation.Param;
+import com.github.jspxnet.txweb.result.RocResponse;
 import com.github.jspxnet.txweb.support.ActionSupport;
 import com.github.jspxnet.utils.StringUtil;
 import jspx.example.table.Employee;
@@ -27,7 +28,7 @@ import java.util.LinkedList;
  * Time: 11:05:36
  * jspx.example.action.TableListAction
  */
-@HttpMethod(caption="表格列表")
+
 public class TableListView extends ActionSupport
 {
     final private static String sessionSave = "sessionSave";
@@ -61,99 +62,23 @@ public class TableListView extends ActionSupport
 
     }
 
-    private String sort = StringUtil.empty;
-
-    public String getSort() {
-        return sort;
-    }
-
-    @Param(caption = "排序",max = 20)
-    public void setSort(String sort) {
-        this.sort = sort;
-    }
-
-    private String name = StringUtil.empty;
-
-    public String getName()
+    //-------------------
+    /**
+     * 返回建议统一是用 RocResponse 对象封装
+     * @return 数据列表,可以翻页
+     */
+    @Operate(caption = "列表",method = "list")
+    public RocResponse<List<Employee>> getList()
     {
-        return name;
+        return RocResponse.success(list).setCurrentPage(1).setTotalCount(list.size());
     }
 
-    public void setName(String name)
+    @Operate(caption = "翻页列表",method = "list/page")
+    public RocResponse<List<Employee>> getListPage( @Param(caption = "行数") int count,
+                                                    @Param(caption = "当前页数") int currentPage)
     {
-        this.name = name;
+        return RocResponse.success(list).setCurrentPage(1).setCurrentPage(currentPage).setTotalCount(list.size());
     }
 
-    public Employee getEmployee()
-    {
-        List<Employee> list = getDatabase();
-        for (Employee emp : list)
-        {
-            if (emp.getName().equalsIgnoreCase(name))
-            {
-                return emp;
-            }
-        }
-        return new Employee();
-    }
-
-    public List<Employee> getDatabase()
-    {
-        Object object = session.getAttribute(sessionSave);
-        if (object == null)
-        {
-            session.setAttribute(sessionSave, list);
-        }
-        return (List<Employee>) session.getAttribute(sessionSave);
-    }
-
-
-    //当前是要显示那页
-    private int currentPage = 0;
-    public int getCurrentPage()
-    {
-        return currentPage;
-    }
-
-    @Param(caption = "页数",min = 1)
-    public void setCurrentPage(int currentPage)
-    {
-        this.currentPage = currentPage;
-    }
-
-
-    //根据上边的条件得到翻页标签里边相应的数据
-    @Operate(caption = "列表")
-    public List<Employee> getList()
-    {
-        //实际使用的时候，可以使用sober 或者 hibnate ,jdbc 查询后返回数据
-        if (currentPage <= 0) {
-            currentPage = 1;
-        }
-        int ibegin = currentPage * getCount() - getCount();
-        List<Employee> resultList = new ArrayList<Employee>();
-        List<Employee> list = getDatabase();
-        for (int i = ibegin; i < ibegin + getCount() && i < list.size(); i++)
-        {
-            resultList.add(list.get(i));
-        }
-        return resultList;
-    }
-
-    @Operate(caption = "列表总数")
-    public int getTotalCount() throws Exception
-    {
-        //翻页程序 会根据配置里边的 @totalCount 找到这个方法，得到总行数，用来计算翻页
-        //实际使用的时候 这里使用数据库查询 ，如果并发比较大可以使用缓存
-        List<Employee> list = getDatabase();
-        return list.size();
-    }
-
-    public int getCount()
-    {
-         //一行显示几条数据
-        //使用的时候可以从配置文件中得到
-        return 8;
-    }
 
 }

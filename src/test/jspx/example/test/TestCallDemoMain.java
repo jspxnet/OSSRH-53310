@@ -79,8 +79,6 @@ public class TestCallDemoMain {
         Assert.assertEquals(data.getString("id"), "23243");
     }
 
-
-
     @Test(threadPoolSize = 4, invocationCount = 4)
     public void testAllPath() throws Exception {
         String url = "http://127.0.0.1:8080/demo/persion/all/xyza/aab.jhtml";
@@ -89,7 +87,6 @@ public class TestCallDemoMain {
         JSONObject json = new JSONObject(out);
         Assert.assertEquals(json.getString("data"), "ok");
         System.out.println(out);
-
     }
 
 

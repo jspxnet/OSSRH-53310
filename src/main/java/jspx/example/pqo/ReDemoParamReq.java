@@ -16,13 +16,12 @@ import java.util.List;
 @Data
 public class ReDemoParamReq implements Serializable {
 
-    @Param(caption = "姓名", required = true)
+    @Param(caption = "姓名",min = 2,max = 30,required = true,message = "长度不正确")
     private String name;
     @Param(caption = "年龄")
     private int old;
     @Param(caption = "求和")
     private int sumOld;
-
     @Param(caption = "对象", required = true)
     private DemoParamReq req;
 

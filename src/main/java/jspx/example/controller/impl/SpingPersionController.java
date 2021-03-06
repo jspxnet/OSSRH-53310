@@ -94,7 +94,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
     @Ref(namespace = DemoIoc.namespace)
     private IocDemoDAO iocDemoDAO;
 
-    @Operate(caption = "默认入口", post = false)
+    @Operate(caption = "默认入口", post = false,method = "index")
     public String index()
     {
        System.out.println("index--------------------提供给远程的一个默认入口");
@@ -241,13 +241,12 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
         return persion;
     }
 
-    @Operate(caption = "得到2",method = "/persion2")
+    @Operate(caption = "得到2",method = "/persion")
     public RocResponse<Persion> getPersion2()
     {
         Persion persion = new Persion();
         persion.setAge(101);
         persion.setName("name");
-        System.out.println("---------------------run-----------getPersion2");
         return RocResponse.success(persion);
     }
 

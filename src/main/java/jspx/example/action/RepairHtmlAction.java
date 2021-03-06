@@ -11,6 +11,8 @@ package jspx.example.action;
 
 import com.github.jspxnet.txweb.annotation.HttpMethod;
 import com.github.jspxnet.txweb.annotation.Operate;
+import com.github.jspxnet.txweb.annotation.Param;
+import com.github.jspxnet.txweb.result.RocResponse;
 import com.github.jspxnet.txweb.support.ActionSupport;
 import com.github.jspxnet.utils.HtmlUtil;
 
@@ -24,38 +26,15 @@ import com.github.jspxnet.utils.HtmlUtil;
 @HttpMethod(caption = "演示修复HTML")
 public class RepairHtmlAction extends ActionSupport
 {
-    private String html;
-    private String repairHtml;
 
     public RepairHtmlAction()
     {
 
     }
 
-    public void setHtml(String html)
-    {
-        this.html = html;
-    }
-
-    public String getHtml()
-    {
-        return html;
-    }
-
-    public String getRepairHtml()
-    {
-        return repairHtml;
-    }
-    
     @Operate(caption = "修复html")
-    public void repair() throws Exception {
-        repairHtml = HtmlUtil.getSafeFilter(html);
-    }
-
-    @Override
-    public String execute() throws Exception
+    public RocResponse<String> repair(@Param(caption = "需要修复的html",required = true,min = 1,max = 5000) String html ) throws Exception
     {
-        put("repairHtml", repairHtml);
-        return SUCCESS;
+        return RocResponse.success(HtmlUtil.getSafeFilter(html),"操作成功");
     }
 }
