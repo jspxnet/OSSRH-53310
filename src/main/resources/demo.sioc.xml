@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <multi-siocs>
-    <sioc demo="emp" extends="global" >
+    <sioc demo="demo" extends="global" >
         <!-- 这里 配置 bean 扫描范围，如果懒可以设置比较广，但启动慢点 -->
         <scan package="jspx.example" />
-        <!-- demo 演示部分的配置 -->
-        <bean id="anonDemoDAO" class="jspx.example.dao.impl.AnonDemoDAOImpl" singleton="true">
-            <ref name="soberFactory">${soberFactory}</ref>
-        </bean>
     </sioc>
-
+    <load file="ioc/api.xml" softName="demo"/>
 </multi-siocs>

@@ -12,7 +12,7 @@ import jspx.example.env.DemoIoc;
  * date: 2020/6/30 22:14
  *
  **/
-@RpcClient(bind = SpringPersionInterface.class,namespace = DemoIoc.namespace, url = "/demo/persion/index",protocol = RpcProtocolEnumType.TCP)
+@RpcClient(bind = SpringPersionTcp.class,namespace = DemoIoc.namespace, url = "/demo/persion/index",protocol = RpcProtocolEnumType.TCP)
 public interface SpringPersionTcp extends SpringPersionInterface {
 
 

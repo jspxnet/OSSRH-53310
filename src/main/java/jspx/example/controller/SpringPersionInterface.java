@@ -1,7 +1,9 @@
 package jspx.example.controller;
 
+import com.github.jspxnet.sioc.annotation.RpcClient;
 import com.github.jspxnet.txweb.annotation.Operate;
 import com.github.jspxnet.txweb.annotation.Param;
+import com.github.jspxnet.txweb.enums.RpcProtocolEnumType;
 import com.github.jspxnet.txweb.result.RocException;
 import com.github.jspxnet.txweb.result.RocResponse;
 import jspx.example.conf.Persion;
@@ -22,7 +24,10 @@ import java.io.UnsupportedEncodingException;
  *
  * @SpringPersionInterface springPersionInterface;
  * 这样就可以调用了,
+ *
+ * 分布式服务器的组名demo,否则是用default
 */
+@RpcClient(bind = SpringPersionInterface.class, url = "/demo/persion/index",protocol = RpcProtocolEnumType.TCP)
 public interface SpringPersionInterface extends Serializable {
 
     Persion getPersion();

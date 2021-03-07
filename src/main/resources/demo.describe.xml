@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<describes namespace="jcommon">
+    <describe id="jspx.example.action.DemoAction">
+      这是一个演示例子,自动生成的API文档可以插入手动的描述,使用@Describe插入,文字类容保存在demo.describe.xml
+    </describe>
+    <describe id="jspx.example.action.DemoAction.getListPage">
+```js
+   请求
+   {}
+   返回:
+
+        {
+    "data": [{
+        "old": 23,
+        "sex": "男",
+        "name": "xiaoMing",
+        "id": 0
+    },{
+        "old": 21,
+        "sex": "女",
+        "name": "xiaoHong",
+        "id": 0
+    },{
+        "old": 20,
+        "sex": "女",
+        "name": "name-0",
+        "id": 0
+    },{
+        "old": 21,
+        "sex": "女",
+        "name": "name-1",
+        "id": 0
+    },{
+        "old": 22,
+        "sex": "女",
+        "name": "name-2",
+        "id": 0
+    },{
+        "old": 23,
+        "sex": "女",
+        "name": "name-3",
+        "id": 0
+    }],
+    "totalPage": 1,
+    "success": 1,
+    "count": 0,
+    "currentPage": 1,
+    "totalCount": 32,
+    "message": "success"
+}
+```
+    </describe>
+</describes>

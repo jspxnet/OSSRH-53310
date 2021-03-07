@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sqlMap namespace="demo">
+    <sql id="testInclude" caption="include例子">
+        order by createDate
+    </sql>
     <querys>
         <!-- 这里边使用的是js语言 scriptmarker标签 -->
         <query id="jspx.example.dao.VoteDAO.getVoteTopicList" class="jspx.example.table.VoteTopic">
@@ -12,6 +15,18 @@
 
         <query id="jspx.example.dao.impl.AnonDemoDAO.getTestList2" >
             SELECT * FROM ${voteTopicTable} ORDER BY id limit ${beginRow},${totalCount}
+        </query>
+
+        <query id="jspx.jbbs.dao.ReplyPostDAO.getTestSqlMap" class="jspx.jbbs.table.ReplyPost" caption="list用法例子">
+            SELECT * FROM ${replyPostTable} r,${speakThreadTable} s WHERE r.threadId=s.id
+            <if where="nodeId">AND
+            s.nodeId=#{nodeId}
+           </if>
+            AND r.recycleType&gt;=0 AND r.auditingType=1 AND r.createDate>#{toDate}
+            <if where="list">
+                and s.putName in
+                <list v="list" open="(" close=")" separator="," empty="(null)">#{v}</list>
+            </if>
         </query>
     </querys>
     <updates>
