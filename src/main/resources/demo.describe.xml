@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<describes namespace="jcommon">
+<describes namespace="demo">
     <describe id="jspx.example.action.DemoAction">
       这是一个演示例子,自动生成的API文档可以插入手动的描述,使用@Describe插入,文字类容保存在demo.describe.xml
     </describe>
@@ -9,7 +9,7 @@
    {}
    返回:
 
-        {
+   {
     "data": [{
         "old": 23,
         "sex": "男",
