@@ -1,4 +1,4 @@
-package jspx.example.controller.impl;
+package jspx.example.controller;
 
 
 import com.github.jspxnet.boot.environment.Environment;
@@ -17,7 +17,7 @@ import com.github.jspxnet.utils.FileUtil;
 import com.github.jspxnet.utils.ObjectUtil;
 import com.github.jspxnet.utils.RandomUtil;
 import jspx.example.conf.Persion;
-import jspx.example.controller.SpringPersionInterface;
+import jspx.example.remote.SpringPersionInterface;
 import jspx.example.dao.AnonDemoDAO;
 import jspx.example.dao.IocDemoDAO;
 import jspx.example.dto.DemoDto;
@@ -82,13 +82,8 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
     public SpingPersionController() {
 
     }
-
-    private Persion persion;
     @Ref(namespace = DemoIoc.namespace)
-    public void setPersion(Persion persion) {
-        this.persion = persion;
-    }
-
+    private Persion persion;
 
 
     @Ref(namespace = DemoIoc.namespace)
@@ -97,7 +92,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
     @Operate(caption = "默认入口", post = false,method = "index")
     public String index()
     {
-       System.out.println("index--------------------提供给远程的一个默认入口");
+
        return ("提供给远程的一个默认入口");
     }
     /*
@@ -121,7 +116,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
     @Operate(caption = "得到", post = false)
     public JSONObject get()
     {
-        //System.out.println("--------------------id=" + getInt("id"));
+
         return new JSONObject(persion);
     }
 
@@ -401,7 +396,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
         实际场景中没必要，建议不用同名函数，因为看API会有点晕
         */
     @Override
-    @Operate(caption = "演示多参数")
+    @Operate(caption = "演示多参数",method = "update3")
     public String update(@Param(caption = "参数1") int var1, @Param(caption = "参数2") int var2, @Param(caption = "参数3") String var3)
     {
         //返回对象 DTO
@@ -692,7 +687,7 @@ public class SpingPersionController extends ActionSupport implements SpringPersi
 
     @Override
     @Operate(caption = "缺省参数方式",method = "some/param")
-    public RocResponse getSomeParam(@Param(caption = "参数1") int var1, @Param(caption = "参数2",min=2,max = 10,value = "love") String var2, @Param(caption = "参数3",required = true) String var3)
+    public RocResponse getSomeParam(@Param(caption = "参数1") Integer var1, @Param(caption = "参数2",min=2,max = 10,value = "love") String var2, @Param(caption = "参数3",required = true) String var3)
     {
         return RocResponse.success("缺省参数方式").setProperty("var1",var1).setProperty("var2",var2).setProperty("var3",var3);
     }

@@ -11,8 +11,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-@Bean(namespace = DemoIoc.namespace)
-@PropertySource(value = "classpath:persion.properties")
+@Bean(namespace = DemoIoc.namespace,singleton = true)
+@PropertySource(value = "persion.properties")
 @PropPrefix(prefix = "persion")
 @Data
 public class Persion implements Serializable {

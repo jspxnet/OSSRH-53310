@@ -10,7 +10,7 @@ import com.github.jspxnet.txweb.result.RocResponse;
 import com.github.jspxnet.txweb.support.ActionSupport;
 import com.github.jspxnet.txweb.util.RequestUtil;
 import com.github.jspxnet.utils.ObjectUtil;
-import jspx.example.controller.SpringPersionInterface;
+import jspx.example.remote.SpringPersionInterface;
 
 /**
  * Created by jspx.net

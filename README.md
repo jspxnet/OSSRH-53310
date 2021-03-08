@@ -9,7 +9,7 @@ jspx.example.dao.impl.VoteDAOImpl
 jspx.example.table
 
 ###resetFull 
-jspx.example.controller.impl.SpingPersionController
+jspx.example.controller.SpingPersionController
 
 ###传统view,action
 jspx.example.view

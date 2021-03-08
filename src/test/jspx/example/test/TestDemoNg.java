@@ -3,7 +3,6 @@ package jspx.example.test;
 
 import com.github.jspxnet.boot.EnvFactory;
 import com.github.jspxnet.boot.JspxNetApplication;
-import com.github.jspxnet.json.JSONArray;
 import com.github.jspxnet.json.JSONObject;
 import com.github.jspxnet.sioc.BeanFactory;
 import com.github.jspxnet.sioc.tag.BeanModel;
@@ -14,13 +13,11 @@ import com.github.jspxnet.utils.FileUtil;
 import com.github.jspxnet.utils.ObjectUtil;
 import jspx.example.conf.Persion;
 import jspx.example.conf.SinglePersion;
-import jspx.example.controller.SpringPersionInterface;
-import jspx.example.controller.impl.SpingPersionController;
+import jspx.example.remote.SpringPersionInterface;
+import jspx.example.controller.SpingPersionController;
 import jspx.example.dao.IocDemoDAO;
 import jspx.example.env.DemoIoc;
 import jspx.example.pqo.DemoParamReq;
-import jspx.example.remote.SpringPersionHttp;
-import jspx.example.remote.SpringPersionTcp;
 import jspx.example.table.Employee;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -28,7 +25,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public class TestDemoNg {

@@ -50,4 +50,23 @@
 }
 ```
     </describe>
+    <describe id="jspx.example.controller.SpingPersionController.get">
+json对象返回,保持json格式,对象返回调用自动转json,页面模版方式调用,还是对象
+```js
+请求
+    {"id": 2}
+返回
+    {
+    "lastName": null,
+    "isBoss": true,
+    "lists": ["1","2","3"],
+    "name": "张三",
+    "birth": "2018-02-11 00:00:00",
+    "publicKey": "演示标签注释方式载入",
+    "finTxt": "xxxx",
+    "age": 18
+    }
+```
+    </describe>
+
 </describes>

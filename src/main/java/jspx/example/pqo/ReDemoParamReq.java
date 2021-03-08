@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 public class ReDemoParamReq implements Serializable {
 
-    @Param(caption = "姓名",min = 2,max = 30,required = true,message = "长度不正确")
+    @Param(caption = "姓名",min = 2,max = 30,required = true,message = "姓名长度不正确")
     private String name;
     @Param(caption = "年龄")
     private int old;

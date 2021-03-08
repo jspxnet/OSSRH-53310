@@ -1,4 +1,4 @@
-package jspx.example.controller;
+package jspx.example.remote;
 
 import com.github.jspxnet.sioc.annotation.RpcClient;
 import com.github.jspxnet.txweb.annotation.Operate;
@@ -27,7 +27,7 @@ import java.io.UnsupportedEncodingException;
  *
  * 分布式服务器的组名demo,否则是用default
 */
-@RpcClient(bind = SpringPersionInterface.class, url = "/demo/persion/index",protocol = RpcProtocolEnumType.TCP)
+
 public interface SpringPersionInterface extends Serializable {
 
     Persion getPersion();
@@ -83,5 +83,5 @@ public interface SpringPersionInterface extends Serializable {
     RocResponse getRocException() throws RocException;
 
     @Operate(caption = "缺省参数方式",method = "some/param")
-    RocResponse getSomeParam(@Param(caption = "参数1") int var1, @Param(caption = "参数2", min = 2, max = 10) String var2, @Param(caption = "参数3", required = true) String var3);
+    RocResponse getSomeParam(@Param(caption = "参数1") Integer var1, @Param(caption = "参数2", min = 2, max = 10) String var2, @Param(caption = "参数3", required = true) String var3);
 }

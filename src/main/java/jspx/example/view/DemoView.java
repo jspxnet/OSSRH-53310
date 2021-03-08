@@ -80,8 +80,8 @@ public class DemoView extends ActionSupport
     //下边的注释中文能够自动生成API文档
     @Operate(caption = "翻页列表",post = false,method = "list/page")
     @Describe(namespace = DemoIoc.namespace)
-    public RocResponse<List<Employee>> getListPage( @Param(caption = "行数",min = 1,max = 40) int count,
-                                                    @Param(caption = "当前页数",min = 1,max = 1000) int currentPage)
+    public RocResponse<List<Employee>> getListPage( @Param(caption = "行数",min = 1,max = 40,value = "1") int count,
+                                                    @Param(caption = "当前页数",min = 1,max = 1000,value = "10") int currentPage)
     {
 
         return RocResponse.success(LIST).setCount(count).setCurrentPage(currentPage).setTotalCount(LIST.size());
