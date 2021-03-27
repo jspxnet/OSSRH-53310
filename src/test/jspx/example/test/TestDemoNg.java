@@ -7,7 +7,7 @@ import com.github.jspxnet.json.JSONObject;
 import com.github.jspxnet.sioc.BeanFactory;
 import com.github.jspxnet.sioc.tag.BeanModel;
 import com.github.jspxnet.txweb.config.ActionConfig;
-import com.github.jspxnet.txweb.config.TXWebConfigManager;
+import com.github.jspxnet.txweb.config.TxWebConfigManager;
 import com.github.jspxnet.utils.ClassUtil;
 import com.github.jspxnet.utils.FileUtil;
 import com.github.jspxnet.utils.ObjectUtil;
@@ -127,7 +127,7 @@ public class TestDemoNg {
     public static void testIoc() throws Exception {
         //PersionController
 
-        ActionConfig actionConfig = TXWebConfigManager.getInstance().getActionConfig("update","demo/persion",false);
+        ActionConfig actionConfig = TxWebConfigManager.getInstance().getActionConfig("update","demo/persion",false);
         Assert.assertEquals(actionConfig.getClassName(), SpingPersionController.class.getName());
         System.out.println("---------------1-result=" + actionConfig.toString());
         Object obj = beanFactory.getBean(actionConfig.getClassName(),"demo/persion");
@@ -137,7 +137,7 @@ public class TestDemoNg {
     @Test
     public static void testActionInput2() throws Exception {
         //PersionController
-        ActionConfig actionConfig = TXWebConfigManager.getInstance().getActionConfig("get","demo/persion",false);
+        ActionConfig actionConfig = TxWebConfigManager.getInstance().getActionConfig("get","demo/persion",false);
         Assert.assertEquals(actionConfig.getClassName(), SpingPersionController.class.getName());
         System.out.println("---------------1-result=" + actionConfig.toString());
         Object obj = beanFactory.getBean(actionConfig.getClassName(),"demo/persion");
@@ -154,7 +154,7 @@ public class TestDemoNg {
     @Test
     public static void testT() throws Exception {
         //PersionController
-        ActionConfig actionConfig = TXWebConfigManager.getInstance().getActionConfig("get","demo/persion",false);
+        ActionConfig actionConfig = TxWebConfigManager.getInstance().getActionConfig("get","demo/persion",false);
         Assert.assertEquals(actionConfig.getClassName(), SpingPersionController.class.getName());
         System.out.println("---------------1-result=" + actionConfig.toString());
         Object obj = beanFactory.getBean(actionConfig.getClassName(),"demo/persion");
