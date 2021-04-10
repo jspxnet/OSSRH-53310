@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<txweb>
+    <package namespace="global">
+        <action name="*" class="com.github.jspxnet.txweb.support.DefaultTemplateAction"/>
+    </package>
+
+    <package extends="global" namespace="script">
+         <action name="*" mobile="false" class="com.github.jspxnet.txweb.support.DefaultTemplateAction"/>
+    </package>
+
+    <package namespace="md" extends="global">
+         <action name="*" class="com.github.jspxnet.txweb.support.DefaultTemplateAction" />
+    </package>
+
+    <include file="*.txweb.xml" />
+</txweb>
